@@ -5,11 +5,14 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float speed = 10f;
+    public int jumppower = 250; //ƒWƒƒƒ“ƒv‚·‚é—Í
+    public bool isGround;
     private Rigidbody rb;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        isGround = false;
     }
 
     void Update()
@@ -28,12 +31,35 @@ public class Player : MonoBehaviour
             //movement += new Vector3(1, 0, 0);  ‰E (XŽ²•ûŒü)
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            movement += Vector3.up;
+            Jump();
         }
 
         rb.AddForce(movement * speed);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            isGround = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            isGround = false;
+        }
+    }
+    public void Jump()
+    {
+        if (isGround == true)
+        {
+            rb.AddForce(new Vector3(0, jumppower, 0));
+        }
     }
 }
 
