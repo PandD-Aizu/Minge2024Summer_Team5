@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class clearArea : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class clearArea : MonoBehaviour
     {
         //分岐のあるなし
         is_Branced = false;
+        // StageFlagManagerのインスタンスを取得
+        stageFlagManager = FindObjectOfType<StageFlagManager>();
     }
 
     // Update is called once per frame
@@ -26,6 +29,11 @@ public class clearArea : MonoBehaviour
             {
                 OnStageCleared();
             }
+            else
+            {
+                // 分岐がある場合は分岐処理
+                OnBranchedStageCleared();
+            }
         }
     }
 
@@ -33,8 +41,7 @@ public class clearArea : MonoBehaviour
     //このメソッドはSceneの名前から次のステージを取ってるのでもし分岐させる場合は自分で引数を設定したUnlookStage()を呼び出す必要があるので注意。
     public void OnStageCleared()
     {
-        // StageFlagManagerのインスタンスを取得して、次のステージをアンロック
-        StageFlagManager stageFlagManager = FindObjectOfType<StageFlagManager>();
+        //次のステージをアンロック
 
         if (stageFlagManager != null)
         {
@@ -43,6 +50,24 @@ public class clearArea : MonoBehaviour
         else
         {
             Debug.LogWarning("StageFlagManagerが見つかりませんでした。");
+        }
+    }
+
+    void OnBranchedStageCleared() {
+        // 現在のシーンの名前を取得
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        
+        //Stage3の分岐
+        if (currentSceneName == "Stage3") {
+            if (this.name == "clearArea1") {
+                stageFlagManager.UnlockStage(4);
+                SceneManager.LoadScene("Stage4");
+            }
+            if (this.name == "clearArea2")
+            {
+                stageFlagManager.UnlockStage(5);
+                SceneManager.LoadScene("Stage5");
+            }
         }
     }
 }
