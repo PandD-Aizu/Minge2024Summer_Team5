@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 684117028}
   - component: {fileID: 684117032}
   m_Layer: 0
-  m_Name: celarArea
+  m_Name: clearArea
   m_TagString: clearArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

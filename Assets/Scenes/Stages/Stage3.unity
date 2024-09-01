@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 684117028}
   - component: {fileID: 684117032}
   m_Layer: 0
-  m_Name: celarArea1
+  m_Name: clearArea1
   m_TagString: clearArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -626,7 +626,7 @@ GameObject:
   - component: {fileID: 787813385}
   - component: {fileID: 787813384}
   m_Layer: 0
-  m_Name: celarArea2
+  m_Name: clearArea2
   m_TagString: clearArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

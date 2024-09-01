@@ -7,6 +7,9 @@ public class clearArea : MonoBehaviour
 {
     StageFlagManager stageFlagManager;
     bool is_Branced;
+    // 現在のシーンの名前を取得
+    string currentSceneName;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +17,12 @@ public class clearArea : MonoBehaviour
         is_Branced = false;
         // StageFlagManagerのインスタンスを取得
         stageFlagManager = FindObjectOfType<StageFlagManager>();
+        // 現在のシーンの名前を取得
+        currentSceneName = SceneManager.GetActiveScene().name;
+        if (currentSceneName == "Stage3" || currentSceneName == "Stage4" || currentSceneName == "Stage5") {
+            is_Branced = true;
+        }
+
     }
 
     // Update is called once per frame
@@ -54,9 +63,7 @@ public class clearArea : MonoBehaviour
     }
 
     void OnBranchedStageCleared() {
-        // 現在のシーンの名前を取得
-        string currentSceneName = SceneManager.GetActiveScene().name;
-        
+        Debug.Log("called");
         //Stage3の分岐
         if (currentSceneName == "Stage3") {
             if (this.name == "clearArea1") {
@@ -69,5 +76,16 @@ public class clearArea : MonoBehaviour
                 SceneManager.LoadScene("Stage5");
             }
         }
+        else if (currentSceneName == "Stage4" || currentSceneName == "Stage5")
+        {
+            // 分岐の最終到達点に到達した場合はステージ選択画面に戻る
+            ReturnToStageSelect();
+        }
+    }
+
+    void ReturnToStageSelect()
+    {
+        // ステージ選択画面に戻る処理
+        SceneManager.LoadScene("StageSelectScene");
     }
 }
