@@ -22,14 +22,26 @@ public class Drum : MonoBehaviour
             Drum_playing = true;
             Animator.SetBool("drumPlay", true);
             Dsphere.enabled = true;
-            Invoke("RenderFalse",2.0f);
+            Invoke("RenderFalse",1.0f);
         }
         
     }
 
-    public void RenderFalse() {
-        Drum_playing = false;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(other.gameObject, 0.2f);
+        }  
+    }
+
+    public void RenderFalse() { 
         Dsphere.enabled = false;
         Animator.SetBool("drumPlay", false);
+        Invoke("CoolTime",5.0f);
+    }
+
+    public void CoolTime() {
+        Drum_playing = false;
     }
 }
