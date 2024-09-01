@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StageFlagManager : MonoBehaviour
 {
@@ -51,22 +52,26 @@ public class StageFlagManager : MonoBehaviour
         InitializeStageFlags();  // 初期ステージ解禁を再設定
     }
 
-    //以下動作確認の為の仮置きのメソッド、本来はそれぞれのSceneの名前等から数字を取ってきて UnlockStageの変数を自動で決定出来るようにしたい。
-    public void ClearedStage1()
+    // 現在のステージをクリアし、次のステージをアンロックする
+    public void ClearCurrentStageAndUnlockNext()
     {
-        UnlockStage(2);
-    }
+        // 現在のシーンの名前を取得
+        string currentSceneName = SceneManager.GetActiveScene().name;
 
-    public void ClearedStage2()
-    {
-        UnlockStage(3);
-    }
-    public void ClearedStage3_1()
-    {
-        UnlockStage(4);
-    }
-    public void ClearedStage3_2()
-    {
-        UnlockStage(5);
+        // 現在のシーンの名前から数字部分を抽出
+        int currentStageNumber;
+        if (int.TryParse(System.Text.RegularExpressions.Regex.Match(currentSceneName, @"\d+").Value, out currentStageNumber))
+        {
+            // 次のステージをアンロック
+            UnlockStage(currentStageNumber + 1);
+
+            // 次のステージに移動する（シーン名は「Stage」＋次のステージ番号と仮定）
+            string nextSceneName = "Stage" + (currentStageNumber + 1);
+            SceneManager.LoadScene(nextSceneName);
+        }
+        else
+        {
+            Debug.LogWarning("現在のシーンの名前からステージ番号を抽出できませんでした: " + currentSceneName);
+        }
     }
 }
