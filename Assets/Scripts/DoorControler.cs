@@ -18,18 +18,20 @@ public class DoorControler : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (!isOpen)
-            {
-                animator.SetBool("open", true);
-                isOpen = true;
-            }
-            else
-            {
-                animator.SetBool("open", false);
-                isOpen = false;
-            }
+            DoorAnimation();
         }
-        
+    }
 
+    public void DoorAnimation() {
+        if (!isOpen)
+        {
+            animator.SetBool("open", true);
+            isOpen = true;
+        }
+        else
+        {
+            animator.SetBool("open", false);
+            isOpen = false;
+        }
     }
 }
