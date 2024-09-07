@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Move Object
+  - Fly_Enemy
   layers:
   - Default
   - TransparentFX

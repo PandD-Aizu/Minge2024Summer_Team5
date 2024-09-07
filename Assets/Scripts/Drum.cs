@@ -24,6 +24,7 @@ public class Drum : MonoBehaviour
             Dsphere.enabled = true;
             Invoke("RenderFalse",1.0f);
         }
+
         
     }
 

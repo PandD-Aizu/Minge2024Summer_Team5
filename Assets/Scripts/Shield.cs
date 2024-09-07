@@ -6,12 +6,15 @@ public class Shield : MonoBehaviour
 {
 
     [SerializeField] private Renderer Dshield;
+    [SerializeField] private Animator Animator;
+    [SerializeField] private bool Shield_playing;
 
     // Start is called before the first frame update
     void Start()
     {
 
-        Dshield.enabled = false;
+        Dshield.enabled = true;
+        Shield_playing = false;
 
     }
 
@@ -19,14 +22,33 @@ public class Shield : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKey(KeyCode.R) && !Shield_playing)
         {
             Dshield.enabled = true;
+            Animator.SetBool("shieldPlay", true);
+            Shield_playing = true;
+            Invoke("RenderFalse", 5.0f);
         }
 
-        if (Input.GetKeyUp(KeyCode.R))
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
         {
-            Dshield.enabled = false;
+            Destroy(other.gameObject, 0.1f);
         }
+    }
+
+    public void RenderFalse()
+    {
+        Dshield.enabled = true;
+        Animator.SetBool("shieldPlay", false);
+        Invoke("CoolTime", 5.0f);
+    }
+
+    public void CoolTime()
+    {
+        Shield_playing = false;
     }
 }
