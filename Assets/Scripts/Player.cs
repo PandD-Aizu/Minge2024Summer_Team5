@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,12 @@ public class Player : MonoBehaviour
     public float speed = 10f;
     public int jumppower = 250; //ƒWƒƒƒ“ƒv‚·‚é—Í
     public bool isGround;
+    public GameObject respornPoint;
     private Rigidbody rb;
 
     void Start()
     {
+        respornPoint = GameObject.Find("respornPoint");
         rb = GetComponent<Rigidbody>();
         isGround = false;
     }
@@ -60,6 +63,11 @@ public class Player : MonoBehaviour
         {
             rb.AddForce(new Vector3(0, jumppower, 0));
         }
+    }
+
+    public void playerResporn() {
+        rb.velocity = new Vector3(0, 0, 0);
+        this.transform.position = respornPoint.transform.position;
     }
 }
 
