@@ -47,3 +47,6 @@ MonoBehaviour:
   DrumManager: {fileID: 0}
   BassManager: {fileID: 0}
   PianoManager: {fileID: 0}
+  isDrumAvailable: 0
+  isBassAvailable: 0
+  isPianoAvailable: 0
