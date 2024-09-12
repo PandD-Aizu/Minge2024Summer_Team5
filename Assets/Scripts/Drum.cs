@@ -5,12 +5,14 @@ using UnityEngine;
 public class Drum : MonoBehaviour
 {
     [SerializeField] private Renderer Dsphere;
+    [SerializeField] private SphereCollider DrumCollider;
     [SerializeField] private Animator Animator;
     [SerializeField] private bool Drum_playing;
     // Start is called before the first frame update
     void Start()
     {
         Dsphere.enabled = false;
+        DrumCollider.enabled = false;
         Drum_playing = false;
     }
 
@@ -22,6 +24,7 @@ public class Drum : MonoBehaviour
             Drum_playing = true;
             Animator.SetBool("drumPlay", true);
             Dsphere.enabled = true;
+            DrumCollider.enabled = true;
             Invoke("RenderFalse",1.0f);
         }
 
@@ -32,12 +35,14 @@ public class Drum : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
+            Debug.Log("calledDestroy");
             Destroy(other.gameObject, 0.2f);
         }  
     }
 
     public void RenderFalse() { 
         Dsphere.enabled = false;
+        DrumCollider.enabled = false;
         Animator.SetBool("drumPlay", false);
         Invoke("CoolTime",5.0f);
     }
