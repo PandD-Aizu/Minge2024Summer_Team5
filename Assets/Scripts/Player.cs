@@ -5,18 +5,18 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float speed = 10f;
-    public int jumppower = 250; //ƒWƒƒƒ“ƒv‚·‚é—Í
+    public float speed = 12f;
+    public int jumppower = 250; //ã‚¸ãƒ£ãƒ³ãƒ—ã™ã‚‹åŠ›
     public bool isGround;
     public GameObject respornPoint;
     private Rigidbody rb;
 
-@@//“®ì‚É‚æ‚Á‚Ä•\¦‚·‚éƒIƒuƒWƒFƒNƒg‚ğØ‚è‘Ö‚¦‚éBƒ‚[ƒVƒ‡ƒ“‚Ì”‚¾‚¯ƒIƒuƒWƒFƒNƒg‚ğ—pˆÓ‚·‚éB
+ã€€ã€€//å‹•ä½œã«ã‚ˆã£ã¦è¡¨ç¤ºã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹ã€‚ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã®æ•°ã ã‘ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”¨æ„ã™ã‚‹ã€‚
     public GameObject walk;
     public GameObject standing;
     public GameObject jump;
 
-    public bool isJumping = false;//ƒWƒƒƒ“ƒv’†‚Å‚ ‚é‚©‚Ç‚¤‚©(isGround‚Æ‚Íˆá‚¤ˆµ‚¢)
+    public bool isJumping = false;//ã‚¸ãƒ£ãƒ³ãƒ—ä¸­ã§ã‚ã‚‹ã‹ã©ã†ã‹(isGroundã¨ã¯é•ã†æ‰±ã„)
 
     void Start()
     {
@@ -28,14 +28,13 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Vector3 movement = Vector3.zero;
+        // å…¥åŠ›ã®å–å¾—
+        float moveHorizontal = Input.GetAxis("Horizontal");  // å·¦å³ã®å…¥åŠ› (A, D)
 
         if (Input.GetKey(KeyCode.A))
         {
-            movement += Vector3.left;
-            //movement += new Vector3(-1, 0, 0); ¶ (X²•ûŒü)
-
-            //¶Œü‚«‚É•à‚­ƒAƒjƒ[ƒVƒ‡ƒ“
+            
+            //å·¦å‘ãã«æ­©ãã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
             if (!isJumping)
             {
                 standingState(false);
@@ -46,11 +45,8 @@ public class Player : MonoBehaviour
 
         else if (Input.GetKey(KeyCode.D))
         {
-            movement += Vector3.right;
-            //movement += new Vector3(1, 0, 0);  ‰E (X²•ûŒü)
-            //movement += new Vector3(1, 0, 0);  ‰E (X²•ûŒü)
-
-            //‰EŒü‚«‚É•à‚­ƒAƒjƒ\ƒVƒ‡ƒ“
+           
+            //å³å‘ãã«æ­©ãã‚¢ãƒ‹ãƒ¡â€•ã‚·ãƒ§ãƒ³
             if (!isJumping)
             {
                 standingState(false);
@@ -61,25 +57,29 @@ public class Player : MonoBehaviour
 
         else if (Input.GetKeyDown(KeyCode.Space))
         {
-            Invoke("Jump", 0.6f);//ƒWƒƒƒ“ƒv‚Ì—­‚ß‚ÌŠÔ•ªŒÄ‚Ño‚µ‚ğ’x‚ç‚¹‚é
+            Invoke("Jump", 0.6f);//ã‚¸ãƒ£ãƒ³ãƒ—ã®æºœã‚ã®æ™‚é–“åˆ†å‘¼ã³å‡ºã—ã‚’é…ã‚‰ã›ã‚‹
             isJumping = true;
             Invoke("isJump", 2.1f);
         }     
 
-        else if (isJumping)//ƒWƒƒƒ“ƒv‚ÌƒAƒjƒ\ƒVƒ‡ƒ“
+        else if (isJumping)//ã‚¸ãƒ£ãƒ³ãƒ—ã®ã‚¢ãƒ‹ãƒ¡â€•ã‚·ãƒ§ãƒ³
         {
             standingState(false);
             jumpState(true);
         }
 
-        else//‰½‚à‚¹‚¸’nã‚É‚¢‚éó‘Ô‚ÍstandingƒAƒjƒ[ƒVƒ‡ƒ“‚ğ“®‚©‚·B
+        else//ä½•ã‚‚ã›ãšåœ°ä¸Šã«ã„ã‚‹çŠ¶æ…‹ã¯standingã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’å‹•ã‹ã™ã€‚
         {
             standingState(true);
             walkState(false);
             jumpState(false);
         }
 
-        rb.AddForce(movement * speed);
+        // ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«ã®è¨ˆç®—
+        Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
+
+        // Rigidbodyã‚’ä½¿ç”¨ã—ã¦ç§»å‹•
+        rb.MovePosition(transform.position + movement * speed * Time.deltaTime);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -110,15 +110,15 @@ public class Player : MonoBehaviour
         this.transform.position = respornPoint.transform.position;
     }
 
-    void standingState(bool nowState)//—§‚¿ó‘Ô
+    void standingState(bool nowState)//ç«‹ã¡çŠ¶æ…‹
     {
         standing.SetActive(nowState);
     }
-    void walkState(bool nowState)//•à‚«ó‘Ô
+    void walkState(bool nowState)//æ­©ãçŠ¶æ…‹
     {
         walk.SetActive(nowState);
     }
-    void jumpState(bool nowState)//ƒWƒƒƒ“ƒvó‘Ô
+    void jumpState(bool nowState)//ã‚¸ãƒ£ãƒ³ãƒ—çŠ¶æ…‹
     {
         jump.SetActive(nowState);
     }
