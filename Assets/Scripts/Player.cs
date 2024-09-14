@@ -36,9 +36,12 @@ public class Player : MonoBehaviour
             //movement += new Vector3(-1, 0, 0); 左 (X軸方向)
 
             //左向きに歩くアニメーション
-            standingState(false);
-            walkState(true);
-            transform.localScale = new Vector3(-1, 1, 1);
+            if (!isJumping)
+            {
+                standingState(false);
+                walkState(true);
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
         }
 
         else if (Input.GetKey(KeyCode.D))
@@ -48,17 +51,20 @@ public class Player : MonoBehaviour
             //movement += new Vector3(1, 0, 0);  右 (X軸方向)
 
             //右向きに歩くアニメ―ション
-            standingState(false);
-            walkState(true);
-            transform.localScale = new Vector3(1, 1, 1);
+            if (!isJumping)
+            {
+                standingState(false);
+                walkState(true);
+                transform.localScale = new Vector3(1, 1, 1);
+            }
         }
 
         else if (Input.GetKeyDown(KeyCode.Space))
         {
             Invoke("Jump", 0.6f);//ジャンプの溜めの時間分呼び出しを遅らせる
             isJumping = true;
-            Invoke("isJump", 1.9f);
-        }
+            Invoke("isJump", 2.1f);
+        }     
 
         else if (isJumping)//ジャンプのアニメ―ション
         {
@@ -120,6 +126,8 @@ public class Player : MonoBehaviour
     void isJump()
     {
         isJumping = false;
+        jumpState(false);
+        standingState(true);
     }
 }
 
