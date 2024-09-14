@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26713b78d53bbf246b62298175f3feed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 12
   jumppower: 250
   isGround: 0
   respornPoint: {fileID: 0}

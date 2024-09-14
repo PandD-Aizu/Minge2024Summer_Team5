@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float speed = 10f;
+    public float speed = 12f;
     public int jumppower = 250; //ジャンプする力
     public bool isGround;
     public GameObject respornPoint;
@@ -20,26 +20,19 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Vector3 movement = Vector3.zero;
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            movement += Vector3.left;
-            //movement += new Vector3(-1, 0, 0); 左 (X軸方向)
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            movement += Vector3.right;
-            //movement += new Vector3(1, 0, 0);  右 (X軸方向)
-            //movement += new Vector3(1, 0, 0);  右 (X軸方向)
-        }
+        // 入力の取得
+        float moveHorizontal = Input.GetAxis("Horizontal");  // 左右の入力 (A, D)
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
         }
 
-        rb.AddForce(movement * speed);
+        // 移動ベクトルの計算
+        Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
+
+        // Rigidbodyを使用して移動
+        rb.MovePosition(transform.position + movement * speed * Time.deltaTime);
     }
 
     private void OnCollisionEnter(Collision collision)

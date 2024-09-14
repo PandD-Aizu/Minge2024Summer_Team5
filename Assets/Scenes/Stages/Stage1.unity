@@ -766,6 +766,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8344046035087827799, guid: ad8960d2d76d47b48aedffd280167912, type: 3}
+      propertyPath: speed
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 8427142337870146833, guid: ad8960d2d76d47b48aedffd280167912, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.28
@@ -1433,6 +1437,10 @@ PrefabInstance:
     - target: {fileID: 7731676625536713184, guid: f65aafb064ef3274ba143ad68a4b4716, type: 3}
       propertyPath: m_Name
       value: PauseManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7731676625536713184, guid: f65aafb064ef3274ba143ad68a4b4716, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
