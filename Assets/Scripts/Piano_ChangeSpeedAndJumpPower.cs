@@ -16,7 +16,7 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
     public int CommandChecker_jumppower = 0;
     public int[] CommandInput = { 0, 0, 0 };
     public int KeyUpChecker = 0;
-    public int Count_CommandMiss = 0;/*仮*/
+    public int Count_CommandMiss = 0;
     int i, j;
     
 
@@ -27,13 +27,7 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))/*仮*/
-        {
-            Debug.Log("test1");
-            CommandChecker_speed = 1;
-            //CommandChecker_jumppower = 1;
-            //Player.jumppower = 350;/*仮*/
-        }
+        
         
         if (CommandInput[0] == 0 && CommandInput[1] == 0 && CommandInput[2] == 0 && Input.GetKey(KeyCode.U) && KeyUpChecker == 0)/*コマンド1つ目のキー判定*/ /*自分の知識不足で長いコードになってしまった反省*/
         {
