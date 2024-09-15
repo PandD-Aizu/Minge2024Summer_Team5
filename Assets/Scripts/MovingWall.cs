@@ -5,16 +5,18 @@ using UnityEngine;
 public class MovingWall : MonoBehaviour
 {
 
-    private float speed = 3;
-    private Vector3 Pos;
+    private float speed = 20.0f;
+    private int i;
+    private Vector3 startPos;
     private Vector3 Npos;
     private Rigidbody Rb;
+    private bool isRising = false;
 
     // Start is called before the first frame update
     void Start()
     {
 
-        Pos = transform.position;
+        startPos = transform.position;
         Rb = GetComponent<Rigidbody>();
 
     }
@@ -22,33 +24,48 @@ public class MovingWall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        Npos = transform.position;
-
+        if (isRising)
+        {
+            WallUp();
+        }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision other)
     {
         //地面に当たったら上昇
-        if (collision.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground"))
         {
-            Invoke("WallUp", 1.0f);
-        }
-
-        //プレイヤーに当たったらプレイヤーを倒す
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Destroy(collision.gameObject,1.0f);
+            Npos = transform.position;
+            Invoke("switchRisingState", 1.0f);
         }
     }
 
     //元の位置まで上昇
     private void WallUp()
     {
-        while(Npos.y >= Pos.y)
+        transform.position = Vector3.MoveTowards(transform.position, startPos, Time.deltaTime * speed);
+        if(transform.position == startPos)
         {
-            Rb.MovePosition(new Vector3(Npos.x, Npos.y + speed, Npos.z));
+            isRising = false;
         }
 
+        //transform.position = Vector3.Lerp(Npos, startPos, Time.deltaTime*speed);
+
+        //Debug.Log("move");
+        /*for(i=0; i <= 5; i++)
+        {
+            transform.Translate(0.0f, 1.0f, 0.0f);
+            
+        }*/
+
+    }
+
+    private void switchRisingState()
+    {
+        if (!isRising)
+        {
+            isRising = true;
+        }
+        
     }
 }
