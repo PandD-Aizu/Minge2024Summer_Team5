@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float speed = 12f;
+    public float speed = 6f;
     public int jumppower = 250; //ジャンプする力
     public bool isGround;
     public GameObject respornPoint;
@@ -20,8 +20,17 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        // 入力の取得
-        float moveHorizontal = Input.GetAxis("Horizontal");  // 左右の入力 (A, D)
+        // 左右の移動入力
+        float moveHorizontal = 0f;
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            moveHorizontal = -1f; // Aキーで左移動
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            moveHorizontal = 1f; // Dキーで右移動
+        }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
