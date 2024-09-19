@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Wall
   - Switch
+  - Laser
   layers:
   - Default
   - TransparentFX
