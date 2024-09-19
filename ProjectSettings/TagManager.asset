@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Wall
   - Switch
+  - Dragable
   layers:
   - Default
   - TransparentFX
