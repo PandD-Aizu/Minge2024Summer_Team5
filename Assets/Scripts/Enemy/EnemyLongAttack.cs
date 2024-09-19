@@ -20,7 +20,7 @@ public class EnemyLongAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Debug.Log("start");
     }
  
     // Update is called once per frame
@@ -28,9 +28,7 @@ public class EnemyLongAttack : MonoBehaviour
     {
         //弾の生成座標の設定
         startPos = this.transform.position;
-        rightshoot = startPos;
         rightshoot = new Vector3(1.0f, 0.0f, 0.0f);
-        leftshoot = startPos;
         leftshoot = new Vector3(-1.0f, 0.0f, 0.0f);
 
         timelapse += Time.deltaTime;
@@ -49,7 +47,7 @@ public class EnemyLongAttack : MonoBehaviour
                 if ((enemy.movingRight) == true)
                 {
                     rot = Quaternion.Euler(0f, 0f, -90f);
-                    bullet = Instantiate(bulletPrefab, rightshoot, rot);
+                    bullet = Instantiate(bulletPrefab, this.gameObject.transform.position + rightshoot, rot);
                     bullet.GetComponent<Rigidbody>().AddForce(Vector3.up * power);
                 }
 
@@ -57,7 +55,7 @@ public class EnemyLongAttack : MonoBehaviour
                 if ((enemy.movingRight) == false)
                 {
                     rot = Quaternion.Euler(0f, 0f, 90f);
-                    bullet = Instantiate(bulletPrefab, leftshoot, rot);
+                    bullet = Instantiate(bulletPrefab, this.gameObject.transform.position + leftshoot, rot);
                     bullet.GetComponent<Rigidbody>().AddForce(transform.up * power);
                 }
             }
@@ -68,6 +66,7 @@ public class EnemyLongAttack : MonoBehaviour
         {
             Destroy(bullet.gameObject);
             shoot = false;
+            timelapse = 0.0f;
         }
     }
 
