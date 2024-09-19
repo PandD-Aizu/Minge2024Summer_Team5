@@ -1,37 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class DoorControler : MonoBehaviour
 {
-    public Animator animator;
-    public bool isOpen = false;
+    public float doorposition;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = this.GetComponent<Animator>();
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Door()
     {
-        if (Input.GetMouseButtonDown(0))
+        GameObject door = GameObject.Find("Door");
+        Vector3 pos = door.transform.position;
+        Debug.Log("open");
+        Vector3 target = new Vector3(pos.x, doorposition, pos.z);
+        float step = 2.0f * Time.deltaTime;
+        if (Vector3.Distance(pos, target) > 0.01f)
         {
-            DoorAnimation();
-        }
-    }
-
-    public void DoorAnimation() {
-        if (!isOpen)
-        {
-            animator.SetBool("open", true);
-            isOpen = true;
-        }
-        else
-        {
-            animator.SetBool("open", false);
-            isOpen = false;
+            door.transform.position = Vector3.MoveTowards(pos, target, step);
         }
     }
 }
+

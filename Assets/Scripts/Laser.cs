@@ -21,6 +21,8 @@ public class Leaser : MonoBehaviour
 
     private Ray ray;
     private Vector3 direction;
+    private GameObject SwitchObject;
+    private DoorControler doorContoroler;
 
     // Start is called before the first frame update
     void Start()
@@ -44,8 +46,10 @@ public class Leaser : MonoBehaviour
 
         float remainLength = defaultLength;
 
+
         for (int i = 0; i < numOfReflections; i++)
         {
+            
             if (Physics.Raycast(ray.origin, ray.direction, out hit, remainLength, layerMask))
             {
                 _lineRenderer.positionCount += 1;
@@ -53,12 +57,12 @@ public class Leaser : MonoBehaviour
 
                 if (hit.collider.CompareTag(targetTag))
                 {
-                    Debug.Log($"Hit object with tag: {targetTag}");
-
+                    Debug.Log("Switch");
+                    doorContoroler = GameObject.FindGameObjectWithTag("Switch").GetComponent<DoorControler>();
+                    doorContoroler.Door();
                     break;  // タグが一致したらループを終了
                 }
-
-
+                  
                 remainLength -= Vector3.Distance(ray.origin, hit.point);
 
                 ray = new Ray(hit.point, Vector3.Reflect(ray.direction, hit.normal));

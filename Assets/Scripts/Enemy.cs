@@ -1,21 +1,44 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
-    public int moveDistance = 3;
-    public float movespeed = 2.0f;
-    // Start is called before the first frame update
+    public float moveDistance = 5f;  // 右に進む距離
+    public float moveSpeed = 2f;     // 移動速度
+    public float waitTime = 1f;      // 次の移動までの待機時間
+
+    private Vector3 startPoint;      // 初期位置
+    public bool movingRight = true; // 現在の移動方向（true = 右, false = 左）
+
     void Start()
     {
-        
+        // 敵の初期位置を記録
+        startPoint = transform.position;
+
+        // コルーチンを開始
+        StartCoroutine(Patrol());
     }
 
-    // Update is called once per frame
-    void Update()
+    // 敵が左右に移動するコルーチン
+    IEnumerator Patrol()
     {
-        transform.position = new Vector3(Mathf.PingPong(Time.time, moveDistance) * movespeed + moveDistance, transform.position.y, transform.position.z);
-      //transform.position = new Vector3(Mathf.PingPong(Time.time, 移動距離) * 移動速度 + 初期位置, transform.position.y, transform.position.z);
+        while (true)
+        {
+            // 目的地を計算
+            Vector3 targetPoint = movingRight ? startPoint + Vector3.right * moveDistance : startPoint - Vector3.right * moveDistance;
+
+            // 目的地まで移動する
+            while (Vector3.Distance(transform.position, targetPoint) > 0.1f)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPoint, moveSpeed * Time.deltaTime);
+                yield return null; // フレームごとに処理を待機
+            }
+
+            // 移動完了後、少し待機
+            yield return new WaitForSeconds(waitTime);
+
+            // 移動方向を反転
+            movingRight = !movingRight;
+        }
     }
 }
