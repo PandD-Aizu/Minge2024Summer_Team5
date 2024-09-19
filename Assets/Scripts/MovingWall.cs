@@ -6,7 +6,6 @@ public class MovingWall : MonoBehaviour
 {
 
     private float speed = 20.0f;
-    private int i;
     private Vector3 startPos;
     private Vector3 Npos;
     private Rigidbody Rb;

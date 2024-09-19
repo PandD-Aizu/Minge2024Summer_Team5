@@ -21,11 +21,9 @@ public class HitArea : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("log");
         //プレイヤーに当たったらプレイヤーを倒す
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("ki");
             //Destroy(other.gameObject, 1.0f);
             Invoke("playerResporn", 0.1f);
         }

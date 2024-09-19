@@ -35,7 +35,7 @@ public class Drum : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("calledDestroy");
+            //Debug.Log("calledDestroy");
             Destroy(other.gameObject, 0.2f);
         }  
     }
