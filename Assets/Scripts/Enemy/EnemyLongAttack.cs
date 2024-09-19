@@ -4,87 +4,89 @@ using UnityEngine;
 
 public class EnemyLongAttack : MonoBehaviour
 {
-    Collider bullet_collider;
-    [SerializeField] private Renderer LongAttack;
     [SerializeField] GameObject target;
-    [SerializeField] GameObject startEnemy;
-    private Vector3 startPos;
+    private Vector3 rightshoot;
+    private Vector3 leftshoot;
     private float speed = 1.0f;
     private float shoottime = 1.0f;
     private float returntime = 3.0f;
     private float timelapse;
+    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] GameObject bullet;
+    private bool shoot = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        LongAttack.enabled = false;
-        bullet_collider = GetComponent<Collider>();
-        bullet_collider.isTrigger = false;
+
     }
  
     // Update is called once per frame
     void Update()
     {
+        //弾の生成座標の設定
+        rightshoot = new Vector3(1.0f, 0.0f, 0.0f);
+        leftshoot = new Vector3(-1.0f, 0.0f, 0.0f);
+
         timelapse += Time.deltaTime;
         //Debug.Log(timelapse);
 
-        transform.position = startEnemy.transform.position;
 
         //時間経過で弾を発射する
         if (timelapse >= shoottime && timelapse < returntime)
         {
-            LongAttack.enabled = true;
-            //Debug.Log("shoot");
-            transform.position = Vector3.MoveTowards(startEnemy.transform.position, target.transform.position, speed);
-            Invoke("switchTrigger",0.5f);
+            Enemy enemy = GetComponent<Enemy>();
+            if (!shoot)
+            {
+                //右に生成
+                if (enemy.movingRight)
+                {
+                    Debug.Log("right");
+                    bullet = Instantiate(bulletPrefab, rightshoot, transform.rotation);
+                    //bullet.GetComponent<Rigidbody>().AddForce
+                }
+
+                //左に生成
+                if (!enemy.movingRight)
+                {
+                    bullet = Instantiate(bulletPrefab, rightshoot, transform.rotation);
+                }
+
+                shoot = true;
+            }
+
+            if (shoot)
+            {
+                //右向き移動
+                if (enemy.movingRight)
+                {
+                    bullet.transform.position = new Vector3(speed, 0.0f, 0.0f);
+                }
+
+                //左向き移動
+                if (!enemy.movingRight)
+                {
+                    bullet.transform.position = new Vector3(-speed, 0.0f, 0.0f);
+                }
+            }
+                
+            
+            
         }
 
-        //時間経過で元の位置に戻る
+        //時間経過で消える
         if(timelapse >= returntime)
         {
-            ReturnPosition();
+            Destroy(bulletPrefab.gameObject);
         }
     }
 
-    //プレイヤーに向かって進む
-    /*private void Moveto()
-    {
-        LongAttack.enabled = true;
-        bullet_collider.isTrigger = true;
-        transform.position = Vector3.MoveTowards(startEnemy.transform.position, target.transform.position, speed);
-        Invoke("ReturnPosition",2.0f);
-    }*/
-
-    //プレイヤーか壁に衝突したら消えて元の位置に戻る
+    //プレイヤーか壁に衝突したら消える
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Player") && other.gameObject.CompareTag("Wall"))
         {
-            ReturnPosition();
-        }
-    }
-
-    //元の位置に戻る処理
-    private void ReturnPosition()
-    {
-        //Debug.Log("return");
-        LongAttack.enabled = false;
-        switchTrigger();
-        transform.position = startEnemy.transform.position;
-        timelapse = 0.0f;
-    }
-
-    //当たり判定を切り替える
-    private void switchTrigger()
-    {
-        if (!bullet_collider.isTrigger)
-        {
-            bullet_collider.isTrigger = true;
-        }
-
-        if (bullet_collider.isTrigger)
-        {
-            bullet_collider.isTrigger = false;
+            Destroy(bulletPrefab.gameObject);
         }
     }
 
