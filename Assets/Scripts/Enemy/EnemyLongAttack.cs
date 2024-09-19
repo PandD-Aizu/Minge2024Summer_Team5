@@ -5,27 +5,32 @@ using UnityEngine;
 public class EnemyLongAttack : MonoBehaviour
 {
     [SerializeField] GameObject target;
+    private Vector3 startPos;
     private Vector3 rightshoot;
     private Vector3 leftshoot;
-    private float speed = 1.0f;
+    private Quaternion rot;
+    private float power = 10;
     private float shoottime = 1.0f;
     private float returntime = 3.0f;
     private float timelapse;
     [SerializeField] GameObject bulletPrefab;
-    [SerializeField] GameObject bullet;
+    private GameObject bullet;
     private bool shoot = false;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
  
     // Update is called once per frame
     void Update()
     {
         //弾の生成座標の設定
+        startPos = this.transform.position;
+        rightshoot = startPos;
         rightshoot = new Vector3(1.0f, 0.0f, 0.0f);
+        leftshoot = startPos;
         leftshoot = new Vector3(-1.0f, 0.0f, 0.0f);
 
         timelapse += Time.deltaTime;
@@ -36,48 +41,33 @@ public class EnemyLongAttack : MonoBehaviour
         if (timelapse >= shoottime && timelapse < returntime)
         {
             Enemy enemy = GetComponent<Enemy>();
+
             if (!shoot)
             {
-                //右に生成
-                if (enemy.movingRight)
-                {
-                    Debug.Log("right");
-                    bullet = Instantiate(bulletPrefab, rightshoot, transform.rotation);
-                    //bullet.GetComponent<Rigidbody>().AddForce
-                }
-
-                //左に生成
-                if (!enemy.movingRight)
-                {
-                    bullet = Instantiate(bulletPrefab, rightshoot, transform.rotation);
-                }
-
                 shoot = true;
-            }
-
-            if (shoot)
-            {
-                //右向き移動
-                if (enemy.movingRight)
+                //右に生成して打ち出す
+                if ((enemy.movingRight) == true)
                 {
-                    bullet.transform.position = new Vector3(speed, 0.0f, 0.0f);
+                    rot = Quaternion.Euler(0f, 0f, -90f);
+                    bullet = Instantiate(bulletPrefab, rightshoot, rot);
+                    bullet.GetComponent<Rigidbody>().AddForce(Vector3.up * power);
                 }
 
-                //左向き移動
-                if (!enemy.movingRight)
+                //左に生成して打ち出す
+                if ((enemy.movingRight) == false)
                 {
-                    bullet.transform.position = new Vector3(-speed, 0.0f, 0.0f);
+                    rot = Quaternion.Euler(0f, 0f, 90f);
+                    bullet = Instantiate(bulletPrefab, leftshoot, rot);
+                    bullet.GetComponent<Rigidbody>().AddForce(transform.up * power);
                 }
             }
-                
-            
-            
         }
 
         //時間経過で消える
         if(timelapse >= returntime)
         {
-            Destroy(bulletPrefab.gameObject);
+            Destroy(bullet.gameObject);
+            shoot = false;
         }
     }
 
@@ -86,7 +76,8 @@ public class EnemyLongAttack : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") && other.gameObject.CompareTag("Wall"))
         {
-            Destroy(bulletPrefab.gameObject);
+            Destroy(bullet.gameObject);
+            shoot = false;
         }
     }
 
