@@ -9,7 +9,8 @@ TagManager:
   - Enemy
   - Wall
   - Switch
-  - Dragable
+  - Laser
+　- Dragable
   layers:
   - Default
   - TransparentFX
