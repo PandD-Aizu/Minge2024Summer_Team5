@@ -10,8 +10,7 @@ public class EnemyLongAttack : MonoBehaviour
     private Vector3 leftshoot;
     private Quaternion rot;
     [SerializeField] private float power = 500;
-    private float shoottime = 1.0f;
-    private float returntime = 3.0f;
+    private float shoottime = 3.0f;
     private float timelapse;
     [SerializeField] GameObject bulletPrefab;
     private GameObject bullet;
@@ -32,11 +31,9 @@ public class EnemyLongAttack : MonoBehaviour
         leftshoot = new Vector3(-1.0f, 0.0f, 0.0f);
 
         timelapse += Time.deltaTime;
-        //Debug.Log(timelapse);
-
 
         //時間経過で弾を発射する
-        if (timelapse >= shoottime && timelapse < returntime)
+        if (timelapse >= shoottime)
         {
             Enemy enemy = GetComponent<Enemy>();
 
@@ -58,22 +55,17 @@ public class EnemyLongAttack : MonoBehaviour
                     bullet = Instantiate(bulletPrefab, this.gameObject.transform.position + leftshoot, rot);
                     bullet.GetComponent<Rigidbody>().AddForce(Vector3.left* power);
                 }
-            }
-        }
 
-        //時間経過で消える
-        if(timelapse >= returntime)
-        {
-            Destroy(bullet.gameObject);
-            shoot = false;
-            timelapse = 0.0f;
+                timelapse = 0.0f;
+                shoot = false;
+            }
         }
     }
 
     //プレイヤーか壁に衝突したら消える
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Player") && other.gameObject.CompareTag("Wall"))
+        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Wall"))
         {
             Destroy(bullet.gameObject);
             shoot = false;
