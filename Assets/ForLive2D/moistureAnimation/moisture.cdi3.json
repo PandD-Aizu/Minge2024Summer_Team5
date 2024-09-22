@@ -1,0 +1,73 @@
+{
+	"Version": 3,
+	"Parameters": [
+		{
+			"Id": "Param",
+			"GroupId": "",
+			"Name": "しっけ呼吸"
+		},
+		{
+			"Id": "Param10",
+			"GroupId": "",
+			"Name": "しっけ歩行"
+		},
+		{
+			"Id": "Param11",
+			"GroupId": "",
+			"Name": "しっけあわ"
+		},
+		{
+			"Id": "Param4",
+			"GroupId": "",
+			"Name": "しっけ消滅"
+		},
+		{
+			"Id": "Param7",
+			"GroupId": "",
+			"Name": "しっけまばたき"
+		},
+		{
+			"Id": "Param3",
+			"GroupId": "",
+			"Name": "ほこり呼吸"
+		},
+		{
+			"Id": "Param6",
+			"GroupId": "",
+			"Name": "ほこり消滅"
+		},
+		{
+			"Id": "Param8",
+			"GroupId": "",
+			"Name": "ほこりまばたき"
+		},
+		{
+			"Id": "Param2",
+			"GroupId": "",
+			"Name": "ダメージ呼吸"
+		},
+		{
+			"Id": "Param5",
+			"GroupId": "",
+			"Name": "ダメージ消滅"
+		},
+		{
+			"Id": "Param9",
+			"GroupId": "",
+			"Name": "ダメージまばたき"
+		}
+	],
+	"ParameterGroups": [],
+	"Parts": [
+		{
+			"Id": "Part3",
+			"Name": "しっけ"
+		}
+	],
+	"CombinedParameters": [
+		[
+			"Param",
+			"Param10"
+		]
+	]
+}
