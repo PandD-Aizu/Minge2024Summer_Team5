@@ -39,6 +39,16 @@ public class Enemy : MonoBehaviour
 
             // 移動方向を反転
             movingRight = !movingRight;
+
+            if(movingRight)//右向きの時は右向きのアニメーションにする
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
+
+            else if(!movingRight)// 左向きの時は左向きのアニメーションにする
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
         }
     }
 }
