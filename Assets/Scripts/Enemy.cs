@@ -40,15 +40,9 @@ public class Enemy : MonoBehaviour
             // 移動方向を反転
             movingRight = !movingRight;
 
-            if(movingRight)//右向きの時は右向きのアニメーションにする
-            {
-                transform.localScale = new Vector3(-1, 1, 1);
-            }
+            //transform.eulerAngles = new Vector3(0, 180, 0);//方向を180度変える。
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y + 180, transform.eulerAngles.z);
 
-            else if(!movingRight)// 左向きの時は左向きのアニメーションにする
-            {
-                transform.localScale = new Vector3(1, 1, 1);
-            }
         }
     }
 }
