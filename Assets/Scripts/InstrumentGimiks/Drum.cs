@@ -23,6 +23,8 @@ public class Drum : MonoBehaviour
         {
             Drum_playing = true;
             Animator.SetBool("drumPlay", true);
+            var source = GetComponent<Cinemachine.CinemachineImpulseSource>();
+            source.GenerateImpulse();
             Dsphere.enabled = true;
             DrumCollider.enabled = true;
             Invoke("RenderFalse",1.0f);
