@@ -39,6 +39,10 @@ public class Enemy : MonoBehaviour
 
             // ˆÚ“®•ûŒü‚ğ”½“]
             movingRight = !movingRight;
+
+            //transform.eulerAngles = new Vector3(0, 180, 0);//•ûŒü‚ğ180“x•Ï‚¦‚éB
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y + 180, transform.eulerAngles.z);
+
         }
     }
 }
