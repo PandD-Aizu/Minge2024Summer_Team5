@@ -11,6 +11,8 @@ TagManager:
   - Switch
   - Laser
   - Dragable
+  - ElevatorSwitch
+  - Elevator
   layers:
   - Default
   - TransparentFX
