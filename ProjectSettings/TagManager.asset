@@ -10,6 +10,7 @@ TagManager:
   - Wall
   - Switch
   - Laser
+  - Dragable
   - ElevatorSwitch
   - Elevator
   layers:
@@ -19,7 +20,7 @@ TagManager:
   - 
   - Water
   - UI
-  - wall
+  - 
   - 
   - 
   - 
