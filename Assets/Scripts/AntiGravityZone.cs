@@ -4,7 +4,7 @@ using System.Collections;
 public class gravityController : MonoBehaviour
 {
     public GameObject Player;
-    public Player aiueo;/*いい名前が思いつかない*/
+    public Player oiuea;/*いい名前が思いつかない*/
     public Vector3 Anti_Gravity;
     public Vector3 Normal_Gravity;
     public int InZoneChecker = 0;
@@ -14,7 +14,7 @@ public class gravityController : MonoBehaviour
     void Start()
     {
         Player = GameObject.FindWithTag("Player");
-        aiueo = Player.GetComponent<Player>();
+        oiuea = Player.GetComponent<Player>();
         rb = Player.GetComponent<Rigidbody>();
         rb.useGravity = false;
     }
