@@ -10,7 +10,7 @@ public class PlayerAnimation : MonoBehaviour
     public GameObject standing;
     public GameObject jump;
 
-    public bool isJumping = false;//ジャンプ中であるかどうか(isGroundとは違う扱い)
+    public bool isJumping = false;//ジャンプ中であるかどうか(isGroundとは違う扱い、ジャンプ中は移動アニメーションを描画しないようにするため)
 
     void Start()
     {
@@ -24,7 +24,7 @@ public class PlayerAnimation : MonoBehaviour
             isJumping = true;
             standingState(false);
             walkState(false);
-            Invoke("isNotJump", 2.1f);
+            Invoke("isNotJump", 1.1f);//着地までにかかる時間分isJumpingをtrueにする
         }
 
         else if (Input.GetKey(KeyCode.A))
