@@ -147,6 +147,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
-  jumppower: 250
+  jumppower: 300
   isGround: 0
   respornPoint: {fileID: 0}
