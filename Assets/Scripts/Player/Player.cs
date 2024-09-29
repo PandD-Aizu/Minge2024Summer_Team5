@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Invoke("Jump", 0.6f);//ジャンプの溜めの時間分呼び出しを遅らせる
+            Jump();
         }     
 
         // 移動ベクトルの計算
