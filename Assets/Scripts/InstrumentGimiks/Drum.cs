@@ -33,7 +33,7 @@ public class Drum : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Dust"))
         {
             Debug.Log("calledDestroy");
             Destroy(other.gameObject, 0.2f);
