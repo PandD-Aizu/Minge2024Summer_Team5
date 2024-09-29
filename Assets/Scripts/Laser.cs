@@ -11,9 +11,6 @@ public class Leaser : MonoBehaviour
     public LayerMask layerMask;
     public float defaultLength = 50;
     public int numOfReflections = 2;
-    public string targetTag = "Switch"; // 取得したいタグを指定する
-
-
 
     private LineRenderer _lineRenderer;
     private Camera _myCam;
@@ -22,8 +19,9 @@ public class Leaser : MonoBehaviour
     private Ray ray;
     private Vector3 direction;
     private GameObject SwitchObject;
+    private GameObject area;
     private DoorControler doorContoroler;
-
+    private SphereMove Smove;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,11 +53,18 @@ public class Leaser : MonoBehaviour
                 _lineRenderer.positionCount += 1;
                 _lineRenderer.SetPosition(_lineRenderer.positionCount - 1, hit.point);
 
-                if (hit.collider.CompareTag(targetTag))
+                if (hit.collider.CompareTag("Switch"))
                 {
                     Debug.Log("Switch");
                     doorContoroler = GameObject.FindGameObjectWithTag("Switch").GetComponent<DoorControler>();
                     doorContoroler.Door();
+                    break;  // タグが一致したらループを終了
+                }
+                else if(hit.collider.CompareTag("ElevatorSwitch"))
+                {
+                    Debug.Log("ElevatorSwitch");
+                    area = GameObject.Find("Area");
+                    area.GetComponent<Collider>().enabled = true;
                     break;  // タグが一致したらループを終了
                 }
                   
