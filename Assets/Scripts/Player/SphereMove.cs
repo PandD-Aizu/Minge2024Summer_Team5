@@ -10,7 +10,15 @@ public class SphereMove : MonoBehaviour
     public void Start()
     {
         area = GameObject.Find("Area");
-        area.GetComponent<Collider>().enabled = false;
+
+        if (area == null)
+        {
+            Debug.LogWarning("area‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB");
+        }
+        else
+        {
+            area.GetComponent<Collider>().enabled = false;
+        }
     }
     void Update()
     {

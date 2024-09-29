@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
 
     // gravityControllerを参照するための変数
     private gravityController gravityCtrl;
+    // SphereMoveを参照するための変数
+    private SphereMove SphereMv;
 
     void Start()
     {
@@ -24,6 +26,15 @@ public class Player : MonoBehaviour
         if (gravityCtrl == null)
         {
             Debug.LogWarning("gravityControllerが見つかりません。");
+        }
+
+        // SphereMoveスクリプトを取得。nullチェックを行う
+        SphereMv = FindObjectOfType<SphereMove>();
+
+        // SphereMoveが見つからなかった場合、エラーメッセージを表示
+        if (SphereMv.ElevatorFloor == null)
+        {
+            Debug.LogWarning("ElevatorFloorが見つかりません。");
         }
     }
 
