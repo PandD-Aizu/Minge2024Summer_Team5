@@ -1,21 +1,30 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     public float speed = 6f;
-    public int jumppower = 250; //ジャンプする力
+    public int jumppower = 250; // ジャンプする力
     public bool isGround;
     public GameObject respornPoint;
     private Rigidbody rb;
+
+    // gravityControllerを参照するための変数
+    private gravityController gravityCtrl;
 
     void Start()
     {
         respornPoint = GameObject.Find("respornPoint");
         rb = GetComponent<Rigidbody>();
         isGround = false;
+
+        // gravityControllerスクリプトを取得。nullチェックを行う
+        gravityCtrl = FindObjectOfType<gravityController>();
+
+        // gravityControllerが見つからなかった場合、エラーメッセージを表示
+        if (gravityCtrl == null)
+        {
+            Debug.LogWarning("gravityControllerが見つかりません。");
+        }
     }
 
     void Update()
@@ -34,8 +43,8 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Invoke("Jump", 0.6f);//ジャンプの溜めの時間分呼び出しを遅らせる
-        }     
+            Jump();
+        }
 
         // 移動ベクトルの計算
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
@@ -59,15 +68,27 @@ public class Player : MonoBehaviour
             isGround = false;
         }
     }
+
     public void Jump()
     {
         if (isGround == true)
         {
-            rb.AddForce(new Vector3(0, jumppower, 0));
+            // gravityControllerが存在するかどうかを確認
+            if (gravityCtrl != null && gravityCtrl.InZoneChecker == 1) // 反転ゾーン内
+            {
+                // 反転ゾーン内では逆方向にジャンプ
+                rb.AddForce(new Vector3(0, -jumppower, 0));
+            }
+            else // 通常ゾーン
+            {
+                // 通常のジャンプ
+                rb.AddForce(new Vector3(0, jumppower, 0));
+            }
         }
     }
 
-    public void playerResporn() {
+    public void playerResporn()
+    {
         rb.velocity = new Vector3(0, 0, 0);
         this.transform.position = respornPoint.transform.position;
     }
