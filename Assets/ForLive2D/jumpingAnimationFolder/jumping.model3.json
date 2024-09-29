@@ -1,11 +1,11 @@
 {
 	"Version": 3,
 	"FileReferences": {
-		"Moc": "jump.moc3",
+		"Moc": "jumping.moc3",
 		"Textures": [
-			"jump.1024/texture_00.png"
+			"jumping.1024/texture_00.png"
 		],
-		"DisplayInfo": "jump.cdi3.json"
+		"DisplayInfo": "jumping.cdi3.json"
 	},
 	"Groups": [
 		{
