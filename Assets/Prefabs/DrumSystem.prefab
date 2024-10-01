@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dcd4b1acc9d514e15ba15fc085cebf18, type: 2}
+  - {fileID: 2100000, guid: 20538f813833a3f49a54d000e5642665, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -284,10 +284,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 815e2861d468643df98ef6dfc8ed05e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  knockbackForce: 10
+  m_shotPrefab2: {fileID: 0}
+  boss: {fileID: 0}
   Dshield: {fileID: 8584505876917665863}
   Animator: {fileID: 4034692419607173537}
   Shield_playing: 0
-  knockbackForce: 10
+  moveSpeed: 2
 --- !u!1 &3511143889882736594
 GameObject:
   m_ObjectHideFlags: 0
