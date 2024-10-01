@@ -18,7 +18,7 @@ public class enemy360 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(Shottime());
+        //StartCoroutine(Shottime());
     }
 
     // Update is called once per frame
@@ -27,17 +27,14 @@ public class enemy360 : MonoBehaviour
      
     }
 
-    IEnumerator Shottime()
+    public IEnumerator Shottime()
     {
-        while (true)
-        {
             for (int i = 0; i < m_shotrensya; i++)
             {
                 ShootNWay(360, m_shotAngleRange, m_shotSpeed, m_shotCount);
                 yield return new WaitForSeconds(m_shotSecondshot);
             }
-            yield return new WaitForSeconds(m_shotInterval);
-        }
+            
     }
     private void ShootNWay(
     float angleBase, float angleRange, float speed, int count)
