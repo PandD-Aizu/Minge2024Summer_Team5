@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +24,7 @@ public class enemy360 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+     
     }
 
     IEnumerator Shottime()
@@ -57,16 +58,16 @@ public class enemy360 : MonoBehaviour
 
                     if (rnd < 50)
                     {
-                        Debug.Log("50‚æ‚èã");
+                        //Debug.Log("50‚æ‚èã");
                         // ”­ŽË‚·‚é’e‚ð¶¬‚·‚é
-                        var shot = Instantiate(m_shotPrefab, pos, rot);
+                       var shot = Instantiate(m_shotPrefab, pos, rot);
                         // ’e‚ð”­ŽË‚·‚é•ûŒü‚Æ‘¬‚³‚ðÝ’è‚·‚é
-                        shot.Init(angle, speed);
+                       shot.Init(angle, speed);
                     }
 
                     else
                     {
-                        Debug.Log("50ˆÈ‰º");
+                        //Debug.Log("50ˆÈ‰º");
                         var shot = Instantiate(m_shotPrefab2, pos, rot);
                         shot.Init(angle, speed);
                     }               
@@ -74,7 +75,7 @@ public class enemy360 : MonoBehaviour
                 //‚±‚±‚Å’e’Ç‰Á@ƒ‰ƒ“ƒ_ƒ€‚È”‚ðo—Í@if•¶‚Åˆê’è‚Ì”ˆÈã‚È‚ç‚±‚Ì‹…‚Ý‚½‚¢‚É‚µ‚Ä‚QŽí—Þ‚¾‚·@’e‚ÌƒvƒŒƒnƒu‚à’Ç‰Á
             }
         }
-        // ’e‚ð 1 ‚Â‚¾‚¯”­ŽË‚·‚éê‡
+        /*// ’e‚ð 1 ‚Â‚¾‚¯”­ŽË‚·‚éê‡
         else if (count == 1)
         {
             // ”­ŽË‚·‚é’e‚ð¶¬‚·‚é
@@ -82,6 +83,7 @@ public class enemy360 : MonoBehaviour
 
             // ’e‚ð”­ŽË‚·‚é•ûŒü‚Æ‘¬‚³‚ðÝ’è‚·‚é
             shot.Init(angleBase, speed);
-        }
+        }*/
     }
+    
 }
