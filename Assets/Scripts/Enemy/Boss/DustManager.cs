@@ -10,7 +10,7 @@ public class DustManager : MonoBehaviour
 
     void Start()
     {
-        ScatterDust();  // ゲーム開始時に埃を散らばらせる
+        //ScatterDust();  // ゲーム開始時に埃を散らばらせる
     }
 
     // 埃を画面全体にランダムに散らばらせる処理
