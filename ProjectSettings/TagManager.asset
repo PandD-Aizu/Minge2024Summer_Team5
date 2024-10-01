@@ -13,6 +13,11 @@ TagManager:
   - Dragable
   - ElevatorSwitch
   - Elevator
+  - Dust
+  - Reflectable
+  - Bullet
+  - Boss
+  - refrectBullet
   layers:
   - Default
   - TransparentFX

@@ -1,3 +1,4 @@
+using System.Net;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -7,6 +8,9 @@ public class Player : MonoBehaviour
     public bool isGround;
     public GameObject respornPoint;
     private Rigidbody rb;
+    public int maxhp = 3;
+    public int damage = 1;
+    public int currenthp = 3;
 
     // gravityControllerを参照するための変数
     private gravityController gravityCtrl;
@@ -62,6 +66,7 @@ public class Player : MonoBehaviour
 
         // Rigidbodyを使用して移動
         rb.MovePosition(transform.position + movement * speed * Time.deltaTime);
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -70,6 +75,13 @@ public class Player : MonoBehaviour
         {
             isGround = true;
         }
+
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {       
+        
     }
 
     private void OnCollisionExit(Collision collision)
@@ -101,7 +113,23 @@ public class Player : MonoBehaviour
     public void playerResporn()
     {
         rb.velocity = new Vector3(0, 0, 0);
+        currenthp = maxhp;
         this.transform.position = respornPoint.transform.position;
     }
+
+    public void recreaLife(int damage)
+    {
+            currenthp-=damage;
+            Debug.Log(currenthp);
+     
+        if ( currenthp <= 0 )   
+        {
+            playerResporn();
+            Debug.Log("resporn");
+        }
+    }
 }
+
+    
+
 
