@@ -9,7 +9,8 @@ public class BossEnemy : MonoBehaviour
     //private EnemySummoner enemySummoner;
     [SerializeField]
     private DustManager dustManager;
-    //private ChargeAttacker chargeAttacker;
+    [SerializeField]
+    private ChargeAttacker chargeAttacker;
     [SerializeField]
     private enemy360 enemy360;
 
@@ -18,7 +19,7 @@ public class BossEnemy : MonoBehaviour
         // 各攻撃スクリプトを取得
         //enemySummoner = GetComponent<EnemySummoner>();
         dustManager = GetComponent<DustManager>();
-        //chargeAttacker = GetComponent<ChargeAttacker>();
+        chargeAttacker = GetComponent<ChargeAttacker>();
         enemy360 = GetComponent<enemy360>();
 
         
@@ -41,12 +42,13 @@ public class BossEnemy : MonoBehaviour
             {
                 case 0:
                     //enemySummoner.SummonEnemies(); // 雑魚敵召喚
+                    chargeAttacker.StartChargeMovement();
                     break;
                 case 1:
                     dustManager.ScatterDust(); // 埃をかぶせる
                     break;
                 case 2:
-                    //chargeAttacker.ChargeAttack(); // 突進攻撃
+                    chargeAttacker.StartChargeMovement(); // 突進攻撃
                     break;
                 case 3:
                     StartCoroutine(enemy360.Shottime()); // 弾幕攻撃
