@@ -1,5 +1,6 @@
 using System.Net;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -76,6 +77,10 @@ public class Player : MonoBehaviour
             isGround = true;
         }
 
+        if (collision.gameObject.name == "SceneChange")
+        {
+            SceneManager.LoadScene("StageSelectScene");
+        }
         
     }
 
