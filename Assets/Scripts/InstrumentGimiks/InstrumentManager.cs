@@ -11,10 +11,19 @@ public class InstrumentManager : MonoBehaviour
     public GameObject BassManager;
     public GameObject PianoManager;
 
+    // 楽器のチュートリアルオブジェクト
+    public GameObject DrumTutorial;
+    public GameObject BassTutorial;
+    public GameObject PianoTutorial;
+
     // 楽器の利用可能フラグ
     public bool isDrumAvailable = false;
     public bool isBassAvailable = false;
     public bool isPianoAvailable = false;
+
+    private bool wasDrumAvailable = false;
+    private bool wasBassAvailable = false;
+    private bool wasPianoAvailable = false;
 
     // 現在選択中の楽器インデックス (0: Drum, 1: Bass, 2: Piano)
     private int currentInstrumentIndex = 0;
@@ -23,49 +32,43 @@ public class InstrumentManager : MonoBehaviour
 
     private void Awake()
     {
-        // インスタンスが存在しない場合は設定
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);  // シーンを切り替えてもこのオブジェクトを破棄しない
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            // インスタンスが既に存在する場合はこのオブジェクトを破棄
             Destroy(gameObject);
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    // シーンがロードされたときに実行されるメソッド
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("シーンがロードされました: " + scene.name);
-        // 楽器オブジェクトを取得
         if (scene.name != "Title" && scene.name != "StageSelectScene")
         {
             DrumManager = GameObject.Find("DrumManager");
             BassManager = GameObject.Find("BassManager");
             PianoManager = GameObject.Find("PianoManager");
 
-            // リストに楽器を追加
-            instruments = new List<GameObject> { DrumManager, BassManager, PianoManager };
+            DrumTutorial = GameObject.Find("DrumTutorial");
+            BassTutorial = GameObject.Find("BassTutorial");
+            PianoTutorial = GameObject.Find("PianoTutorial");
 
-            // 楽器の利用可能フラグをリストに追加
+            instruments = new List<GameObject> { DrumManager, BassManager, PianoManager };
             instrumentAvailability = new List<bool> { isDrumAvailable, isBassAvailable, isPianoAvailable };
 
-            // 初期状態ではすべて非アクティブにする
             foreach (GameObject instrument in instruments)
             {
                 instrument.SetActive(false);
             }
 
-            // ドラムをデフォルトでアクティブにする（有効であれば）
             if (isDrumAvailable)
             {
                 DrumManager.SetActive(true);
@@ -73,10 +76,8 @@ public class InstrumentManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // 右キーで次の楽器、左キーで前の楽器に切り替え
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             SwitchToNextInstrument(1);
@@ -85,20 +86,19 @@ public class InstrumentManager : MonoBehaviour
         {
             SwitchToNextInstrument(-1);
         }
+
+        CheckInstrumentAvailabilityChange();
     }
 
-    // 楽器を切り替える処理
     private void SwitchToNextInstrument(int direction)
     {
         int originalIndex = currentInstrumentIndex;
 
-        // 次の楽器に移動
         do
         {
             currentInstrumentIndex = (currentInstrumentIndex + direction + instruments.Count) % instruments.Count;
         } while (!instrumentAvailability[currentInstrumentIndex] && currentInstrumentIndex != originalIndex);
 
-        // 有効な楽器が見つかれば切り替え
         if (instrumentAvailability[currentInstrumentIndex])
         {
             foreach (GameObject instrument in instruments)
@@ -109,16 +109,43 @@ public class InstrumentManager : MonoBehaviour
         }
     }
 
-    // 楽器の利用可能フラグを更新するメソッド
     public void UpdateInstrumentAvailability(bool drumAvailable, bool bassAvailable, bool pianoAvailable)
     {
         isDrumAvailable = drumAvailable;
         isBassAvailable = bassAvailable;
         isPianoAvailable = pianoAvailable;
 
-        // フラグをリストに反映
         instrumentAvailability[0] = isDrumAvailable;
         instrumentAvailability[1] = isBassAvailable;
         instrumentAvailability[2] = isPianoAvailable;
+    }
+
+    private void CheckInstrumentAvailabilityChange()
+    {
+        if (isDrumAvailable && !wasDrumAvailable)
+        {
+            DrumTutorial.SetActive(true);
+            Time.timeScale = 0f;
+            Debug.Log("ドラムチュートリアルを表示");
+        }
+
+        if (isBassAvailable && !wasBassAvailable)
+        {
+            BassTutorial.SetActive(true);
+            Time.timeScale = 0f;
+            Debug.Log("ベースチュートリアルを表示");
+        }
+
+        if (isPianoAvailable && !wasPianoAvailable)
+        {
+            PianoTutorial.SetActive(true);
+            Time.timeScale = 0f;
+            Debug.Log("ピアノチュートリアルを表示");
+        }
+
+        // 状態を更新
+        wasDrumAvailable = isDrumAvailable;
+        wasBassAvailable = isBassAvailable;
+        wasPianoAvailable = isPianoAvailable;
     }
 }
