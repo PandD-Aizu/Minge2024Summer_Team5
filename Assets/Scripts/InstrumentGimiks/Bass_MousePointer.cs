@@ -94,6 +94,13 @@ public class Bass_MousePointer : MonoBehaviour
                         dragObject = hit.collider.gameObject;
                         offset = dragObject.transform.position - hit.point;  // オフセットを計算
                     }
+
+                    //"Boss" タグを持つオブジェクトに当たり、なおかつボスのisAttackingがfalseであったらフェーズを進行する。
+                    if (hit.collider.gameObject.tag == "Boss") {
+                        if (hit.collider.gameObject.GetComponent<BossEnemy>().isAttacking == false) { 
+                            hit.collider.gameObject.GetComponent<BossEnemy>().TakeDamage();
+                        }
+                    }
                 }
             }
         }

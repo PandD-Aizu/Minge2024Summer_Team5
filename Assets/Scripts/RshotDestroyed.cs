@@ -20,8 +20,12 @@ public class RshotDestroyed : MonoBehaviour
     {
         if (other.gameObject.tag == "Boss")
         {
-            Destroy(this.gameObject);
+            if (other.gameObject.GetComponent<BossEnemy>().isAttacking) {
+                other.gameObject.GetComponent<BossEnemy>().TakeDamage();
+            }
+            
             Debug.Log("オブジェクトを破壊");
+            Destroy(this.gameObject);
         }
     }
 }
