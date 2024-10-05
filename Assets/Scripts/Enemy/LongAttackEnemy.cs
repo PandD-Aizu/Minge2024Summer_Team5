@@ -9,7 +9,7 @@ public class EnemyLongAttack : MonoBehaviour
     private Vector3 rightshoot;
     private Vector3 leftshoot;
     private Quaternion rot;
-    [SerializeField] private float power = 500;
+    [SerializeField] private float power = 250;
     private float shoottime = 3.0f;
     private float timelapse;
     [SerializeField] GameObject bulletPrefab;
