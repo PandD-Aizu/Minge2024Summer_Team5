@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,10 +14,7 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.x >= 20 || transform.position.x <= -20)
-        {
-            Destroy(this.gameObject);
-        }
+        Destroy(this.gameObject, 4.0f);
     }
 
     private void OnCollisionEnter(Collision other)
@@ -25,5 +23,11 @@ public class Bullet : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        if (other.gameObject.CompareTag("Dragable"))
+        {
+            Destroy(this.gameObject);
+        }
+            
     }
 }
