@@ -17,12 +17,16 @@ public class Player : MonoBehaviour
     private gravityController gravityCtrl;
     // SphereMoveを参照するための変数
     private SphereMove SphereMv;
+    private ShowHp Showhp;
 
     void Start()
     {
+        Debug.Log(currenthp);
+        Showhp =GameObject.FindObjectOfType<ShowHp>();
+        Showhp.UpdateHearts(currenthp);
         respornPoint = GameObject.Find("respornPoint");
         rb = GetComponent<Rigidbody>();
-        isGround = false;
+        isGround = false;   
 
         // gravityControllerスクリプトを取得。nullチェックを行う
         gravityCtrl = FindObjectOfType<gravityController>();
@@ -41,6 +45,7 @@ public class Player : MonoBehaviour
         {
             Debug.LogWarning("ElevatorFloorが見つかりません。");
         }
+       // Showhp.UpdateHearts(currenthp);
     }
 
     void Update()
@@ -81,7 +86,11 @@ public class Player : MonoBehaviour
         {
             SceneManager.LoadScene("StageSelectScene");
         }
-        
+
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Bullet" || collision.gameObject.tag == "Boss" || collision.gameObject.tag == "Reflectable")
+        {
+            recreaLife(damage);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -124,13 +133,20 @@ public class Player : MonoBehaviour
 
     public void recreaLife(int damage)
     {
-            currenthp-=damage;
-            Debug.Log(currenthp);
-     
+        currenthp-=damage;      
+        Debug.Log(currenthp);
+
+        if (currenthp >= 0)
+        {
+            Showhp.UpdateHearts(currenthp);
+            Showhp.DamagedHearts(damage, currenthp);
+        }
+
         if ( currenthp <= 0 )   
         {
             playerResporn();
             Debug.Log("resporn");
+            Showhp.UpdateHearts(currenthp);
         }
     }
 }
