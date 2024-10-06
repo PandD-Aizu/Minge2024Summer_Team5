@@ -5,18 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class InstrumentManager : MonoBehaviour
 {
-    // シングルトンインスタンス
+    // ?V???O???g???C???X?^???X
     private static InstrumentManager instance;
     public GameObject DrumManager;
     public GameObject BassManager;
     public GameObject PianoManager;
 
-    // 楽器のチュートリアルオブジェクト
+    // ?y?????`???[?g???A???I?u?W?F?N?g
     public GameObject DrumTutorial;
     public GameObject BassTutorial;
     public GameObject PianoTutorial;
 
-    // 楽器の利用可能フラグ
+    // ?y???????p???\?t???O
     public bool isDrumAvailable = false;
     public bool isBassAvailable = false;
     public bool isPianoAvailable = false;
@@ -25,7 +25,7 @@ public class InstrumentManager : MonoBehaviour
     private bool wasBassAvailable = false;
     private bool wasPianoAvailable = false;
 
-    // 現在選択中の楽器インデックス (0: Drum, 1: Bass, 2: Piano)
+    // ?????I???????y???C???f?b?N?X (0: Drum, 1: Bass, 2: Piano)
     private int currentInstrumentIndex = 0;
     private List<GameObject> instruments;
     private List<bool> instrumentAvailability;
@@ -50,7 +50,7 @@ public class InstrumentManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("シーンがロードされました: " + scene.name);
+        Debug.Log("?V?[???????[?h??????????: " + scene.name);
         if (scene.name != "Title" && scene.name != "StageSelectScene")
         {
             DrumManager = GameObject.Find("DrumManager");
@@ -126,24 +126,24 @@ public class InstrumentManager : MonoBehaviour
         {
             DrumTutorial.SetActive(true);
             Time.timeScale = 0f;
-            Debug.Log("ドラムチュートリアルを表示");
+            //Debug.Log("?h?????`???[?g???A?????\??");
         }
 
         if (isBassAvailable && !wasBassAvailable)
         {
             BassTutorial.SetActive(true);
             Time.timeScale = 0f;
-            Debug.Log("ベースチュートリアルを表示");
+            //Debug.Log("?x?[?X?`???[?g???A?????\??");
         }
 
         if (isPianoAvailable && !wasPianoAvailable)
         {
             PianoTutorial.SetActive(true);
             Time.timeScale = 0f;
-            Debug.Log("ピアノチュートリアルを表示");
+            //Debug.Log("?s?A?m?`???[?g???A?????\??");
         }
 
-        // 状態を更新
+        // ???????X?V
         wasDrumAvailable = isDrumAvailable;
         wasBassAvailable = isBassAvailable;
         wasPianoAvailable = isPianoAvailable;
