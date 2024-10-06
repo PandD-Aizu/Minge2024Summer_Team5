@@ -34,7 +34,7 @@ public class PlayerAnimation : MonoBehaviour
             {
                 standingState(false);
                 walkState(true);
-                transform.localScale = new Vector3(-1, 1, 1);
+                transform.localScale = new Vector3(-1.3f, 1.3f, 1.3f);
             }
         }
 
@@ -45,7 +45,7 @@ public class PlayerAnimation : MonoBehaviour
             {
                 standingState(false);
                 walkState(true);
-                transform.localScale = new Vector3(1, 1, 1);
+                transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
             }
         }
 
