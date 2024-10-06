@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     public float speed = 6f;
-    public int jumppower = 250; // ジャンプする力
+    public int jumppower = 300; // ジャンプする力
     public bool isGround;
     public GameObject respornPoint;
     private Rigidbody rb;
