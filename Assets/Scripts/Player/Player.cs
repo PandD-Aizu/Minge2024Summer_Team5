@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     public int damage = 1;
     public int currenthp = 3;
 
+    public AudioSource playerAudio;
+    public AudioClip damegedse;
+
     // gravityControllerを参照するための変数
     private gravityController gravityCtrl;
     // SphereMoveを参照するための変数
@@ -26,6 +29,7 @@ public class Player : MonoBehaviour
         Showhp.UpdateHearts(currenthp);
         respornPoint = GameObject.Find("respornPoint");
         rb = GetComponent<Rigidbody>();
+        playerAudio = GetComponent<AudioSource>();
         isGround = false;   
 
         // gravityControllerスクリプトを取得。nullチェックを行う
@@ -45,7 +49,12 @@ public class Player : MonoBehaviour
         {
             Debug.LogWarning("ElevatorFloorが見つかりません。");
         }
-       // Showhp.UpdateHearts(currenthp);
+        // Showhp.UpdateHearts(currenthp);
+
+        if (playerAudio == null)
+        {
+            Debug.LogWarning("playerのAudioSourceが見つかりません。");
+        }
     }
 
     void Update()
@@ -133,7 +142,8 @@ public class Player : MonoBehaviour
 
     public void recreaLife(int damage)
     {
-        currenthp-=damage;      
+        currenthp-=damage;
+        playerAudio.PlayOneShot(damegedse);
         Debug.Log(currenthp);
 
         if (currenthp >= 0)
