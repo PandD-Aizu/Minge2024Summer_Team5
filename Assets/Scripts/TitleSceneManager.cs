@@ -1,8 +1,9 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Game_Start_button : MonoBehaviour
+public class TitleSceneManager : MonoBehaviour
 {
     public GameObject BackGroundImage2;
     public GameObject GameStartButton;
@@ -16,6 +17,13 @@ public class Game_Start_button : MonoBehaviour
 
     private bool isTransitioning = false; // ‘JˆÚ’†‚©‚Ç‚¤‚©‚ð”»’f‚·‚é‚½‚ß‚Ìƒtƒ‰ƒO
 
+    [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip Buttonse1;
+    [SerializeField]
+    private AudioClip Buttonse2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +32,7 @@ public class Game_Start_button : MonoBehaviour
         GameEndButton = GameObject.Find("EndButton");
         TitleLogo = GameObject.Find("Title");
         PlayerImage = GameObject.Find("PlayerImage");
+        audioSource = this.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -45,6 +54,7 @@ public class Game_Start_button : MonoBehaviour
 
     public void PushedStartButton()
     {
+        audioSource.PlayOneShot(Buttonse1);
         StartCoroutine(FadeOutAndSlide());
     }
 
@@ -85,6 +95,7 @@ public class Game_Start_button : MonoBehaviour
 
     public void PushedEndButton()
     {
+        audioSource.PlayOneShot(Buttonse2);
         Application.Quit();
     }
 }
