@@ -14,13 +14,19 @@ public class Player : MonoBehaviour
     public int currenthp = 3;
 
     public AudioSource playerAudio;
-    public AudioClip damegedse;
+    public AudioClip damegedse; //ダメージを受けた時のSE
+    public AudioClip jumpse;    //ジャンプした時のSE
+    public AudioClip footstepse;    //足音
 
     // gravityControllerを参照するための変数
     private gravityController gravityCtrl;
     // SphereMoveを参照するための変数
     private SphereMove SphereMv;
     private ShowHp Showhp;
+
+    private bool isWalking = false;  // プレイヤーが歩いているかどうか
+    public float footstepInterval = 0.4f;  // 足音の再生間隔
+    private float nextFootstepTime = 0f;   // 次に足音を再生する時刻
 
     void Start()
     {
@@ -82,6 +88,27 @@ public class Player : MonoBehaviour
         // Rigidbodyを使用して移動
         rb.MovePosition(transform.position + movement * speed * Time.deltaTime);
 
+        // プレイヤーが動いているかどうかをチェック
+        if (movement.magnitude > 0 && isGround)
+        {
+            if (!isWalking)
+            {
+                isWalking = true;
+                playerAudio.PlayOneShot(footstepse);  // 足音を即座に再生
+                nextFootstepTime = Time.time + footstepInterval;  // 次の足音の時間を設定
+            }
+
+            // 足音を再生する
+            if (Time.time >= nextFootstepTime)
+            {
+                playerAudio.PlayOneShot(footstepse);  // 足音の再生
+                nextFootstepTime = Time.time + footstepInterval;  // 次の足音の時間を更新
+            }
+        }
+        else
+        {
+            isWalking = false;  // プレイヤーが動いていない場合
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -119,6 +146,7 @@ public class Player : MonoBehaviour
     {
         if (isGround == true)
         {
+            playerAudio.PlayOneShot(jumpse);
             // gravityControllerが存在するかどうかを確認
             if (gravityCtrl != null && gravityCtrl.InZoneChecker == 1) // 反転ゾーン内
             {
