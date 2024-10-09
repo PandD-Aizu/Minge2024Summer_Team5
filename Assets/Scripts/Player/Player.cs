@@ -127,6 +127,12 @@ public class Player : MonoBehaviour
         {
             recreaLife(damage);
         }
+
+        if (collision.gameObject.tag == "Abyss")
+        {
+            recreaLife(damage = 3);
+            damage = 1;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
