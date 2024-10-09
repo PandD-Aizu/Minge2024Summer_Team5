@@ -8,12 +8,15 @@ public class Drum : MonoBehaviour
     [SerializeField] private SphereCollider DrumCollider;
     [SerializeField] private Animator Animator;
     [SerializeField] private bool Drum_playing;
+    [SerializeField] private AudioSource Drumaudio;
+    [SerializeField] private AudioClip Drumsound;
     // Start is called before the first frame update
     void Start()
     {
         Dsphere.enabled = false;
         DrumCollider.enabled = false;
         Drum_playing = false;
+        Drumaudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -21,6 +24,7 @@ public class Drum : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.E) && !Drum_playing)
         {
+            Drumaudio.PlayOneShot(Drumsound);
             Drum_playing = true;
             Animator.SetBool("drumPlay", true);
             var source = GetComponent<Cinemachine.CinemachineImpulseSource>();
