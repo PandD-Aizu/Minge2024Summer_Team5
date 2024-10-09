@@ -18,6 +18,8 @@ TagManager:
   - Bullet
   - Boss
   - refrectBullet
+  - clearArea
+  - Abyss
   layers:
   - Default
   - TransparentFX
