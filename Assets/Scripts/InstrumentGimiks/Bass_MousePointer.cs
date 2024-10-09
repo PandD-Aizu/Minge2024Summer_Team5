@@ -15,6 +15,14 @@ public class Bass_MousePointer : MonoBehaviour
     [SerializeField]
     private Vector3 offset;  // マウスとオブジェクトのオフセット
 
+    [SerializeField] private AudioSource Bassaudio;
+    [SerializeField] private AudioClip BassSound;
+
+    private void Start()
+    {
+        Bassaudio = GetComponent<AudioSource>();
+    }
+
     private void Update()
     {
         // オブジェクトを回転させる処理
@@ -60,6 +68,7 @@ public class Bass_MousePointer : MonoBehaviour
             // クリックを判定
             if (Input.GetMouseButtonDown(0)) // 左クリックを判定
             {
+                Bassaudio.PlayOneShot(BassSound);
                 // メインカメラ上のマウスカーソルのある位置からRayを飛ばす
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;

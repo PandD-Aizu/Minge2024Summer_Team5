@@ -137,6 +137,9 @@ MonoBehaviour:
   currenthp: 3
   playerAudio: {fileID: 0}
   damegedse: {fileID: 8300000, guid: eb4fcf84db836564f949874b874728f8, type: 3}
+  jumpse: {fileID: 8300000, guid: 8c8009d008bd1654181c3511ca07a53a, type: 3}
+  footstepse: {fileID: 8300000, guid: 23da71768fcf51d4ebaaf115b48e81fa, type: 3}
+  footstepInterval: 0.4
 --- !u!54 &3043220646156869546
 Rigidbody:
   m_ObjectHideFlags: 0

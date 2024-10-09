@@ -3,7 +3,12 @@ guid: 105129765e8a1461bba00c44698543a6
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Dsphere: {instanceID: 0}
+  - DrumCollider: {instanceID: 0}
+  - Animator: {instanceID: 0}
+  - Drumaudio: {instanceID: 0}
+  - Drumsound: {fileID: 8300000, guid: 196917efc5c0c3a4980e4a9123acd7b2, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
     public Player Player;
     public int pianochange_speed = 0;/*切り替えスイッチ*/
     public int pianochange_jumppower = 0;
-    public float speed_p = 100f;    /*変換後の速度*/
+    public float speed_p = 5f;    /*変換後の速度*/
     public int jumppower_p = 500;  /*変換後のジャンプ力*/
     public float countdown_speed = 10.0f;/*速度upの効果時間*/
     public float countdown_speed_define = 10.0f;
@@ -18,11 +19,15 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
     public int KeyUpChecker = 0;
     public int Count_CommandMiss = 0;
     int i, j;
+
+    public AudioSource Pianoaudio;
+    public AudioClip Pianosound;
     
 
     private void Start()
     {
         Player = GameObject.FindObjectOfType<Player>();
+        Pianoaudio = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -141,11 +146,13 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
 
         if (CommandChecker_speed == 1 && countdown_speed == countdown_speed_define)/*スピードアップ*/
         {
+            Pianoaudio.PlayOneShot(Pianosound);
             pianochange_speed = 1;
         }
 
         if (CommandChecker_jumppower == 1 && countdown_jumppower == countdown_jumppower_define)/*ジャンプ強化*/
         {
+            Pianoaudio.PlayOneShot(Pianosound);
             pianochange_jumppower = 1;
         }
 
