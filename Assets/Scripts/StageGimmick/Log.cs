@@ -16,16 +16,12 @@ public class Log : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collider other)
     {
-        if(collision.gameObject.name == "LogDestroy")
+        if(other.gameObject.name == "LogDestroy")
         {
             Destroy(this.gameObject);
         }
 
-        if (collision.gameObject.CompareTag("Dsphere"))
-        {
-            Destroy(this.gameObject);
-        }
     }
 }
