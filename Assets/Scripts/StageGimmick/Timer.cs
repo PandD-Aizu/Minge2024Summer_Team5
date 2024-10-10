@@ -18,8 +18,12 @@ public class Timer : MonoBehaviour
         remainingTime = totalTime;
 
         clearArea = GameObject.Find("clearArea");
-        if (clearArea == null) {
+        if (clearArea == null)
+        {
             Debug.LogWarning("clearArea not Found");
+        }
+        else { 
+            clearArea.SetActive(false);
         }
 
         AreaRock = GameObject.Find("areaRock");
