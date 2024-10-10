@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class prologueManager : MonoBehaviour
@@ -54,6 +55,9 @@ public class prologueManager : MonoBehaviour
 
         // 最後のテキスト13,14（画像なし）
         yield return StartCoroutine(ShowTextsOnly(new int[] { 12, 13 }));
+
+        // プロローグが終わったらTutorialStageに遷移
+        SceneManager.LoadScene("TutorialStage");
     }
 
     private IEnumerator ShowImageAndTexts(int imageIndex, int[] textIndices)
