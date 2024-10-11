@@ -38,6 +38,9 @@ public class Shield : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.CompareTag("Bullet")) { 
+            Destroy(other.gameObject);
+        }
         if (other.gameObject.CompareTag("Reflectable"))
         {
             Vector3 current = other.transform.position;

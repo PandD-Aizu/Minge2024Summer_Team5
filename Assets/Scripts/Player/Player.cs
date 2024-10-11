@@ -149,8 +149,7 @@ public class Player : MonoBehaviour
         {
             instrument.isDrumAvailable = true;
             instrument.InstrumentInit();
-            instruments = timer.Instrument;
-            Destroy(instruments);
+            Destroy(collision.gameObject);
         }
 
         if (collision.gameObject.name == "BaMark")
@@ -217,7 +216,10 @@ public class Player : MonoBehaviour
         }
         rb.velocity = new Vector3(0, 0, 0);
         currenthp = maxhp;
-        timer.remainingTime = timer.totalTime;
+        if (timer) {
+            timer.remainingTime = timer.totalTime;
+        }
+        
         this.transform.position = respornPoint.transform.position;
     }
 
