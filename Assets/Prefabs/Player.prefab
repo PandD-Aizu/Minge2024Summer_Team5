@@ -889,6 +889,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5837990251902701795, guid: ef187a8bb665f98429f744c164cce633, type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8902507250124340798, guid: ef187a8bb665f98429f744c164cce633, type: 3}
       propertyPath: m_Name
       value: PianoManager
