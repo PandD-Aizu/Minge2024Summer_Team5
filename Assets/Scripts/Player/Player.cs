@@ -32,6 +32,8 @@ public class Player : MonoBehaviour
     public float footstepInterval = 0.4f;  // 足音の再生間隔
     private float nextFootstepTime = 0f;   // 次に足音を再生する時刻
 
+    public GameObject Boss;
+
     void Start()
     {
         Debug.Log(currenthp);
@@ -67,6 +69,12 @@ public class Player : MonoBehaviour
         {
             Debug.LogWarning("playerのAudioSourceが見つかりません。");
         }
+
+        Boss = GameObject.Find("Boss");
+        if (Boss == null) {
+            Debug.LogWarning("Bossが見つかりません。");
+        }
+
     }
 
     void Update()
@@ -119,10 +127,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Dragable")
-        {
-            isGround = true;
-        }
+        
 
         if (collision.gameObject.name == "SceneChange")
         {
@@ -164,6 +169,14 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Dragable")
+        {
+            isGround = true;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {       
         
@@ -198,6 +211,10 @@ public class Player : MonoBehaviour
 
     public void playerResporn()
     {
+        if (Boss) {
+            Boss.GetComponent<BossEnemy>().currentPhase = 0;
+            Boss.GetComponent<BossEnemy>().UpdateBossAppearance();
+        }
         rb.velocity = new Vector3(0, 0, 0);
         currenthp = maxhp;
         timer.remainingTime = timer.totalTime;

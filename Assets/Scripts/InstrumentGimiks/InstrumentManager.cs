@@ -5,18 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class InstrumentManager : MonoBehaviour
 {
-    // ƒVƒ“ƒOƒ‹ƒgƒ“ƒCƒ“ƒXƒ^ƒ“ƒX
+    // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
     private static InstrumentManager instance;
     public GameObject DrumManager;
     public GameObject BassManager;
     public GameObject PianoManager;
 
-    // ƒ`ƒ…[ƒgƒŠƒAƒ‹—pƒIƒuƒWƒFƒNƒg
+    // ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     public GameObject DrumTutorial;
     public GameObject BassTutorial;
     public GameObject PianoTutorial;
 
-    // ŠyŠí‚Ì‰Â—p«ƒtƒ‰ƒO
+    // æ¥½å™¨ã®å¯ç”¨æ€§ãƒ•ãƒ©ã‚°
     public bool isDrumAvailable = false;
     public bool isBassAvailable = false;
     public bool isPianoAvailable = false;
@@ -25,16 +25,16 @@ public class InstrumentManager : MonoBehaviour
     private bool wasBassAvailable = false;
     private bool wasPianoAvailable = false;
 
-    // Œ»İ‘I‘ğ‚³‚ê‚Ä‚¢‚éŠyŠíƒCƒ“ƒfƒbƒNƒX (0: Drum, 1: Bass, 2: Piano)
+    // ç¾åœ¨é¸æŠã•ã‚Œã¦ã„ã‚‹æ¥½å™¨ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ (0: Drum, 1: Bass, 2: Piano)
     private int currentInstrumentIndex = 0;
     private List<GameObject> instruments;
     private List<bool> instrumentAvailability;
 
-    // ŠyŠíƒAƒCƒRƒ“‚ª”z’u‚³‚ê‚½‰~Œ`‚ÌƒIƒuƒWƒFƒNƒg
+    // æ¥½å™¨ã‚¢ã‚¤ã‚³ãƒ³ãŒé…ç½®ã•ã‚ŒãŸå††å½¢ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     public GameObject instrumentWheel;
 
-    //ƒsƒAƒmƒ^ƒCƒ}[‚Ìcanvas
-    GameObject pianotimer;
+    //ãƒ”ã‚¢ãƒã‚¿ã‚¤ãƒãƒ¼ã®canvas
+    public GameObject pianotimer;
     private void Awake()
     {
         if (instance == null)
@@ -59,12 +59,11 @@ public class InstrumentManager : MonoBehaviour
             InstrumentInit();
         }
 
-        
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("ƒV[ƒ“ƒ[ƒhŠ®—¹: " + scene.name);
+        Debug.Log("ã‚·ãƒ¼ãƒ³ãƒ­ãƒ¼ãƒ‰å®Œäº†: " + scene.name);
         if (scene.name != "Title" && scene.name != "StageSelectScene")
         {
             InstrumentInit();
@@ -107,14 +106,14 @@ public class InstrumentManager : MonoBehaviour
             }
             instruments[currentInstrumentIndex].SetActive(true);
 
-            // ŠyŠíƒAƒCƒRƒ“‚Ì‰ñ“]
+            // æ¥½å™¨ã‚¢ã‚¤ã‚³ãƒ³ã®å›è»¢
             RotateInstrumentWheel(currentInstrumentIndex);
         }
     }
 
     private void RotateInstrumentWheel(int instrumentIndex)
     {
-        // ŠeŠyŠí‚É‘Î‰‚·‚éƒAƒCƒRƒ“‚Ì‰ñ“]Šp“x‚ğŒvZi120“x‚²‚Æ‚É”z’uj
+        // å„æ¥½å™¨ã«å¯¾å¿œã™ã‚‹ã‚¢ã‚¤ã‚³ãƒ³ã®å›è»¢è§’åº¦ã‚’è¨ˆç®—ï¼ˆ120åº¦ã”ã¨ã«é…ç½®ï¼‰
         float targetRotation = -120f * instrumentIndex;
         StartCoroutine(SmoothRotateWheel(targetRotation));
     }
@@ -122,17 +121,17 @@ public class InstrumentManager : MonoBehaviour
     private IEnumerator SmoothRotateWheel(float targetRotation)
     {
         float currentRotation = instrumentWheel.transform.eulerAngles.z;
-        //float rotationSpeed = 5f;  // ‰ñ“]‘¬“x‚ğ‚æ‚èŠÉ‚â‚©‚É‚·‚é
-        float rotationStep = 0.05f;  // ‰ñ“]ƒXƒeƒbƒv‚ğ¬‚³‚­‚µ‚ÄŠŠ‚ç‚©‚É
+        //float rotationSpeed = 5f;  // å›è»¢é€Ÿåº¦ã‚’ã‚ˆã‚Šç·©ã‚„ã‹ã«ã™ã‚‹
+        float rotationStep = 0.05f;  // å›è»¢ã‚¹ãƒ†ãƒƒãƒ—ã‚’å°ã•ãã—ã¦æ»‘ã‚‰ã‹ã«
 
         while (Mathf.Abs(Mathf.DeltaAngle(currentRotation, targetRotation)) > 0.1f)
         {
             currentRotation = Mathf.LerpAngle(currentRotation, targetRotation, rotationStep);
             instrumentWheel.transform.eulerAngles = new Vector3(0, 0, currentRotation);
-            yield return new WaitForEndOfFrame();  // ƒtƒŒ[ƒ€‚²‚Æ‚ÉXV‚·‚é
+            yield return new WaitForEndOfFrame();  // ãƒ•ãƒ¬ãƒ¼ãƒ ã”ã¨ã«æ›´æ–°ã™ã‚‹
         }
 
-        // ÅI“I‚ÈˆÊ’u‚ğ‚µ‚Á‚©‚èİ’è
+        // æœ€çµ‚çš„ãªä½ç½®ã‚’ã—ã£ã‹ã‚Šè¨­å®š
         instrumentWheel.transform.eulerAngles = new Vector3(0, 0, targetRotation);
     }
 
@@ -156,7 +155,7 @@ public class InstrumentManager : MonoBehaviour
             {
                 DrumTutorial.SetActive(true);
                 Time.timeScale = 0f;
-                //Debug.Log("ƒhƒ‰ƒ€ƒ`ƒ…[ƒgƒŠƒAƒ‹•\¦");
+                //Debug.Log("ãƒ‰ãƒ©ãƒ ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«è¡¨ç¤º");
             }
         }
 
@@ -166,7 +165,7 @@ public class InstrumentManager : MonoBehaviour
             {
                 BassTutorial.SetActive(true);
                 Time.timeScale = 0f;
-                //Debug.Log("ƒx[ƒXƒ`ƒ…[ƒgƒŠƒAƒ‹•\¦");
+                //Debug.Log("ãƒ™ãƒ¼ã‚¹ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«è¡¨ç¤º");
             }
         }
 
@@ -176,18 +175,18 @@ public class InstrumentManager : MonoBehaviour
             {
                 PianoTutorial.SetActive(true);
                 Time.timeScale = 0f;
-                //Debug.Log("ƒsƒAƒmƒ`ƒ…[ƒgƒŠƒAƒ‹•\¦");
+                //Debug.Log("ãƒ”ã‚¢ãƒãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«è¡¨ç¤º");
             }
         }
 
 
-        // ó‘Ô‚ÌXV
+        // çŠ¶æ…‹ã®æ›´æ–°
         wasDrumAvailable = isDrumAvailable;
         wasBassAvailable = isBassAvailable;
         wasPianoAvailable = isPianoAvailable;
     }
 
-    //InstrumentManager‚Ì‰Šú‰»
+    //InstrumentManagerã®åˆæœŸåŒ–
     public void InstrumentInit() {
         if (DrumManager == null) {
             DrumManager = GameObject.Find("DrumManager");
@@ -251,6 +250,11 @@ public class InstrumentManager : MonoBehaviour
             Debug.LogWarning("InstrumentIcon not found");
         }
 
+        if (pianotimer == null)
+        {
+            pianotimer = GameObject.Find("pianotimer");
+        }
+        
         if (pianotimer == null)
         {
             Debug.LogWarning("pianotimer not found");

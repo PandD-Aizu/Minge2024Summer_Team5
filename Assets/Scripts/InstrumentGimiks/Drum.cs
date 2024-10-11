@@ -43,7 +43,12 @@ public class Drum : MonoBehaviour
         {
             Debug.Log("calledDestroy");
             Destroy(other.gameObject, 0.2f);
-        }  
+        }
+
+        if (other.gameObject.name == "Log(Clone)")
+        {
+            Destroy(other.gameObject);
+        }
     }
 
     public void RenderFalse() { 

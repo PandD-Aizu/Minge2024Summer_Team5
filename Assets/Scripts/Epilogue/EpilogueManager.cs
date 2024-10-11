@@ -59,7 +59,7 @@ public class EpilogueManager : MonoBehaviour
 
 
         // プロローグが終わったらTitleSceneに遷移
-        SceneManager.LoadScene("Title");
+        SceneManager.LoadScene("StaffRoll");
     }
 
     private IEnumerator ShowImageAndTexts(int imageIndex, int[] textIndices)
