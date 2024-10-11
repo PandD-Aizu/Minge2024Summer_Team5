@@ -23,6 +23,9 @@ public class Player : MonoBehaviour
     // SphereMoveを参照するための変数
     private SphereMove SphereMv;
     private ShowHp Showhp;
+    private Timer timer;
+    private InstrumentManager instrument;
+    GameObject instruments;
 
     private bool isWalking = false;  // プレイヤーが歩いているかどうか
     public float footstepInterval = 0.4f;  // 足音の再生間隔
@@ -31,8 +34,10 @@ public class Player : MonoBehaviour
     void Start()
     {
         Debug.Log(currenthp);
-        Showhp =GameObject.FindObjectOfType<ShowHp>();
+        Showhp = GameObject.FindObjectOfType<ShowHp>();
         Showhp.UpdateHearts(currenthp);
+        timer = GameObject.FindObjectOfType<Timer>();
+        instrument = GameObject.FindObjectOfType<InstrumentManager>();
         respornPoint = GameObject.Find("respornPoint");
         rb = GetComponent<Rigidbody>();
         playerAudio = GetComponent<AudioSource>();
@@ -133,6 +138,14 @@ public class Player : MonoBehaviour
             recreaLife(damage = 3);
             damage = 1;
         }
+
+        if (collision.gameObject.tag == "Instrument")
+        {
+            instrument.isBassAvailable = true;
+            instrument.InstrumentInit();
+            instruments = timer.Instrument;
+            Destroy(instruments);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -171,6 +184,7 @@ public class Player : MonoBehaviour
     {
         rb.velocity = new Vector3(0, 0, 0);
         currenthp = maxhp;
+        timer.remainingTime = timer.totalTime;
         this.transform.position = respornPoint.transform.position;
     }
 
