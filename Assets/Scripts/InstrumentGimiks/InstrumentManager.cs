@@ -50,50 +50,10 @@ public class InstrumentManager : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
 
-        //Debug用
         var sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "switchInstrument") {
-            DrumManager = GameObject.Find("DrumManager");
-            BassManager = GameObject.Find("BassManager");
-            PianoManager = GameObject.Find("PianoManager");
-
-            DrumTutorial = GameObject.Find("DrumTutorial");
-            if (DrumTutorial == null)
-            {
-                Debug.LogWarning("DrumTutorial not found");
-            }
-            BassTutorial = GameObject.Find("BassTutorial");
-            if (BassTutorial == null)
-            {
-                Debug.LogWarning("BassTutorial not found");
-            }
-            PianoTutorial = GameObject.Find("PianoTutorial");
-            if (PianoTutorial == null)
-            {
-                Debug.LogWarning("PianoTutorial not found");
-            }
-
-            instrumentWheel = GameObject.Find("InstrumentIcon");
-            if (instrumentWheel == null)
-            {
-                Debug.LogWarning("InstrumentIcon not found");
-            }
-
-            instruments = new List<GameObject> { DrumManager, BassManager, PianoManager };
-            instrumentAvailability = new List<bool> { isDrumAvailable, isBassAvailable, isPianoAvailable };
-
-            foreach (GameObject instrument in instruments)
-            {
-                instrument.SetActive(false);
-            }
-
-            if (isDrumAvailable)
-            {
-                DrumManager.SetActive(true);
-            }
+            InstrumentInit();
         }
-        
-
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -101,44 +61,7 @@ public class InstrumentManager : MonoBehaviour
         Debug.Log("シーンロード完了: " + scene.name);
         if (scene.name != "Title" && scene.name != "StageSelectScene")
         {
-            DrumManager = GameObject.Find("DrumManager");
-            BassManager = GameObject.Find("BassManager");
-            PianoManager = GameObject.Find("PianoManager");
-
-            DrumTutorial = GameObject.Find("DrumTutorial");
-            if (DrumTutorial == null)
-            {
-                Debug.LogWarning("DrumTutorial not found");
-            }
-            BassTutorial = GameObject.Find("BassTutorial");
-            if (BassTutorial == null)
-            {
-                Debug.LogWarning("BassTutorial not found");
-            }
-            PianoTutorial = GameObject.Find("PianoTutorial");
-            if (PianoTutorial == null)
-            {
-                Debug.LogWarning("PianoTutorial not found");
-            }
-
-            instrumentWheel = GameObject.Find("InstrumentIcon");
-            if (instrumentWheel == null)
-            {
-                Debug.LogWarning("InstrumentIcon not found");
-            }
-
-            instruments = new List<GameObject> { DrumManager, BassManager, PianoManager };
-            instrumentAvailability = new List<bool> { isDrumAvailable, isBassAvailable, isPianoAvailable };
-
-            foreach (GameObject instrument in instruments)
-            {
-                instrument.SetActive(false);
-            }
-
-            if (isDrumAvailable)
-            {
-                DrumManager.SetActive(true);
-            }
+            InstrumentInit();
         }
     }
 
@@ -217,7 +140,8 @@ public class InstrumentManager : MonoBehaviour
 
     private void CheckInstrumentAvailabilityChange()
     {
-        if (DrumTutorial) {
+        if (DrumTutorial)
+        {
             if (isDrumAvailable && !wasDrumAvailable)
             {
                 DrumTutorial.SetActive(true);
@@ -226,7 +150,8 @@ public class InstrumentManager : MonoBehaviour
             }
         }
 
-        if (BassTutorial) {
+        if (BassTutorial)
+        {
             if (isBassAvailable && !wasBassAvailable)
             {
                 BassTutorial.SetActive(true);
@@ -235,7 +160,8 @@ public class InstrumentManager : MonoBehaviour
             }
         }
 
-        if (PianoTutorial) {
+        if (PianoTutorial)
+        {
             if (isPianoAvailable && !wasPianoAvailable)
             {
                 PianoTutorial.SetActive(true);
@@ -243,11 +169,62 @@ public class InstrumentManager : MonoBehaviour
                 //Debug.Log("ピアノチュートリアル表示");
             }
         }
-        
+
 
         // 状態の更新
         wasDrumAvailable = isDrumAvailable;
         wasBassAvailable = isBassAvailable;
         wasPianoAvailable = isPianoAvailable;
+    }
+
+    //InstrumentManagerの初期化
+    public void InstrumentInit() {
+        DrumManager = GameObject.Find("DrumManager");
+        BassManager = GameObject.Find("BassManager");
+        PianoManager = GameObject.Find("PianoManager");
+
+        DrumTutorial = GameObject.Find("DrumTutorial");
+        if (DrumTutorial == null)
+        {
+            Debug.LogWarning("DrumTutorial not found");
+        }
+        BassTutorial = GameObject.Find("BassTutorial");
+        if (BassTutorial == null)
+        {
+            Debug.LogWarning("BassTutorial not found");
+        }
+        PianoTutorial = GameObject.Find("PianoTutorial");
+        if (PianoTutorial == null)
+        {
+            Debug.LogWarning("PianoTutorial not found");
+        }
+
+        instrumentWheel = GameObject.Find("InstrumentIcon");
+        if (instrumentWheel == null)
+        {
+            Debug.LogWarning("InstrumentIcon not found");
+        }
+
+        instruments = new List<GameObject> { DrumManager, BassManager, PianoManager };
+        instrumentAvailability = new List<bool> { isDrumAvailable, isBassAvailable, isPianoAvailable };
+
+        foreach (GameObject instrument in instruments)
+        {
+            instrument.SetActive(false);
+        }
+
+        if (isDrumAvailable)
+        {
+            DrumManager.SetActive(true);
+        }
+
+        if (!isDrumAvailable && !isBassAvailable && !isPianoAvailable)
+        {
+            instrumentWheel.SetActive(false);
+        }
+        else
+        {
+            instrumentWheel.SetActive(true);
+        }
     }
 }
