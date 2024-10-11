@@ -6,12 +6,14 @@ public class GearControl : MonoBehaviour
 {
     public float RotationSpeed = 1.0f;
     public int gearclicked_test = 0;/*test—p*/
+    public AudioSource gearAudio;
+    public bool AudioPlayed = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        gearAudio = GameObject.Find("GearAudioSourse").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -37,6 +39,11 @@ public class GearControl : MonoBehaviour
 
         if (mousepointer.GearClicked == 1)/*‰ñ“]‚³‚¹‚é*/
         {
+            if (!AudioPlayed) { 
+                gearAudio.Play();
+                AudioPlayed = true;
+            }
+            
             Debug.Log("gear rotate");
             this.transform.rotation = q * move_q;
         }
