@@ -172,7 +172,7 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
         }
         else
         {
-            Player.speed = 10f;/*–ß‚·*/
+            Player.speed = 6f;/*–ß‚·*/
         }
 
         if (pianochange_jumppower == 1)
