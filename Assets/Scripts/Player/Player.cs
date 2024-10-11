@@ -157,10 +157,10 @@ public class Player : MonoBehaviour
             if (gravityCtrl != null && gravityCtrl.InZoneChecker == 1) // 反転ゾーン内
             {
                 // 反転ゾーン内では逆方向にジャンプ
-                rb.AddForce(new Vector3(0, -jumppower, 0));
+                rb.AddForce(new Vector3(0, -jumppower, 0)); 
             }
             else // 通常ゾーン
-            {
+            { 
                 // 通常のジャンプ
                 rb.AddForce(new Vector3(0, jumppower, 0));
             }
