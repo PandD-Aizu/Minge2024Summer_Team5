@@ -113,10 +113,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Dragable")
-        {
-            isGround = true;
-        }
+        
 
         if (collision.gameObject.name == "SceneChange")
         {
@@ -132,6 +129,14 @@ public class Player : MonoBehaviour
         {
             recreaLife(damage = 3);
             damage = 1;
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Dragable")
+        {
+            isGround = true;
         }
     }
 
@@ -157,10 +162,10 @@ public class Player : MonoBehaviour
             if (gravityCtrl != null && gravityCtrl.InZoneChecker == 1) // 反転ゾーン内
             {
                 // 反転ゾーン内では逆方向にジャンプ
-                rb.AddForce(new Vector3(0, -jumppower, 0));
+                rb.AddForce(new Vector3(0, -jumppower, 0)); 
             }
             else // 通常ゾーン
-            {
+            { 
                 // 通常のジャンプ
                 rb.AddForce(new Vector3(0, jumppower, 0));
             }

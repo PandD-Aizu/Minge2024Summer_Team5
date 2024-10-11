@@ -61,6 +61,8 @@ MonoBehaviour:
   Count_CommandMiss: 0
   Pianoaudio: {fileID: 0}
   Pianosound: {fileID: 8300000, guid: 552aaf479f67f92439896602ac0e2509, type: 3}
+  timer: {fileID: 8963518467134519899, guid: 28ccb4e4bf35ed047a7637db2fc7f9cb, type: 3}
+  gauge: {fileID: 0}
 --- !u!82 &-965721662602047413
 AudioSource:
   m_ObjectHideFlags: 0
