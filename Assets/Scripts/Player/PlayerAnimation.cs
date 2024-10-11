@@ -10,11 +10,24 @@ public class PlayerAnimation : MonoBehaviour
     public GameObject standing;
     public GameObject jump;
 
+    float rotationSpeed = 2.0f;//回転速度
+
     public bool isJumping = false;//ジャンプ中であるかどうか(isGroundとは違う扱い、ジャンプ中は移動アニメーションを描画しないようにするため)
+
+    // gravityControllerを参照するための変数
+    private gravityController gravityCtrl;
 
     void Start()
     {
         isJumping = false;
+        // gravityControllerスクリプトを取得。nullチェックを行う
+        gravityCtrl = FindObjectOfType<gravityController>();
+
+        // gravityControllerが見つからなかった場合、エラーメッセージを表示
+        if (gravityCtrl == null)
+        {
+            Debug.LogWarning("gravityControllerが見つかりません。");
+        }
     }
 
     void Update()
@@ -66,6 +79,17 @@ public class PlayerAnimation : MonoBehaviour
         {
             standingState(false);
             jumpState(true);
+        }
+
+        if (gravityCtrl != null && gravityCtrl.InZoneChecker == 1) // 反転ゾーン内
+        {
+            //反転ゾーン内ではxのrotateを180度回転
+            transform.rotation = Quaternion.Euler(180, 0, 0);
+        }
+        else // 通常ゾーン
+        {
+            //通常のrotate
+            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 
