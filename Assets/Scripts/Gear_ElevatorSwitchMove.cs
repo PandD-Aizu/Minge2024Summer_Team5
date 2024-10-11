@@ -5,10 +5,12 @@ using UnityEngine;
 public class Gear_ElevatorSwitchMove : MonoBehaviour
 {
     public float elevatorposition;
+    public GameObject clearArea;
     // Start is called before the first frame update
     void Start()
     {
-        
+        clearArea = GameObject.Find("clearArea");
+        clearArea.SetActive(false);
     }
 
     // Update is called once per frame
@@ -25,7 +27,7 @@ public class Gear_ElevatorSwitchMove : MonoBehaviour
 
         if (mousepointer.GearClicked == 1)
         {
-
+            clearArea.SetActive(true);
 
 
 
