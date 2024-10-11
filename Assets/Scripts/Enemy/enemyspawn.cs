@@ -26,6 +26,8 @@ public class enemyspawn : MonoBehaviour
     {
         //ŽžŠÔŠÔŠu‚ðŒˆ’è‚·‚é
         interval = GetRandomTime();
+        time = minTime;
+        Spawn();
     }
 
     // Update is called once per frame

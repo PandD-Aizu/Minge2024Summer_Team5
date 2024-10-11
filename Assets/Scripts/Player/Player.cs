@@ -1,3 +1,4 @@
+using Live2D.Cubism.Core;
 using System.Net;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -139,9 +140,25 @@ public class Player : MonoBehaviour
             damage = 1;
         }
 
-        if (collision.gameObject.tag == "Instrument")
+        if (collision.gameObject.name == "DrMark")
+        {
+            instrument.isDrumAvailable = true;
+            instrument.InstrumentInit();
+            instruments = timer.Instrument;
+            Destroy(instruments);
+        }
+
+        if (collision.gameObject.name == "BaMark")
         {
             instrument.isBassAvailable = true;
+            instrument.InstrumentInit();
+            instruments = timer.Instrument;
+            Destroy(instruments);
+        }
+
+        if (collision.gameObject.name == "KeyMark")
+        {
+            instrument.isPianoAvailable = true;
             instrument.InstrumentInit();
             instruments = timer.Instrument;
             Destroy(instruments);
