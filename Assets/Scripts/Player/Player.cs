@@ -152,8 +152,7 @@ public class Player : MonoBehaviour
         {
             instrument.isBassAvailable = true;
             instrument.InstrumentInit();
-            instruments = timer.Instrument;
-            Destroy(instruments);
+            Destroy(collision.gameObject);
         }
 
         if (collision.gameObject.name == "KeyMark")

@@ -52,13 +52,14 @@ public class InstrumentManager : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
 
+        InstrumentInit();
+
         var sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "switchInstrument") {
             InstrumentInit();
         }
 
-        pianotimer = GameObject.Find("pianotimer");
-        pianotimer.SetActive(false);
+        
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -188,30 +189,74 @@ public class InstrumentManager : MonoBehaviour
 
     //InstrumentManagerÇÃèâä˙âª
     public void InstrumentInit() {
-        DrumManager = GameObject.Find("DrumManager");
-        BassManager = GameObject.Find("BassManager");
-        PianoManager = GameObject.Find("PianoManager");
+        if (DrumManager == null) {
+            DrumManager = GameObject.Find("DrumManager");
+        }
+        if (BassManager == null) {
+            BassManager = GameObject.Find("BassManager");
+        }
+        if (PianoManager == null) {
+            PianoManager = GameObject.Find("PianoManager");
+        }
+        if (pianotimer == null) {
+            pianotimer = GameObject.Find("pianotimer");
+        }
 
-        DrumTutorial = GameObject.Find("DrumTutorial");
+        if (DrumTutorial == null)
+        {
+            DrumTutorial = GameObject.Find("DrumTutorial");
+        }
+
         if (DrumTutorial == null)
         {
             Debug.LogWarning("DrumTutorial not found");
         }
-        BassTutorial = GameObject.Find("BassTutorial");
+        else { 
+            DrumTutorial.SetActive(false);
+        }
+
+        if (BassTutorial == null)
+        {
+            BassTutorial = GameObject.Find("BassTutorial");
+        }
+
         if (BassTutorial == null)
         {
             Debug.LogWarning("BassTutorial not found");
         }
-        PianoTutorial = GameObject.Find("PianoTutorial");
+        else {
+            BassTutorial.SetActive(false);
+        }
+
+        if (PianoTutorial == null)
+        {
+            PianoTutorial = GameObject.Find("PianoTutorial");
+        }
+
         if (PianoTutorial == null)
         {
             Debug.LogWarning("PianoTutorial not found");
         }
+        else { 
+            PianoTutorial.SetActive(false);
+        }
 
-        instrumentWheel = GameObject.Find("InstrumentIcon");
+        if (instrumentWheel == null)
+        {
+            instrumentWheel = GameObject.Find("InstrumentIcon");
+        }
+        
         if (instrumentWheel == null)
         {
             Debug.LogWarning("InstrumentIcon not found");
+        }
+
+        if (pianotimer == null)
+        {
+            Debug.LogWarning("pianotimer not found");
+        }
+        else {
+            pianotimer.SetActive(false);
         }
 
         instruments = new List<GameObject> { DrumManager, BassManager, PianoManager };
