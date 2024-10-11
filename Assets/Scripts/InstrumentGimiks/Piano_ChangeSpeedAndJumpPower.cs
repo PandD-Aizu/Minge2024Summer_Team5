@@ -215,7 +215,7 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
             Player.speed = speed_p;
             Debug.Log("test_speed");
             timer1.SetActive(true);
-            //timericon1.SetActive(true);
+            timericon1.SetActive(true);
             gauge1.value = countdown_speed / countdown_speed_define;
             countdown_speed -= Time.deltaTime;/*?^?C?}?[*/
 
@@ -224,7 +224,7 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
                 pianochange_speed = 0;/*????*/
                 countdown_speed = countdown_speed_define;/*?^?C?}?[??????*/
                 timer1.SetActive(false);
-                //timericon1.SetActive(false);
+                timericon1.SetActive(false);
                 CommandChecker_speed = 0;/*?R?}???h????*/              
             }
         }
@@ -238,7 +238,7 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
             Player.jumppower = jumppower_p;
             Debug.Log("test_jump");
             timer2.SetActive(true);
-            //timericon2.SetActive(true);
+            timericon2.SetActive(true);
             gauge2.value = countdown_jumppower / countdown_jumppower_define;
             countdown_jumppower -= Time.deltaTime;/*?^?C?}?[*/
 
@@ -247,7 +247,7 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
                 pianochange_jumppower = 0;/*????*/
                 countdown_jumppower = countdown_jumppower_define;/*?^?C?}?[??????*/
                 timer2.SetActive (false);
-                //timericon2.SetActive(false);
+                timericon2.SetActive(false);
                 CommandChecker_jumppower = 0;/*?R?}???h????*/
             }
         }
