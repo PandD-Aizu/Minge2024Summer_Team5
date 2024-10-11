@@ -33,6 +33,8 @@ public class InstrumentManager : MonoBehaviour
     // 楽器アイコンが配置された円形のオブジェクト
     public GameObject instrumentWheel;
 
+    //ピアノタイマーのcanvas
+    GameObject pianotimer;
     private void Awake()
     {
         if (instance == null)
@@ -54,6 +56,9 @@ public class InstrumentManager : MonoBehaviour
         if (sceneName == "switchInstrument") {
             InstrumentInit();
         }
+
+        pianotimer = GameObject.Find("pianotimer");
+        pianotimer.SetActive(false);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -67,7 +72,6 @@ public class InstrumentManager : MonoBehaviour
 
     void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             SwitchToNextInstrument(1);
@@ -78,6 +82,11 @@ public class InstrumentManager : MonoBehaviour
         }
 
         CheckInstrumentAvailabilityChange();
+
+        if (currentInstrumentIndex == 2)
+        {
+            pianotimer.SetActive(true);
+        }
     }
 
     private void SwitchToNextInstrument(int direction)
