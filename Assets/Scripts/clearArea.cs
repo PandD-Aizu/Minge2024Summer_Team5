@@ -19,9 +19,11 @@ public class clearArea : MonoBehaviour
         stageFlagManager = FindObjectOfType<StageFlagManager>();
         // ???????V?[???????O??????
         currentSceneName = SceneManager.GetActiveScene().name;
+        /*
         if (currentSceneName == "Stage3" || currentSceneName == "Stage4" || currentSceneName == "Stage5") {
             is_Branced = true;
         }
+        */
 
     }
 

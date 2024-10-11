@@ -7,7 +7,7 @@ public class LogDrop : MonoBehaviour
     [SerializeField] GameObject LogPrefab;
     private float shoottime = 3.0f;
     private float timelapse;
-    private bool shoot = false;
+    //private bool shoot = false;
     public GameObject Log;
     private Quaternion rot;
 

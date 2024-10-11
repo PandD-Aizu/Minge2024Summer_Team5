@@ -34,7 +34,7 @@ public class InstrumentManager : MonoBehaviour
     public GameObject instrumentWheel;
 
     //ピアノタイマーのcanvas
-    GameObject pianotimer;
+    public GameObject pianotimer;
     private void Awake()
     {
         if (instance == null)
@@ -57,8 +57,6 @@ public class InstrumentManager : MonoBehaviour
             InstrumentInit();
         }
 
-        pianotimer = GameObject.Find("pianotimer");
-        pianotimer.SetActive(false);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -213,6 +211,16 @@ public class InstrumentManager : MonoBehaviour
         {
             Debug.LogWarning("InstrumentIcon not found");
         }
+
+        pianotimer = GameObject.Find("pianotimer");
+        if (pianotimer == null)
+        {
+            Debug.LogWarning("pianotimer not found");
+        }
+        else {
+            pianotimer.SetActive(false);
+        }
+        
 
         instruments = new List<GameObject> { DrumManager, BassManager, PianoManager };
         instrumentAvailability = new List<bool> { isDrumAvailable, isBassAvailable, isPianoAvailable };

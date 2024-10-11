@@ -16,7 +16,7 @@ public class Log : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter(Collider other)
+    public void OnCollisionEnter(Collision other)
     {
         if(other.gameObject.name == "LogDestroy")
         {

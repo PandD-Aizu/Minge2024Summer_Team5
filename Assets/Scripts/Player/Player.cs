@@ -113,10 +113,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Dragable")
-        {
-            isGround = true;
-        }
+        
 
         if (collision.gameObject.name == "SceneChange")
         {
@@ -132,6 +129,14 @@ public class Player : MonoBehaviour
         {
             recreaLife(damage = 3);
             damage = 1;
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Dragable")
+        {
+            isGround = true;
         }
     }
 
