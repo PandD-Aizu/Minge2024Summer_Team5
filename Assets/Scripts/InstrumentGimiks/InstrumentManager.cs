@@ -210,7 +210,7 @@ public class InstrumentManager : MonoBehaviour
         {
             Debug.LogWarning("DrumTutorial not found");
         }
-        else { 
+        else {
             DrumTutorial.SetActive(false);
         }
 

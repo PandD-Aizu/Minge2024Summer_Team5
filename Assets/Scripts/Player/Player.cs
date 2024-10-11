@@ -149,8 +149,7 @@ public class Player : MonoBehaviour
         {
             instrument.isDrumAvailable = true;
             instrument.InstrumentInit();
-            instruments = timer.Instrument;
-            Destroy(instruments);
+            Destroy(collision.gameObject);
         }
 
         if (collision.gameObject.name == "BaMark")
