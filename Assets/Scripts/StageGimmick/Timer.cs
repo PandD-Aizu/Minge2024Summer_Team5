@@ -11,7 +11,10 @@ public class Timer : MonoBehaviour
     public Image timerImage; // タイマー用のImage
     public float totalTime = 10f; // カウントダウン時間
     public float remainingTime;
+
     enemyspawn enemy;
+    InstrumentManager Manager;
+
     public GameObject clearArea;
     public GameObject AreaRock;
     public GameObject Instrument;
@@ -44,8 +47,12 @@ public class Timer : MonoBehaviour
             Debug.LogWarning("areaRock not Found");
         }
 
-        Instrument.SetActive(false);
-        instrumentflag = 0;
+        Manager = GameObject.FindObjectOfType<InstrumentManager>();
+        if (Manager.isDrumAvailable == false || Manager.isPianoAvailable == false)
+        {
+            Instrument.SetActive(false);
+            instrumentflag = 0;
+        }
     }
 
     void Update()
@@ -90,11 +97,14 @@ public class Timer : MonoBehaviour
             { 
                 clearArea.SetActive(true);
                 AreaRock.SetActive(false);
-                if (instrumentflag == 0)
+                if (Manager.isDrumAvailable == false || Manager.isPianoAvailable == false)
                 {
-                    Instrument.SetActive(true);
+                    if (instrumentflag == 0)
+                    {
+                        Instrument.SetActive(true);
+                    }
+                    instrumentflag = 1;
                 }
-                instrumentflag = 1;
             }
         }
     }
