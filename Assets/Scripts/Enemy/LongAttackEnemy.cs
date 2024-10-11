@@ -43,7 +43,7 @@ public class EnemyLongAttack : MonoBehaviour
                 //右に生成して打ち出す
                 if ((enemy.movingRight) == true)
                 {
-                    rot = Quaternion.Euler(0f, 0f, -90f);
+                    rot = Quaternion.Euler(0f, 0f, 0f);
                     bullet = Instantiate(bulletPrefab, this.gameObject.transform.position + rightshoot, rot);
                     bullet.GetComponent<Rigidbody>().AddForce(Vector3.right * power);
                 }
@@ -51,7 +51,7 @@ public class EnemyLongAttack : MonoBehaviour
                 //左に生成して打ち出す
                 if ((enemy.movingRight) == false)
                 {
-                    rot = Quaternion.Euler(0f, 0f, 90f);
+                    rot = Quaternion.Euler(0f, 0f, 0f);
                     bullet = Instantiate(bulletPrefab, this.gameObject.transform.position + leftshoot, rot);
                     bullet.GetComponent<Rigidbody>().AddForce(Vector3.left * power);
                 }
