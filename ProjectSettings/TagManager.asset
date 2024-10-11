@@ -19,6 +19,7 @@ TagManager:
   - Boss
   - refrectBullet
   - clearArea
+  - Abyss
   - GearClickable
   layers:
   - Default

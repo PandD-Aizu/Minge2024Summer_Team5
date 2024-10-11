@@ -12,9 +12,20 @@ public class PlayerAnimation : MonoBehaviour
 
     public bool isJumping = false;//ジャンプ中であるかどうか(isGroundとは違う扱い、ジャンプ中は移動アニメーションを描画しないようにするため)
 
+    // gravityControllerを参照するための変数
+    private gravityController gravityCtrl;
+
     void Start()
     {
         isJumping = false;
+        // gravityControllerスクリプトを取得。nullチェックを行う
+        gravityCtrl = FindObjectOfType<gravityController>();
+
+        // gravityControllerが見つからなかった場合、エラーメッセージを表示
+        if (gravityCtrl == null)
+        {
+            Debug.LogWarning("gravityControllerが見つかりません。");
+        }
     }
 
     void Update()
@@ -66,6 +77,17 @@ public class PlayerAnimation : MonoBehaviour
         {
             standingState(false);
             jumpState(true);
+        }
+
+        if (gravityCtrl != null && gravityCtrl.InZoneChecker == 1) // 反転ゾーン内
+        {
+            //反転ゾーン内ではxのrotateを180度回転
+            transform.localScale = new Vector3(transform.localScale.x, -1.3f, transform.localScale.z);
+        }
+        else // 通常ゾーン
+        {
+            //通常のrotate
+            transform.localScale = new Vector3(transform.localScale.x, 1.3f, transform.localScale.z);
         }
     }
 
