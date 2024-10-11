@@ -30,6 +30,8 @@ public class StageFlagManager : MonoBehaviour
     public AudioClip bgmClip7;
     public AudioClip bgmClip8;
 
+    public InstrumentManager instrumentManager;
+
     private void Awake()
     {
         // インスタンスが存在しない場合は設定
@@ -51,6 +53,8 @@ public class StageFlagManager : MonoBehaviour
     {
         AudioSource[] bgmStages = { audioSource1, audioSource2, audioSource3, audioSource4, audioSource5, audioSource6, audioSource7, audioSource8 };
         bgmStages[0].volume = 0;
+
+        instrumentManager = GameObject.FindObjectOfType<InstrumentManager>();
     }
 
     private void Update()
@@ -100,6 +104,13 @@ public class StageFlagManager : MonoBehaviour
     {
         // 現在のシーンの名前を取得
         string currentSceneName = SceneManager.GetActiveScene().name;
+        if (currentSceneName == "Stage5") {
+            instrumentManager.isBassAvailable = true;
+        }
+        if (currentSceneName == "Stage9")
+        {
+            instrumentManager.isPianoAvailable = true;
+        }
 
         // 現在のシーンの名前から数字部分を抽出
         int currentStageNumber;
@@ -107,9 +118,11 @@ public class StageFlagManager : MonoBehaviour
 
         if (int.TryParse(System.Text.RegularExpressions.Regex.Match(currentSceneName, @"\d+").Value, out currentStageNumber))
         {
+            /*
             if (currentStageNumber == 3 || currentStageNumber == 4 || currentStageNumber == 5 || currentStageNumber == 8 || currentStageNumber == 11 || currentStageNumber == 12 || currentStageNumber == 15) { 
                 AdvanceBGMStage();
             }
+            */
 
             // 次のステージをアンロック
             UnlockStage(currentStageNumber + 1);
