@@ -11,6 +11,10 @@ public class BossEnemy : MonoBehaviour
     public int maxPhases = 8;          // フェーズの最大数
     public bool isAttacking = true;   // 攻撃中かどうか
 
+    public AudioSource bossAudio;
+    public AudioClip noDamegese;
+    public AudioClip Damegese;
+
     private Coroutine attackRoutineCoroutine; // 攻撃ルーチンのコルーチン
     private Coroutine weakStateCoroutine;     // 弱点露呈状態のコルーチン
 
@@ -24,6 +28,8 @@ public class BossEnemy : MonoBehaviour
 
     void Start()
     {
+        bossAudio = GetComponent<AudioSource>();
+
         // 各攻撃スクリプトを取得
         dustManager = GetComponent<DustManager>();
         chargeAttacker = GetComponent<ChargeAttacker>();
@@ -111,6 +117,7 @@ public class BossEnemy : MonoBehaviour
     private void EnterWeakState()
     {
         Debug.Log("EntryWeakState!");
+        bossAudio.PlayOneShot(Damegese);
         isWeakState = true;
         StopAttacks();
         // 5秒間攻撃を受けなかった場合にフェーズを戻すコルーチンを開始

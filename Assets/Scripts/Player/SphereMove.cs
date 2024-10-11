@@ -29,7 +29,9 @@ public class SphereMove : MonoBehaviour
     {
         if (other.gameObject.name == "Area")
         {
+            Debug.Log("iiiiiii");
             ElevatorFloor.GetComponent<ElevatorControler>().MoveUp();
+            Debug.Log("aaaaaa");
         }
     }
 

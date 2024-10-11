@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stages/TutorialStage.unity
     guid: 48c80f7d25f184bbdadf053c983b2e1b
+  - enabled: 1
+    path: Assets/Scenes/epilogueScene.unity
+    guid: 522b3ff3b604c3d4b89469e2d21fe45e
   m_configObjects: {}

@@ -9,11 +9,20 @@ public class Bass_MousePointer : MonoBehaviour
     private Quaternion targetRotation;  // ターゲットの回転角度
     private bool isRotating = false;  // 回転中かどうかを管理するフラグ
     public float stopThreshold = 0.5f; // 回転完了とみなす角度の閾値
+    public int GearClicked = 0;/*Stage5-3のギアがクリックされたか否か*/
 
     [SerializeField]
     private GameObject dragObject = null;  // ドラッグ中のオブジェクト
     [SerializeField]
     private Vector3 offset;  // マウスとオブジェクトのオフセット
+
+    [SerializeField] private AudioSource Bassaudio;
+    [SerializeField] private AudioClip BassSound;
+
+    private void Start()
+    {
+        Bassaudio = GetComponent<AudioSource>();
+    }
 
     private void Update()
     {
@@ -60,6 +69,7 @@ public class Bass_MousePointer : MonoBehaviour
             // クリックを判定
             if (Input.GetMouseButtonDown(0)) // 左クリックを判定
             {
+                Bassaudio.PlayOneShot(BassSound);
                 // メインカメラ上のマウスカーソルのある位置からRayを飛ばす
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
@@ -101,6 +111,13 @@ public class Bass_MousePointer : MonoBehaviour
                             hit.collider.gameObject.GetComponent<BossEnemy>().TakeDamage();
                         }
                     }
+
+                    /*"GearClickable"のタグを持つオブジェクトに当たったら、ギアをまわすフラグを立てる*/
+                    if (hit.collider.gameObject.tag == "GearClickable")
+                    {
+                        GearClicked = 1;
+                    }
+                    
                 }
             }
         }

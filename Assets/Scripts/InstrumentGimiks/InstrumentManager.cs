@@ -5,18 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class InstrumentManager : MonoBehaviour
 {
-    // ?V???O???g???C???X?^???X
+    // シングルトンインスタンス
     private static InstrumentManager instance;
     public GameObject DrumManager;
     public GameObject BassManager;
     public GameObject PianoManager;
 
-    // ?y?????`???[?g???A???I?u?W?F?N?g
+    // チュートリアル用オブジェクト
     public GameObject DrumTutorial;
     public GameObject BassTutorial;
     public GameObject PianoTutorial;
 
-    // ?y???????p???\?t???O
+    // 楽器の可用性フラグ
     public bool isDrumAvailable = false;
     public bool isBassAvailable = false;
     public bool isPianoAvailable = false;
@@ -25,11 +25,16 @@ public class InstrumentManager : MonoBehaviour
     private bool wasBassAvailable = false;
     private bool wasPianoAvailable = false;
 
-    // ?????I???????y???C???f?b?N?X (0: Drum, 1: Bass, 2: Piano)
+    // 現在選択されている楽器インデックス (0: Drum, 1: Bass, 2: Piano)
     private int currentInstrumentIndex = 0;
     private List<GameObject> instruments;
     private List<bool> instrumentAvailability;
 
+    // 楽器アイコンが配置された円形のオブジェクト
+    public GameObject instrumentWheel;
+
+    //ピアノタイマーのcanvas
+    GameObject pianotimer;
     private void Awake()
     {
         if (instance == null)
@@ -46,33 +51,22 @@ public class InstrumentManager : MonoBehaviour
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        var sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName == "switchInstrument") {
+            InstrumentInit();
+        }
+
+        pianotimer = GameObject.Find("pianotimer");
+        pianotimer.SetActive(false);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("?V?[???????[?h??????????: " + scene.name);
+        Debug.Log("シーンロード完了: " + scene.name);
         if (scene.name != "Title" && scene.name != "StageSelectScene")
         {
-            DrumManager = GameObject.Find("DrumManager");
-            BassManager = GameObject.Find("BassManager");
-            PianoManager = GameObject.Find("PianoManager");
-
-            DrumTutorial = GameObject.Find("DrumTutorial");
-            BassTutorial = GameObject.Find("BassTutorial");
-            PianoTutorial = GameObject.Find("PianoTutorial");
-
-            instruments = new List<GameObject> { DrumManager, BassManager, PianoManager };
-            instrumentAvailability = new List<bool> { isDrumAvailable, isBassAvailable, isPianoAvailable };
-
-            foreach (GameObject instrument in instruments)
-            {
-                instrument.SetActive(false);
-            }
-
-            if (isDrumAvailable)
-            {
-                DrumManager.SetActive(true);
-            }
+            InstrumentInit();
         }
     }
 
@@ -88,6 +82,11 @@ public class InstrumentManager : MonoBehaviour
         }
 
         CheckInstrumentAvailabilityChange();
+
+        if (currentInstrumentIndex == 2)
+        {
+            pianotimer.SetActive(true);
+        }
     }
 
     private void SwitchToNextInstrument(int direction)
@@ -106,8 +105,36 @@ public class InstrumentManager : MonoBehaviour
                 instrument.SetActive(false);
             }
             instruments[currentInstrumentIndex].SetActive(true);
+
+            // 楽器アイコンの回転
+            RotateInstrumentWheel(currentInstrumentIndex);
         }
     }
+
+    private void RotateInstrumentWheel(int instrumentIndex)
+    {
+        // 各楽器に対応するアイコンの回転角度を計算（120度ごとに配置）
+        float targetRotation = -120f * instrumentIndex;
+        StartCoroutine(SmoothRotateWheel(targetRotation));
+    }
+
+    private IEnumerator SmoothRotateWheel(float targetRotation)
+    {
+        float currentRotation = instrumentWheel.transform.eulerAngles.z;
+        //float rotationSpeed = 5f;  // 回転速度をより緩やかにする
+        float rotationStep = 0.05f;  // 回転ステップを小さくして滑らかに
+
+        while (Mathf.Abs(Mathf.DeltaAngle(currentRotation, targetRotation)) > 0.1f)
+        {
+            currentRotation = Mathf.LerpAngle(currentRotation, targetRotation, rotationStep);
+            instrumentWheel.transform.eulerAngles = new Vector3(0, 0, currentRotation);
+            yield return new WaitForEndOfFrame();  // フレームごとに更新する
+        }
+
+        // 最終的な位置をしっかり設定
+        instrumentWheel.transform.eulerAngles = new Vector3(0, 0, targetRotation);
+    }
+
 
     public void UpdateInstrumentAvailability(bool drumAvailable, bool bassAvailable, bool pianoAvailable)
     {
@@ -122,30 +149,91 @@ public class InstrumentManager : MonoBehaviour
 
     private void CheckInstrumentAvailabilityChange()
     {
-        if (isDrumAvailable && !wasDrumAvailable)
+        if (DrumTutorial)
         {
-            DrumTutorial.SetActive(true);
-            Time.timeScale = 0f;
-            //Debug.Log("?h?????`???[?g???A?????\??");
+            if (isDrumAvailable && !wasDrumAvailable)
+            {
+                DrumTutorial.SetActive(true);
+                Time.timeScale = 0f;
+                //Debug.Log("ドラムチュートリアル表示");
+            }
         }
 
-        if (isBassAvailable && !wasBassAvailable)
+        if (BassTutorial)
         {
-            BassTutorial.SetActive(true);
-            Time.timeScale = 0f;
-            //Debug.Log("?x?[?X?`???[?g???A?????\??");
+            if (isBassAvailable && !wasBassAvailable)
+            {
+                BassTutorial.SetActive(true);
+                Time.timeScale = 0f;
+                //Debug.Log("ベースチュートリアル表示");
+            }
         }
 
-        if (isPianoAvailable && !wasPianoAvailable)
+        if (PianoTutorial)
         {
-            PianoTutorial.SetActive(true);
-            Time.timeScale = 0f;
-            //Debug.Log("?s?A?m?`???[?g???A?????\??");
+            if (isPianoAvailable && !wasPianoAvailable)
+            {
+                PianoTutorial.SetActive(true);
+                Time.timeScale = 0f;
+                //Debug.Log("ピアノチュートリアル表示");
+            }
         }
 
-        // ???????X?V
+
+        // 状態の更新
         wasDrumAvailable = isDrumAvailable;
         wasBassAvailable = isBassAvailable;
         wasPianoAvailable = isPianoAvailable;
+    }
+
+    //InstrumentManagerの初期化
+    public void InstrumentInit() {
+        DrumManager = GameObject.Find("DrumManager");
+        BassManager = GameObject.Find("BassManager");
+        PianoManager = GameObject.Find("PianoManager");
+
+        DrumTutorial = GameObject.Find("DrumTutorial");
+        if (DrumTutorial == null)
+        {
+            Debug.LogWarning("DrumTutorial not found");
+        }
+        BassTutorial = GameObject.Find("BassTutorial");
+        if (BassTutorial == null)
+        {
+            Debug.LogWarning("BassTutorial not found");
+        }
+        PianoTutorial = GameObject.Find("PianoTutorial");
+        if (PianoTutorial == null)
+        {
+            Debug.LogWarning("PianoTutorial not found");
+        }
+
+        instrumentWheel = GameObject.Find("InstrumentIcon");
+        if (instrumentWheel == null)
+        {
+            Debug.LogWarning("InstrumentIcon not found");
+        }
+
+        instruments = new List<GameObject> { DrumManager, BassManager, PianoManager };
+        instrumentAvailability = new List<bool> { isDrumAvailable, isBassAvailable, isPianoAvailable };
+
+        foreach (GameObject instrument in instruments)
+        {
+            instrument.SetActive(false);
+        }
+
+        if (isDrumAvailable)
+        {
+            DrumManager.SetActive(true);
+        }
+
+        if (!isDrumAvailable && !isBassAvailable && !isPianoAvailable)
+        {
+            instrumentWheel.SetActive(false);
+        }
+        else
+        {
+            instrumentWheel.SetActive(true);
+        }
     }
 }

@@ -13,11 +13,20 @@ public class Player : MonoBehaviour
     public int damage = 1;
     public int currenthp = 3;
 
+    public AudioSource playerAudio;
+    public AudioClip damegedse; //ダメージを受けた時のSE
+    public AudioClip jumpse;    //ジャンプした時のSE
+    public AudioClip footstepse;    //足音
+
     // gravityControllerを参照するための変数
     private gravityController gravityCtrl;
     // SphereMoveを参照するための変数
     private SphereMove SphereMv;
     private ShowHp Showhp;
+
+    private bool isWalking = false;  // プレイヤーが歩いているかどうか
+    public float footstepInterval = 0.4f;  // 足音の再生間隔
+    private float nextFootstepTime = 0f;   // 次に足音を再生する時刻
 
     void Start()
     {
@@ -26,6 +35,7 @@ public class Player : MonoBehaviour
         Showhp.UpdateHearts(currenthp);
         respornPoint = GameObject.Find("respornPoint");
         rb = GetComponent<Rigidbody>();
+        playerAudio = GetComponent<AudioSource>();
         isGround = false;   
 
         // gravityControllerスクリプトを取得。nullチェックを行う
@@ -45,7 +55,12 @@ public class Player : MonoBehaviour
         {
             Debug.LogWarning("ElevatorFloorが見つかりません。");
         }
-       // Showhp.UpdateHearts(currenthp);
+        // Showhp.UpdateHearts(currenthp);
+
+        if (playerAudio == null)
+        {
+            Debug.LogWarning("playerのAudioSourceが見つかりません。");
+        }
     }
 
     void Update()
@@ -73,6 +88,27 @@ public class Player : MonoBehaviour
         // Rigidbodyを使用して移動
         rb.MovePosition(transform.position + movement * speed * Time.deltaTime);
 
+        // プレイヤーが動いているかどうかをチェック
+        if (movement.magnitude > 0 && isGround)
+        {
+            if (!isWalking)
+            {
+                isWalking = true;
+                playerAudio.PlayOneShot(footstepse);  // 足音を即座に再生
+                nextFootstepTime = Time.time + footstepInterval;  // 次の足音の時間を設定
+            }
+
+            // 足音を再生する
+            if (Time.time >= nextFootstepTime)
+            {
+                playerAudio.PlayOneShot(footstepse);  // 足音の再生
+                nextFootstepTime = Time.time + footstepInterval;  // 次の足音の時間を更新
+            }
+        }
+        else
+        {
+            isWalking = false;  // プレイヤーが動いていない場合
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -90,6 +126,12 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Bullet" || collision.gameObject.tag == "Boss" || collision.gameObject.tag == "Reflectable")
         {
             recreaLife(damage);
+        }
+
+        if (collision.gameObject.tag == "Abyss")
+        {
+            recreaLife(damage = 3);
+            damage = 1;
         }
     }
 
@@ -110,14 +152,15 @@ public class Player : MonoBehaviour
     {
         if (isGround == true)
         {
+            playerAudio.PlayOneShot(jumpse);
             // gravityControllerが存在するかどうかを確認
             if (gravityCtrl != null && gravityCtrl.InZoneChecker == 1) // 反転ゾーン内
             {
                 // 反転ゾーン内では逆方向にジャンプ
-                rb.AddForce(new Vector3(0, -jumppower, 0));
+                rb.AddForce(new Vector3(0, -jumppower, 0)); 
             }
             else // 通常ゾーン
-            {
+            { 
                 // 通常のジャンプ
                 rb.AddForce(new Vector3(0, jumppower, 0));
             }
@@ -133,7 +176,8 @@ public class Player : MonoBehaviour
 
     public void recreaLife(int damage)
     {
-        currenthp-=damage;      
+        currenthp-=damage;
+        playerAudio.PlayOneShot(damegedse);
         Debug.Log(currenthp);
 
         if (currenthp >= 0)
