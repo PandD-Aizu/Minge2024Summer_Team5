@@ -47,6 +47,12 @@ public class StageFlagManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        AudioSource[] bgmStages = { audioSource1, audioSource2, audioSource3, audioSource4, audioSource5, audioSource6, audioSource7, audioSource8 };
+        bgmStages[0].volume = 0;
+    }
+
     private void Update()
     {
         //Debug用
@@ -97,8 +103,14 @@ public class StageFlagManager : MonoBehaviour
 
         // 現在のシーンの名前から数字部分を抽出
         int currentStageNumber;
+        
+
         if (int.TryParse(System.Text.RegularExpressions.Regex.Match(currentSceneName, @"\d+").Value, out currentStageNumber))
         {
+            if (currentStageNumber == 3 || currentStageNumber == 4 || currentStageNumber == 5 || currentStageNumber == 8 || currentStageNumber == 11 || currentStageNumber == 12 || currentStageNumber == 15) { 
+                AdvanceBGMStage();
+            }
+
             // 次のステージをアンロック
             UnlockStage(currentStageNumber + 1);
 
@@ -113,7 +125,7 @@ public class StageFlagManager : MonoBehaviour
     }
 
     // BGMの初期設定
-    private void InitializeBGM()
+    public void InitializeBGM()
     {
         // 各AudioSourceを追加
         audioSource1 = gameObject.AddComponent<AudioSource>();

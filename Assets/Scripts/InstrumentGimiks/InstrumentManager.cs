@@ -33,6 +33,8 @@ public class InstrumentManager : MonoBehaviour
     // 楽器アイコンが配置された円形のオブジェクト
     public GameObject instrumentWheel;
 
+    public StageFlagManager stageFlagManager;
+
     //ピアノタイマーのcanvas
     public GameObject pianotimer;
     private void Awake()
@@ -52,6 +54,7 @@ public class InstrumentManager : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
 
+        stageFlagManager = GameObject.FindAnyObjectByType<StageFlagManager>();
         InstrumentInit();
 
         var sceneName = SceneManager.GetActiveScene().name;
@@ -153,6 +156,7 @@ public class InstrumentManager : MonoBehaviour
         {
             if (isDrumAvailable && !wasDrumAvailable)
             {
+                stageFlagManager.InitializeBGM();
                 DrumTutorial.SetActive(true);
                 Time.timeScale = 0f;
                 //Debug.Log("ドラムチュートリアル表示");
@@ -163,6 +167,7 @@ public class InstrumentManager : MonoBehaviour
         {
             if (isBassAvailable && !wasBassAvailable)
             {
+                stageFlagManager.AdvanceBGMStage();
                 BassTutorial.SetActive(true);
                 Time.timeScale = 0f;
                 //Debug.Log("ベースチュートリアル表示");
@@ -173,6 +178,7 @@ public class InstrumentManager : MonoBehaviour
         {
             if (isPianoAvailable && !wasPianoAvailable)
             {
+                stageFlagManager.AdvanceBGMStage();
                 PianoTutorial.SetActive(true);
                 Time.timeScale = 0f;
                 //Debug.Log("ピアノチュートリアル表示");
