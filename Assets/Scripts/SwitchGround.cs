@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class SwitchGround : MonoBehaviour
 {
-    private float switchtime = 3.0f;
+    private float switchtime1 = 3.0f;
+    private float switchtime2 = 6.0f;
     private float timelapse;
+    [SerializeField] GameObject SwitchGround1;
+    [SerializeField] GameObject SwitchGround2;
+    [SerializeField] GameObject SwitchGround3;
+    [SerializeField] GameObject SwitchGround4;
+    [SerializeField] GameObject SwitchGround5;
+    [SerializeField] GameObject SwitchGround6;
+    [SerializeField] GameObject SwitchGround7;
+    
 
-    //[SerializeField] private Renderer This;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,20 +28,27 @@ public class SwitchGround : MonoBehaviour
         timelapse += Time.deltaTime;
         Debug.Log(timelapse);
 
-        if (timelapse >= switchtime)
+        if (timelapse >= switchtime1)
         {
-            if (this.gameObject.activeSelf == true)
-            {
-                this.gameObject.SetActive(false);
-                timelapse = 0.0f;
-            }
+            SwitchGround1.SetActive(false);
+            SwitchGround2.SetActive(false);
+            SwitchGround3.SetActive(true);
+            SwitchGround4.SetActive(false);
+            SwitchGround5.SetActive(false);
+            SwitchGround6.SetActive(true);
+            SwitchGround7.SetActive(true);
+        }
 
-            else
-            {
-                this.gameObject.SetActive(true);
-                timelapse = 0.0f;
-            }
-            //timelapse = 0.0f;
+        if (timelapse >= switchtime2)
+        {
+            SwitchGround1.SetActive(true);
+            SwitchGround2.SetActive(true);
+            SwitchGround3.SetActive(false);
+            SwitchGround4.SetActive(true);
+            SwitchGround5.SetActive(true);
+            SwitchGround6.SetActive(false);
+            SwitchGround7.SetActive(false);
+            timelapse = 0.0f;
         }
     }
 
