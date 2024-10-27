@@ -1,9 +1,11 @@
 ﻿using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossEnemy : MonoBehaviour
 {
-    public float attackInterval = 5f;  // 攻撃間隔
+    public float attackInterval = 3f;  // 攻撃間隔
     public float weakStateDuration = 5f;  // 弱点露呈状態の時間
     public GameObject[] bossPhases;    // 各フェーズで表示するボスのGameObjectを格納
     public int currentPhase = 0;       // 現在のフェーズ
@@ -76,6 +78,7 @@ public class BossEnemy : MonoBehaviour
     // ボスがダメージを受けたときに呼び出すメソッド
     public void TakeDamage()
     {
+        bossAudio.PlayOneShot(Damegese);
         if (isWeakState && weakStateCoroutine != null)
         {
             // 弱点露呈状態で攻撃を受けたので、コルーチンを停止して進行
@@ -105,7 +108,7 @@ public class BossEnemy : MonoBehaviour
     }
 
     // ボスの見た目をフェーズに応じて切り替える
-    private void UpdateBossAppearance()
+    public void UpdateBossAppearance()
     {
         for (int i = 0; i < bossPhases.Length; i++)
         {
@@ -117,7 +120,7 @@ public class BossEnemy : MonoBehaviour
     private void EnterWeakState()
     {
         Debug.Log("EntryWeakState!");
-        bossAudio.PlayOneShot(Damegese);
+        //bossAudio.PlayOneShot(Damegese);
         isWeakState = true;
         StopAttacks();
         // 5秒間攻撃を受けなかった場合にフェーズを戻すコルーチンを開始
@@ -141,8 +144,12 @@ public class BossEnemy : MonoBehaviour
 
         if (isWeakState)
         {
-            // 弱点露呈状態が続いている場合はひとつ前のフェーズに戻す
-            currentPhase--;
+
+            if (currentPhase != 0)
+            {
+                // 弱点露呈状態が続いている場合はひとつ前のフェーズに戻す
+                currentPhase--;
+            }
             UpdateBossAppearance();
             ExitWeakState(); // 弱点露呈状態を終了
         }
@@ -174,6 +181,10 @@ public class BossEnemy : MonoBehaviour
     {
         // ボスの破壊処理やエフェクトを実行
         Debug.Log("Boss Destroyed!");
+        isAttacking = false;
+        SceneManager.LoadScene("epilogueScene");
+        Destroy(this.gameObject,2f);
+
     }
 }
 

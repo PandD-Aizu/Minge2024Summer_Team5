@@ -2,18 +2,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
     public Player Player;
-    public int pianochange_speed = 0;/*切り替えスイッチ*/
+    public int pianochange_speed = 0;/*?????????X?C?b?`*/
     public int pianochange_jumppower = 0;
-    public float speed_p = 5f;    /*変換後の速度*/
-    public int jumppower_p = 500;  /*変換後のジャンプ力*/
-    public float countdown_speed = 10.0f;/*速度upの効果時間*/
+    public float speed_p = 5f;    /*???????????x*/
+    public int jumppower_p = 500;  /*?????????W?????v??*/
+    public float countdown_speed = 10.0f;/*???xup??????????*/
     public float countdown_speed_define = 10.0f;
-    public float countdown_jumppower = 10.0f;/*ジャンプ力upの効果時間*/
+    public float countdown_jumppower = 10.0f;/*?W?????v??up??????????*/
     public float countdown_jumppower_define = 10.0f;
-    public int CommandChecker_speed = 0;/*ピアノのコマンド判定*/
+    public int CommandChecker_speed = 0;/*?s?A?m???R?}???h????*/
     public int CommandChecker_jumppower = 0;
     public int[] CommandInput = { 0, 0, 0 };
     public int KeyUpChecker = 0;
@@ -22,19 +23,71 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
 
     public AudioSource Pianoaudio;
     public AudioClip Pianosound;
-    
+
+    GameObject timer1;
+    GameObject timer2;
+    GameObject timericon1;
+    GameObject timericon2;
+    private Slider gauge1;
+    private Slider gauge2;
+    GameObject canvas;
 
     private void Start()
     {
         Player = GameObject.FindObjectOfType<Player>();
         Pianoaudio = GetComponent<AudioSource>();
+        canvas = GameObject.Find("pianotimer");
+        if (canvas == null)
+        {
+            Debug.LogWarning("pianotimer????????????????");
+        }
+        timer1 = GameObject.Find("slider1");
+        if (timer1 == null)
+        {
+            Debug.LogWarning("slider1????????????????");
+        }
+        else
+        {
+            timer1.SetActive(false);
+            gauge1 = timer1.GetComponent<Slider>();
+            gauge1.value = 1f;
+        }
+        timericon1 = GameObject.Find("speed");
+        if (timericon1 == null)
+        {
+            Debug.LogWarning("speed????????????????");
+        }
+        else
+        {
+            timericon1.SetActive(false);
+        }
+        timer2 = GameObject.Find("slider2");
+        if(timer2 == null)
+        {
+            Debug.LogWarning("slider2????????????????");
+        }
+        else
+        {
+            timer2.SetActive(false);
+            gauge2 = timer2.GetComponent<Slider>();
+            gauge2.value = 1f;
+        }
+        timericon2 = GameObject.Find("jump");
+        if (timericon1 == null)
+        {
+            Debug.LogWarning("speed????????????????");
+        }
+        else
+        {
+            timericon2.SetActive(false);
+        }
     }
 
     private void Update()
     {
         
         
-        if (CommandInput[0] == 0 && CommandInput[1] == 0 && CommandInput[2] == 0 && Input.GetKey(KeyCode.U) && KeyUpChecker == 0)/*コマンド1つ目のキー判定*/ /*自分の知識不足で長いコードになってしまった反省*/
+        if (CommandInput[0] == 0 && CommandInput[1] == 0 && CommandInput[2] == 0 && Input.GetKey(KeyCode.U) && KeyUpChecker == 0)/*?R?}???h1???????L?[????*/ /*???????m???s?????????R?[?h????????????????????*/
         {
             CommandInput[0] = 1;
         }
@@ -61,7 +114,7 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
             KeyUpChecker = 1;
         }
 
-        if (CommandInput[0] != 0 && CommandInput[1] == 0 && CommandInput[2] == 0 && Input.GetKey(KeyCode.U) && KeyUpChecker == 1)/*コマンド2つ目のキー判定*/
+        if (CommandInput[0] != 0 && CommandInput[1] == 0 && CommandInput[2] == 0 && Input.GetKey(KeyCode.U) && KeyUpChecker == 1)/*?R?}???h2???????L?[????*/
         {
             CommandInput[1] = 1;
         }
@@ -88,7 +141,7 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
             KeyUpChecker = 2;
         }
 
-        if (CommandInput[0] != 0 && CommandInput[1] != 0 && CommandInput[2] == 0 && Input.GetKey(KeyCode.U) && KeyUpChecker == 2)/*コマンド3つ目のキー判定*/
+        if (CommandInput[0] != 0 && CommandInput[1] != 0 && CommandInput[2] == 0 && Input.GetKey(KeyCode.U) && KeyUpChecker == 2)/*?R?}???h3???????L?[????*/
         {
             CommandInput[2] = 1;
         }
@@ -116,41 +169,41 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
         }
 
 
-        if (CommandInput[0] == 1 && CommandInput[1] == 2 && CommandInput[2] == 3 && KeyUpChecker == 3)/*スピードアップコマンド(U I O)*/
+        if (CommandInput[0] == 1 && CommandInput[1] == 2 && CommandInput[2] == 3 && KeyUpChecker == 3)/*?X?s?[?h?A?b?v?R?}???h(U I O)*/
         {
             CommandChecker_speed = 1;
             KeyUpChecker = 0;
-            for (i = 0; i < 3; i++)/*CommandInputの初期化*/
+            for (i = 0; i < 3; i++)/*CommandInput????????*/
             {
                 CommandInput[i] = 0;
             }
-        }else if (CommandInput[0] == 3 && CommandInput[1] == 1 && CommandInput[2] == 2 && KeyUpChecker == 3)/*ジャンプ強化コマンド(O U I)*/
+        }else if (CommandInput[0] == 3 && CommandInput[1] == 1 && CommandInput[2] == 2 && KeyUpChecker == 3)/*?W?????v?????R?}???h(O U I)*/
         {
             CommandChecker_jumppower = 1;
             KeyUpChecker = 0;
-            for (i = 0; i < 3; i++)/*CommandInputの初期化*/
+            for (i = 0; i < 3; i++)/*CommandInput????????*/
             {
                 CommandInput[i] = 0;
             }
 
-        }else if (KeyUpChecker == 3)/*コマンド間違っているときのリセット*/
+        }else if (KeyUpChecker == 3)/*?R?}???h?????????????????????Z?b?g*/
         {
             Count_CommandMiss += 1;
             KeyUpChecker = 0;
-            for (i = 0; i < 3; i++)/*CommandInputの初期化*/
+            for (i = 0; i < 3; i++)/*CommandInput????????*/
             {
                 CommandInput[i] = 0;
             }
         }
 
 
-        if (CommandChecker_speed == 1 && countdown_speed == countdown_speed_define)/*スピードアップ*/
+        if (CommandChecker_speed == 1 && countdown_speed == countdown_speed_define)/*?X?s?[?h?A?b?v*/
         {
             Pianoaudio.PlayOneShot(Pianosound);
             pianochange_speed = 1;
         }
 
-        if (CommandChecker_jumppower == 1 && countdown_jumppower == countdown_jumppower_define)/*ジャンプ強化*/
+        if (CommandChecker_jumppower == 1 && countdown_jumppower == countdown_jumppower_define)/*?W?????v????*/
         {
             Pianoaudio.PlayOneShot(Pianosound);
             pianochange_jumppower = 1;
@@ -161,38 +214,47 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
         {
             Player.speed = speed_p;
             Debug.Log("test_speed");
-            countdown_speed -= Time.deltaTime;/*タイマー*/
-            if (countdown_speed <= 0)/*時間経過*/
-            {
-                pianochange_speed = 0;/*戻す*/
-                countdown_speed = countdown_speed_define;/*タイマー初期化*/
-                CommandChecker_speed = 0;/*コマンド戻す*/
-            }
+            timer1.SetActive(true);
+            timericon1.SetActive(true);
+            gauge1.value = countdown_speed / countdown_speed_define;
+            countdown_speed -= Time.deltaTime;/*?^?C?}?[*/
 
+            if (countdown_speed <= 0)/*?????o??*/
+            {
+                pianochange_speed = 0;/*????*/
+                countdown_speed = countdown_speed_define;/*?^?C?}?[??????*/
+                timer1.SetActive(false);
+                timericon1.SetActive(false);
+                CommandChecker_speed = 0;/*?R?}???h????*/              
+            }
         }
         else
         {
-            Player.speed = 10f;/*戻す*/
+            Player.speed = 6f;/*????*/
         }
 
         if (pianochange_jumppower == 1)
         {
             Player.jumppower = jumppower_p;
             Debug.Log("test_jump");
-            countdown_jumppower -= Time.deltaTime;/*タイマー*/
-            if (countdown_jumppower <= 0)/*時間経過*/
+            timer2.SetActive(true);
+            timericon2.SetActive(true);
+            gauge2.value = countdown_jumppower / countdown_jumppower_define;
+            countdown_jumppower -= Time.deltaTime;/*?^?C?}?[*/
+
+            if (countdown_jumppower <= 0)/*?????o??*/
             {
-                pianochange_jumppower = 0;/*戻す*/
-                countdown_jumppower = countdown_jumppower_define;/*タイマー初期化*/
-                CommandChecker_jumppower = 0;/*コマンド戻す*/
+                pianochange_jumppower = 0;/*????*/
+                countdown_jumppower = countdown_jumppower_define;/*?^?C?}?[??????*/
+                timer2.SetActive (false);
+                timericon2.SetActive(false);
+                CommandChecker_jumppower = 0;/*?R?}???h????*/
             }
         }
         else
         {
-            Player.jumppower = 250;/*戻す*/
+            Player.jumppower = 350;/*????*/
         }
     }
-    
-
 }
 

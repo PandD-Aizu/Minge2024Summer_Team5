@@ -9,6 +9,7 @@ public class Bass_MousePointer : MonoBehaviour
     private Quaternion targetRotation;  // ターゲットの回転角度
     private bool isRotating = false;  // 回転中かどうかを管理するフラグ
     public float stopThreshold = 0.5f; // 回転完了とみなす角度の閾値
+    public int GearClicked = 0;/*Stage5-3のギアがクリックされたか否か*/
 
     [SerializeField]
     private GameObject dragObject = null;  // ドラッグ中のオブジェクト
@@ -110,6 +111,13 @@ public class Bass_MousePointer : MonoBehaviour
                             hit.collider.gameObject.GetComponent<BossEnemy>().TakeDamage();
                         }
                     }
+
+                    /*"GearClickable"のタグを持つオブジェクトに当たったら、ギアをまわすフラグを立てる*/
+                    if (hit.collider.gameObject.tag == "GearClickable")
+                    {
+                        GearClicked = 1;
+                    }
+                    
                 }
             }
         }

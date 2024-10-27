@@ -20,6 +20,8 @@ TagManager:
   - refrectBullet
   - clearArea
   - Abyss
+  - GearClickable
+  - Instrument
   - ConveyorGear
   layers:
   - Default
