@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyGenerator : MonoBehaviour
+public class enemyspawn : MonoBehaviour
 {
     //敵プレハブ
     public GameObject enemyPrefab;
@@ -19,16 +19,24 @@ public class EnemyGenerator : MonoBehaviour
     public float moveSpeed = 2f;     // 移動速度
     public float waitTime = 1f;      // 次の移動までの待機時間
     public bool movingRight = true;
+    public bool isSpowning = false;
 
     // Start is called before the first frame update
     void Start()
     {
         //時間間隔を決定する
         interval = GetRandomTime();
+        time = minTime;
+        Spawn();
     }
 
     // Update is called once per frame
     void Update()
+    {
+            Spawn();
+    }
+
+    public void Spawn()
     {
         //時間計測
         time += Time.deltaTime;
@@ -41,7 +49,7 @@ public class EnemyGenerator : MonoBehaviour
             enemy.transform.position = this.gameObject.transform.position;
             enemy.AddComponent<IgnoreEnemyCollision>();
 
-            Destroy(enemy,8f);
+            Destroy(enemy, 6f);
 
             // Enemyコンポーネントをプレハブから取得する
             Enemy enemysq = enemy.GetComponent<Enemy>();

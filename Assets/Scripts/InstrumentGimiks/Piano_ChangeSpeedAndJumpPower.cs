@@ -253,7 +253,7 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
         }
         else
         {
-            Player.jumppower = 250;/*????*/
+            Player.jumppower = 350;/*????*/
         }
     }
 }

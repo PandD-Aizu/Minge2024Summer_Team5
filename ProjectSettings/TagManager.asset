@@ -21,6 +21,7 @@ TagManager:
   - clearArea
   - Abyss
   - GearClickable
+  - Instrument
   layers:
   - Default
   - TransparentFX

@@ -897,6 +897,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PianoManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8902507250124340798, guid: ef187a8bb665f98429f744c164cce633, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
