@@ -1,4 +1,3 @@
-using Live2D.Cubism.Core;
 using System.Net;
 using UnityEngine;
 using UnityEngine.SceneManagement;
