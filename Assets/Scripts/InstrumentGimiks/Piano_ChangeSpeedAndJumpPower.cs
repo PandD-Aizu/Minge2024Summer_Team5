@@ -8,7 +8,7 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
     public Player Player;
     public int pianochange_speed = 0;/*?????????X?C?b?`*/
     public int pianochange_jumppower = 0;
-    public float speed_p = 5f;    /*???????????x*/
+    public float speed_p = f;    /*???????????x*/
     public int jumppower_p = 500;  /*?????????W?????v??*/
     public float countdown_speed = 10.0f;/*???xup??????????*/
     public float countdown_speed_define = 10.0f;
@@ -230,7 +230,7 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
         }
         else
         {
-            Player.speed = 6f;/*????*/
+            Player.speed = 10f;/*????*/
         }
 
         if (pianochange_jumppower == 1)

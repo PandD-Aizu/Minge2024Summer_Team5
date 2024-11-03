@@ -194,6 +194,8 @@ public class InstrumentManager : MonoBehaviour
 
     //InstrumentManagerの初期化
     public void InstrumentInit() {
+        currentInstrumentIndex = 0;
+
         if (DrumManager == null) {
             DrumManager = GameObject.Find("DrumManager");
         }
