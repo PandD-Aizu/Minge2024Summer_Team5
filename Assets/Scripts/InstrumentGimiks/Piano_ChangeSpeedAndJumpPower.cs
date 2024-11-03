@@ -197,13 +197,13 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
         }
 
 
-        if (CommandChecker_speed == 1 && countdown_speed == countdown_speed_define)/*?X?s?[?h?A?b?v*/
+        if (CommandChecker_speed == 1 && countdown_speed == countdown_speed_define && Time.timeScale == 1)/*?X?s?[?h?A?b?v*/
         {
             Pianoaudio.PlayOneShot(Pianosound);
             pianochange_speed = 1;
         }
 
-        if (CommandChecker_jumppower == 1 && countdown_jumppower == countdown_jumppower_define)/*?W?????v????*/
+        if (CommandChecker_jumppower == 1 && countdown_jumppower == countdown_jumppower_define && Time.timeScale == 1)/*?W?????v????*/
         {
             Pianoaudio.PlayOneShot(Pianosound);
             pianochange_jumppower = 1;

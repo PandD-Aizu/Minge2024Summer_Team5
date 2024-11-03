@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
             moveHorizontal = 1f; // Dキーで右移動
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && Time.timeScale == 1)
         {
             Jump();
         }
@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
         rb.MovePosition(transform.position + movement * speed * Time.deltaTime);
 
         // プレイヤーが動いているかどうかをチェック
-        if (movement.magnitude > 0 && isGround)
+        if (movement.magnitude > 0 && isGround && Time.timeScale == 1)
         {
             if (!isWalking)
             {
@@ -190,7 +190,7 @@ public class Player : MonoBehaviour
 
     public void Jump()
     {
-        if (isGround == true)
+        if (isGround == true && Time.timeScale == 1)
         {
             playerAudio.PlayOneShot(jumpse);
             // gravityControllerが存在するかどうかを確認
@@ -224,8 +224,10 @@ public class Player : MonoBehaviour
 
     public void recreaLife(int damage)
     {
-        currenthp-=damage;
-        playerAudio.PlayOneShot(damegedse);
+        currenthp -= damage;
+        if (Time.timeScale == 1) {
+            playerAudio.PlayOneShot(damegedse);
+        }
         Debug.Log(currenthp);
 
         if (currenthp >= 0)
