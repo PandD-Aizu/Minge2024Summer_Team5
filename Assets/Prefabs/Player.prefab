@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26713b78d53bbf246b62298175f3feed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  speed: 10
   jumppower: 350
   isGround: 0
   respornPoint: {fileID: 0}
@@ -140,6 +140,7 @@ MonoBehaviour:
   jumpse: {fileID: 8300000, guid: 8c8009d008bd1654181c3511ca07a53a, type: 3}
   footstepse: {fileID: 8300000, guid: 23da71768fcf51d4ebaaf115b48e81fa, type: 3}
   footstepInterval: 0.4
+  Boss: {fileID: 0}
 --- !u!54 &3043220646156869546
 Rigidbody:
   m_ObjectHideFlags: 0

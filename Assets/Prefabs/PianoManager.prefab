@@ -48,7 +48,7 @@ MonoBehaviour:
   Player: {fileID: 0}
   pianochange_speed: 0
   pianochange_jumppower: 0
-  speed_p: 12
+  speed_p: 15
   jumppower_p: 500
   countdown_speed: 10
   countdown_speed_define: 10
