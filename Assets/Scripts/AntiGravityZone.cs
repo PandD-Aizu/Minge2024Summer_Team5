@@ -46,7 +46,7 @@ public class gravityController : MonoBehaviour
         else if(InZoneChecker == 0)
         {
             rb.AddForce(Normal_Gravity, ForceMode.Acceleration);
-            Debug.Log("G:Normal");
+            //Debug.Log("G:Normal");
         }
         
 

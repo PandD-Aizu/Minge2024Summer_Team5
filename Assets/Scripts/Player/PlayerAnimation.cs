@@ -30,64 +30,67 @@ public class PlayerAnimation : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Time.timeScale == 1)
         {
-            isJumping = true;
-            standingState(false);
-            walkState(false);
-            Invoke("isNotJump", 1.1f);//着地までにかかる時間分isJumpingをtrueにする
-        }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                isJumping = true;
+                standingState(false);
+                walkState(false);
+                Invoke("isNotJump", 1.1f);//着地までにかかる時間分isJumpingをtrueにする
+            }
 
-        else if (Input.GetKey(KeyCode.A))
-        {
-            //左向きに歩くアニメーション
-            if (!isJumping)
+            else if (Input.GetKey(KeyCode.A))
+            {
+                //左向きに歩くアニメーション
+                if (!isJumping)
+                {
+                    standingState(false);
+                    walkState(true);
+                    transform.localScale = new Vector3(-1.3f, 1.3f, 1.3f);
+                }
+            }
+
+            else if (Input.GetKey(KeyCode.D))
+            {
+                //右向きに歩くアニメ―ション
+                if (!isJumping)
+                {
+                    standingState(false);
+                    walkState(true);
+                    transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+                }
+            }
+
+            else if (isJumping)//ジャンプのアニメ―ション
             {
                 standingState(false);
-                walkState(true);
-                transform.localScale = new Vector3(-1.3f, 1.3f, 1.3f);
+                jumpState(true);
             }
-        }
 
-        else if (Input.GetKey(KeyCode.D))
-        {
-            //右向きに歩くアニメ―ション
-            if (!isJumping)
+            else//何もせず地上にいる状態はstandingアニメーションを動かす。
+            {
+                standingState(true);
+                walkState(false);
+                jumpState(false);
+            }
+
+            if (isJumping)//ジャンプのアニメ―ション
             {
                 standingState(false);
-                walkState(true);
-                transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+                jumpState(true);
             }
-        }
 
-        else if (isJumping)//ジャンプのアニメ―ション
-        {
-            standingState(false);
-            jumpState(true);
-        }
-
-        else//何もせず地上にいる状態はstandingアニメーションを動かす。
-        {
-            standingState(true);
-            walkState(false);
-            jumpState(false);
-        }
-
-        if (isJumping)//ジャンプのアニメ―ション
-        {
-            standingState(false);
-            jumpState(true);
-        }
-
-        if (gravityCtrl != null && gravityCtrl.InZoneChecker == 1) // 反転ゾーン内
-        {
-            //反転ゾーン内ではxのrotateを180度回転
-            transform.localScale = new Vector3(transform.localScale.x, -1.3f, transform.localScale.z);
-        }
-        else // 通常ゾーン
-        {
-            //通常のrotate
-            transform.localScale = new Vector3(transform.localScale.x, 1.3f, transform.localScale.z);
+            if (gravityCtrl != null && gravityCtrl.InZoneChecker == 1) // 反転ゾーン内
+            {
+                //反転ゾーン内ではxのrotateを180度回転
+                transform.localScale = new Vector3(transform.localScale.x, -1.3f, transform.localScale.z);
+            }
+            else // 通常ゾーン
+            {
+                //通常のrotate
+                transform.localScale = new Vector3(transform.localScale.x, 1.3f, transform.localScale.z);
+            }
         }
     }
 
