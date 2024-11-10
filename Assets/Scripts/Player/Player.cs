@@ -168,8 +168,11 @@ public class Player : MonoBehaviour
         {
             instrument.isPianoAvailable = true;
             instrument.InstrumentInit();
-            instruments = timer.Instrument;
-            Destroy(instruments);
+            if (timer != null)
+            {
+                instruments = timer.Instrument;
+            }
+            Destroy(collision.gameObject);
         }
     }
 
