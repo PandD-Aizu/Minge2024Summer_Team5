@@ -76,6 +76,16 @@ public class Player : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.Space) && Time.timeScale == 1)
+        {
+            Debug.Log("Space");
+            Jump();
+        }
+    }
+
     void FixedUpdate()
     {
         // 左右の移動入力
@@ -90,10 +100,6 @@ public class Player : MonoBehaviour
             moveHorizontal = 1f; // Dキーで右移動
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && Time.timeScale == 1)
-        {
-            Jump();
-        }
 
         // 移動ベクトルの計算
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
@@ -190,6 +196,7 @@ public class Player : MonoBehaviour
 
     public void Jump()
     {
+        Debug.Log("jump");
         if (isGround == true && Time.timeScale == 1)
         {
             playerAudio.PlayOneShot(jumpse);
