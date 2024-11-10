@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
     public Player Player;
+    pianotimer pianotimer;
+
     public int pianochange_speed = 0;/*?????????X?C?b?`*/
     public int pianochange_jumppower = 0;
     public float speed_p = 20f;    /*???????????x*/
@@ -35,8 +37,9 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
     private void Start()
     {
         Player = GameObject.FindObjectOfType<Player>();
+        pianotimer = GameObject.FindObjectOfType <pianotimer>();
         Pianoaudio = GetComponent<AudioSource>();
-        canvas = GameObject.Find("pianotimer");
+        /*canvas = GameObject.Find("pianotimer");
         if (canvas == null)
         {
             Debug.LogWarning("pianotimer????????????????");
@@ -80,7 +83,7 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
         else
         {
             timericon2.SetActive(false);
-        }
+        }*/
     }
 
     private void Update()
@@ -197,13 +200,14 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
         }
 
 
-        if (CommandChecker_speed == 1 && countdown_speed == countdown_speed_define && Time.timeScale == 1)/*?X?s?[?h?A?b?v*/
+        if (CommandChecker_speed == 1 && pianotimer.countdown_speed == countdown_speed_define)/*?X?s?[?h?A?b?v*/
         {
             Pianoaudio.PlayOneShot(Pianosound);
             pianochange_speed = 1;
+            
         }
 
-        if (CommandChecker_jumppower == 1 && countdown_jumppower == countdown_jumppower_define && Time.timeScale == 1)/*?W?????v????*/
+        if (CommandChecker_jumppower == 1 && pianotimer.countdown_jumppower == countdown_jumppower_define)/*?W?????v????*/
         {
             Pianoaudio.PlayOneShot(Pianosound);
             pianochange_jumppower = 1;
@@ -212,21 +216,23 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
 
         if (pianochange_speed == 1)
         {
-            Player.speed = speed_p;
+            //pianotimer.speed();
+            pianotimer.changespeed = true;
+            /*Player.speed = speed_p;
             Debug.Log("test_speed");
             timer1.SetActive(true);
             timericon1.SetActive(true);
             gauge1.value = countdown_speed / countdown_speed_define;
             countdown_speed -= Time.deltaTime;/*?^?C?}?[*/
 
-            if (countdown_speed <= 0)/*?????o??*/
-            {
-                pianochange_speed = 0;/*????*/
-                countdown_speed = countdown_speed_define;/*?^?C?}?[??????*/
-                timer1.SetActive(false);
-                timericon1.SetActive(false);
-                CommandChecker_speed = 0;/*?R?}???h????*/              
-            }
+            //if (countdown_speed <= 0)/*?????o??*/
+            // {
+            //pianochange_speed = 0;/*????*/
+            //   countdown_speed = countdown_speed_define;/*?^?C?}?[??????*/
+            //    timer1.SetActive(false);
+            //    timericon1.SetActive(false);
+            //    CommandChecker_speed = 0;/*?R?}???h????*/              
+
         }
         else
         {
@@ -235,21 +241,23 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
 
         if (pianochange_jumppower == 1)
         {
-            Player.jumppower = jumppower_p;
+            pianotimer.changejump = true;
+            //pianotimer.jump();
+            /*Player.jumppower = jumppower_p;
             Debug.Log("test_jump");
             timer2.SetActive(true);
             timericon2.SetActive(true);
             gauge2.value = countdown_jumppower / countdown_jumppower_define;
             countdown_jumppower -= Time.deltaTime;/*?^?C?}?[*/
 
-            if (countdown_jumppower <= 0)/*?????o??*/
-            {
-                pianochange_jumppower = 0;/*????*/
-                countdown_jumppower = countdown_jumppower_define;/*?^?C?}?[??????*/
-                timer2.SetActive (false);
-                timericon2.SetActive(false);
-                CommandChecker_jumppower = 0;/*?R?}???h????*/
-            }
+     //       if (countdown_jumppower <= 0)/*?????o??*/
+    //        {
+     //           pianochange_jumppower = 0;/*????*/
+     //           countdown_jumppower = countdown_jumppower_define;/*?^?C?}?[??????*/
+     //           timer2.SetActive (false);
+       //         timericon2.SetActive(false);
+     //           CommandChecker_jumppower = 0;/*?R?}???h????*/
+    //        }
         }
         else
         {
