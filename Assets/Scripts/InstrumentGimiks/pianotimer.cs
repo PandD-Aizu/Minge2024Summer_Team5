@@ -113,7 +113,7 @@ public class pianotimer : MonoBehaviour
                 timericon1.SetActive(false);
                 piano.CommandChecker_speed = 0;
                 piano.pianochange_speed = 0;
-                Player.speed = 10f;
+                Player.speed = piano.defaultspeed;
             }
     }
 
@@ -134,7 +134,7 @@ public class pianotimer : MonoBehaviour
             timericon2.SetActive(false);      
             piano.CommandChecker_jumppower = 0;
             piano.pianochange_jumppower = 0;
-            Player.jumppower = 350;
+            Player.jumppower = piano.defaultjump;
         }
     }
 }
