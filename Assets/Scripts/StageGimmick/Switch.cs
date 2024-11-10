@@ -58,11 +58,11 @@ public class Switchcounter : MonoBehaviour
 
     private void SwitchDown()
     {
-        myTransform = this.transform;
-        pos = myTransform.position;
+        //myTransform = this.transform;
+        //pos = myTransform.position;
         //pos.y += -0.3f;
         Destroy(this.gameObject);
-        myTransform.position = pos;
+        //myTransform.position = pos;
 
         onoff = true;
         SwitchCounter switchCounter;
