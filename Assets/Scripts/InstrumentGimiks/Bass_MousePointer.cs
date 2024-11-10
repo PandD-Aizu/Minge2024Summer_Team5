@@ -67,7 +67,7 @@ public class Bass_MousePointer : MonoBehaviour
         else
         {
             // クリックを判定
-            if (Input.GetMouseButtonDown(0)) // 左クリックを判定
+            if (Input.GetMouseButtonDown(0) && Time.timeScale == 1) // 左クリックを判定
             {
                 Bassaudio.PlayOneShot(BassSound);
                 // メインカメラ上のマウスカーソルのある位置からRayを飛ばす
