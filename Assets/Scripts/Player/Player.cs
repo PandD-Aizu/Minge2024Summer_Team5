@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
 
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // 左右の移動入力
         float moveHorizontal = 0f;
@@ -99,7 +99,7 @@ public class Player : MonoBehaviour
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
 
         // Rigidbodyを使用して移動
-        rb.MovePosition(transform.position + movement * speed * Time.deltaTime);
+        rb.MovePosition(transform.position + movement * speed * Time.fixedDeltaTime);
 
         // プレイヤーが動いているかどうかをチェック
         if (movement.magnitude > 0 && isGround && Time.timeScale == 1)

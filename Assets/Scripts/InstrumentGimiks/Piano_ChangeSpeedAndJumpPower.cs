@@ -1,4 +1,5 @@
 
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,56 +35,15 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
     private Slider gauge2;
     GameObject canvas;
 
+    public float defaultspeed = 6f;
+    public int defaultjump = 350;
+
     private void Start()
     {
         Player = GameObject.FindObjectOfType<Player>();
         pianotimer = GameObject.FindObjectOfType <pianotimer>();
         Pianoaudio = GetComponent<AudioSource>();
-        /*canvas = GameObject.Find("pianotimer");
-        if (canvas == null)
-        {
-            Debug.LogWarning("pianotimer????????????????");
-        }
-        timer1 = GameObject.Find("slider1");
-        if (timer1 == null)
-        {
-            Debug.LogWarning("slider1????????????????");
-        }
-        else
-        {
-            timer1.SetActive(false);
-            gauge1 = timer1.GetComponent<Slider>();
-            gauge1.value = 1f;
-        }
-        timericon1 = GameObject.Find("speed");
-        if (timericon1 == null)
-        {
-            Debug.LogWarning("speed????????????????");
-        }
-        else
-        {
-            timericon1.SetActive(false);
-        }
-        timer2 = GameObject.Find("slider2");
-        if(timer2 == null)
-        {
-            Debug.LogWarning("slider2????????????????");
-        }
-        else
-        {
-            timer2.SetActive(false);
-            gauge2 = timer2.GetComponent<Slider>();
-            gauge2.value = 1f;
-        }
-        timericon2 = GameObject.Find("jump");
-        if (timericon1 == null)
-        {
-            Debug.LogWarning("speed????????????????");
-        }
-        else
-        {
-            timericon2.SetActive(false);
-        }*/
+        
     }
 
     private void Update()
@@ -218,50 +178,22 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
         {
             //pianotimer.speed();
             pianotimer.changespeed = true;
-            /*Player.speed = speed_p;
-            Debug.Log("test_speed");
-            timer1.SetActive(true);
-            timericon1.SetActive(true);
-            gauge1.value = countdown_speed / countdown_speed_define;
-            countdown_speed -= Time.deltaTime;/*?^?C?}?[*/
-
-            //if (countdown_speed <= 0)/*?????o??*/
-            // {
-            //pianochange_speed = 0;/*????*/
-            //   countdown_speed = countdown_speed_define;/*?^?C?}?[??????*/
-            //    timer1.SetActive(false);
-            //    timericon1.SetActive(false);
-            //    CommandChecker_speed = 0;/*?R?}???h????*/              
+                    
 
         }
         else
         {
-            Player.speed = 10f;/*????*/
+            Player.speed = defaultspeed;/*????*/
         }
 
         if (pianochange_jumppower == 1)
         {
             pianotimer.changejump = true;
-            //pianotimer.jump();
-            /*Player.jumppower = jumppower_p;
-            Debug.Log("test_jump");
-            timer2.SetActive(true);
-            timericon2.SetActive(true);
-            gauge2.value = countdown_jumppower / countdown_jumppower_define;
-            countdown_jumppower -= Time.deltaTime;/*?^?C?}?[*/
-
-     //       if (countdown_jumppower <= 0)/*?????o??*/
-    //        {
-     //           pianochange_jumppower = 0;/*????*/
-     //           countdown_jumppower = countdown_jumppower_define;/*?^?C?}?[??????*/
-     //           timer2.SetActive (false);
-       //         timericon2.SetActive(false);
-     //           CommandChecker_jumppower = 0;/*?R?}???h????*/
-    //        }
+            
         }
         else
         {
-            Player.jumppower = 350;/*????*/
+            Player.jumppower = defaultjump;/*????*/
         }
     }
 }
