@@ -35,7 +35,11 @@ public class InstrumentManager : MonoBehaviour
 
     public StageFlagManager stageFlagManager;
 
+    public Drumtimer drumtimer;
+
     //ピアノタイマーのcanvas
+
+    public GameObject dtimer;
     public GameObject pianotimer;
     private void Awake()
     {
@@ -55,6 +59,7 @@ public class InstrumentManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         stageFlagManager = GameObject.FindAnyObjectByType<StageFlagManager>();
+        drumtimer = GameObject.FindObjectOfType<Drumtimer>();
         InstrumentInit();
 
         var sceneName = SceneManager.GetActiveScene().name;
@@ -85,6 +90,20 @@ public class InstrumentManager : MonoBehaviour
         }
 
         CheckInstrumentAvailabilityChange();
+
+        /*if (drumtimer. <= 0 && currentInstrumentIndex != 0)
+        {
+            dtimer.SetActive(false);
+        }*/
+
+        if (currentInstrumentIndex == 0)
+        {
+            dtimer.SetActive(true);
+        }
+        else if (drumtimer.impact_cooltime == 6.0f && drumtimer.shield_cooltime == 6.0f && currentInstrumentIndex != 0)
+        {
+            dtimer.SetActive(false);
+        }
 
         if (currentInstrumentIndex == 2)
         {
@@ -256,6 +275,20 @@ public class InstrumentManager : MonoBehaviour
         if (instrumentWheel == null)
         {
             Debug.LogWarning("InstrumentIcon not found");
+        }
+
+        if (dtimer == null)
+        {
+            dtimer = GameObject.Find("Drumtimer");
+        }
+
+        if (dtimer == null)
+        {
+            Debug.LogWarning("drumtimer not found");
+        }
+        else
+        {
+            dtimer.SetActive(false);
         }
 
         if (pianotimer == null)
