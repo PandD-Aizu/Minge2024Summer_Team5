@@ -76,7 +76,17 @@ public class Player : MonoBehaviour
 
     }
 
-    void Update()
+    private void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.Space) && Time.timeScale == 1)
+        {
+            Debug.Log("Space");
+            Jump();
+        }
+    }
+
+    void FixedUpdate()
     {
         // 左右の移動入力
         float moveHorizontal = 0f;
@@ -90,19 +100,15 @@ public class Player : MonoBehaviour
             moveHorizontal = 1f; // Dキーで右移動
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Jump();
-        }
 
         // 移動ベクトルの計算
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, 0.0f);
 
         // Rigidbodyを使用して移動
-        rb.MovePosition(transform.position + movement * speed * Time.deltaTime);
+        rb.MovePosition(transform.position + movement * speed * Time.fixedDeltaTime);
 
         // プレイヤーが動いているかどうかをチェック
-        if (movement.magnitude > 0 && isGround)
+        if (movement.magnitude > 0 && isGround && Time.timeScale == 1)
         {
             if (!isWalking)
             {
@@ -162,8 +168,11 @@ public class Player : MonoBehaviour
         {
             instrument.isPianoAvailable = true;
             instrument.InstrumentInit();
-            instruments = timer.Instrument;
-            Destroy(instruments);
+            if (timer != null)
+            {
+                instruments = timer.Instrument;
+            }
+            Destroy(collision.gameObject);
         }
     }
 
@@ -190,7 +199,8 @@ public class Player : MonoBehaviour
 
     public void Jump()
     {
-        if (isGround == true)
+        Debug.Log("jump");
+        if (isGround == true && Time.timeScale == 1)
         {
             playerAudio.PlayOneShot(jumpse);
             // gravityControllerが存在するかどうかを確認
@@ -224,8 +234,10 @@ public class Player : MonoBehaviour
 
     public void recreaLife(int damage)
     {
-        currenthp-=damage;
-        playerAudio.PlayOneShot(damegedse);
+        currenthp -= damage;
+        if (Time.timeScale == 1) {
+            playerAudio.PlayOneShot(damegedse);
+        }
         Debug.Log(currenthp);
 
         if (currenthp >= 0)

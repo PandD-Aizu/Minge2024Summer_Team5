@@ -22,7 +22,7 @@ public class Drum : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.E) && !Drum_playing)
+        if (Input.GetKey(KeyCode.E) && !Drum_playing && Time.timeScale == 1)
         {
             Drumaudio.PlayOneShot(Drumsound);
             Drum_playing = true;

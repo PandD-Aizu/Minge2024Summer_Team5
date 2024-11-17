@@ -84,6 +84,20 @@ public class InstrumentManager : MonoBehaviour
             SwitchToNextInstrument(-1);
         }
 
+        // 数字キーでの楽器切り替え
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SwitchToSpecificInstrument(0); // ドラム
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SwitchToSpecificInstrument(1); // ベース
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SwitchToSpecificInstrument(2); // ピアノ
+        }
+
         CheckInstrumentAvailabilityChange();
 
         if (currentInstrumentIndex == 2)
@@ -194,6 +208,8 @@ public class InstrumentManager : MonoBehaviour
 
     //InstrumentManagerの初期化
     public void InstrumentInit() {
+        currentInstrumentIndex = 0;
+
         if (DrumManager == null) {
             DrumManager = GameObject.Find("DrumManager");
         }
@@ -291,4 +307,28 @@ public class InstrumentManager : MonoBehaviour
             instrumentWheel.SetActive(true);
         }
     }
+
+    private void SwitchToSpecificInstrument(int instrumentIndex)
+    {
+        // 利用可能でない場合は何もしない
+        if (!instrumentAvailability[instrumentIndex])
+        {
+            return;
+        }
+
+        currentInstrumentIndex = instrumentIndex;
+
+        // 全楽器を非表示
+        foreach (GameObject instrument in instruments)
+        {
+            instrument.SetActive(false);
+        }
+
+        // 指定された楽器を表示
+        instruments[currentInstrumentIndex].SetActive(true);
+
+        // 楽器アイコンの回転
+        RotateInstrumentWheel(currentInstrumentIndex);
+    }
+
 }

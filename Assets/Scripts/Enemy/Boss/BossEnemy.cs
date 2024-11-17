@@ -144,8 +144,12 @@ public class BossEnemy : MonoBehaviour
 
         if (isWeakState)
         {
-            // 弱点露呈状態が続いている場合はひとつ前のフェーズに戻す
-            currentPhase--;
+
+            if (currentPhase != 0)
+            {
+                // 弱点露呈状態が続いている場合はひとつ前のフェーズに戻す
+                currentPhase--;
+            }
             UpdateBossAppearance();
             ExitWeakState(); // 弱点露呈状態を終了
         }

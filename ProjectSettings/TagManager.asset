@@ -22,6 +22,7 @@ TagManager:
   - Abyss
   - GearClickable
   - Instrument
+  - ConveyorGear
   layers:
   - Default
   - TransparentFX
