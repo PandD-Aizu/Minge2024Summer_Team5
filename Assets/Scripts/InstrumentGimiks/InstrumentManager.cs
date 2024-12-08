@@ -37,6 +37,16 @@ public class InstrumentManager : MonoBehaviour
 
     //ピアノタイマーのcanvas
     public GameObject pianotimer;
+
+    /*楽器習得時の音をならす1回だけ*/
+    public bool GotDrum = false;
+    public bool GotBass = false;
+    public bool GotPiano = false;
+    [SerializeField] private AudioSource GetInstrumentaudio;
+    [SerializeField] private AudioClip GetInstrumentsound;
+
+
+
     private void Awake()
     {
         if (instance == null)
@@ -61,6 +71,8 @@ public class InstrumentManager : MonoBehaviour
         if (sceneName == "switchInstrument") {
             InstrumentInit();
         }
+
+        GetInstrumentaudio = GetComponent<AudioSource>();
 
     }
 
@@ -104,6 +116,23 @@ public class InstrumentManager : MonoBehaviour
         {
             pianotimer.SetActive(true);
         }
+
+        if(isDrumAvailable && !GotDrum)/*Drum習得時の音*/
+        {
+            GetInstrumentaudio.PlayOneShot(GetInstrumentsound);
+            GotDrum = true;
+        }
+        if(isBassAvailable && !GotBass)/*Bass習得時の音*/
+        {
+            GetInstrumentaudio.PlayOneShot(GetInstrumentsound);
+            GotBass = true;
+        }
+        if(isPianoAvailable && !GotPiano)/*Piano習得時の音*/
+        {
+            GetInstrumentaudio.PlayOneShot(GetInstrumentsound);
+            GotPiano = true;
+        }
+
     }
 
     private void SwitchToNextInstrument(int direction)
