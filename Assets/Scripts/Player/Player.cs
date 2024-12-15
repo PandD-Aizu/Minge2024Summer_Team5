@@ -1,6 +1,12 @@
+using Cinemachine;
+using System.Globalization;
 using System.Net;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
+
+
 
 public class Player : MonoBehaviour
 {
@@ -43,7 +49,7 @@ public class Player : MonoBehaviour
         respornPoint = GameObject.Find("respornPoint");
         rb = GetComponent<Rigidbody>();
         playerAudio = GetComponent<AudioSource>();
-        isGround = false;   
+        isGround = false;
 
         // gravityControllerスクリプトを取得。nullチェックを行う
         gravityCtrl = FindObjectOfType<gravityController>();
@@ -140,13 +146,17 @@ public class Player : MonoBehaviour
         }
 
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Bullet" || collision.gameObject.tag == "Boss" || collision.gameObject.tag == "Reflectable")
-        {
+        {           
             recreaLife(damage);
+            var source = GetComponent<Cinemachine.CinemachineImpulseSource>();
+            source.GenerateImpulse();
         }
 
         if (collision.gameObject.tag == "Abyss")
         {
             recreaLife(damage = 3);
+            var source = GetComponent<Cinemachine.CinemachineImpulseSource>();
+            source.GenerateImpulse();
             damage = 1;
         }
 
