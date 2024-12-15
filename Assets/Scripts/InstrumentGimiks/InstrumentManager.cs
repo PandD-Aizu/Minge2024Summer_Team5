@@ -117,12 +117,11 @@ public class InstrumentManager : MonoBehaviour
 
         CheckInstrumentAvailabilityChange();
 
-        /*if (drumtimer. <= 0 && currentInstrumentIndex != 0)
+        if (currentInstrumentIndex == 0 && !instrumentWheel.activeSelf)
         {
             dtimer.SetActive(false);
-        }*/
-
-        if (currentInstrumentIndex == 0)
+        }
+        else if (currentInstrumentIndex == 0)
         {
             dtimer.SetActive(true);
         }
