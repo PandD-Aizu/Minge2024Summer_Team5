@@ -3,7 +3,18 @@ guid: 89c76483ce6b48b4e8c9b5f534dd5ccb
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - DrumManager: {instanceID: 0}
+  - BassManager: {instanceID: 0}
+  - PianoManager: {instanceID: 0}
+  - DrumTutorial: {instanceID: 0}
+  - BassTutorial: {instanceID: 0}
+  - PianoTutorial: {instanceID: 0}
+  - instrumentWheel: {instanceID: 0}
+  - stageFlagManager: {instanceID: 0}
+  - pianotimer: {instanceID: 0}
+  - GetInstrumentaudio: {instanceID: 0}
+  - GetInstrumentsound: {fileID: 8300000, guid: 68f4182ff1546c04ba04b73a897c69e5, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
