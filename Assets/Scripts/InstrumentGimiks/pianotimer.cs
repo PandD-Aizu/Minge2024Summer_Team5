@@ -107,6 +107,7 @@ public class pianotimer : MonoBehaviour
 
             if (countdown_speed <= 0)
             {
+                piano.Pianoaudio.PlayOneShot(piano.PianoFinish);
                 changespeed = false;
                 countdown_speed = countdown_speed_define;
                 timer1.SetActive(false);
@@ -128,6 +129,7 @@ public class pianotimer : MonoBehaviour
 
         if (countdown_jumppower <= 0)/*?????o??*/
         {
+            piano.Pianoaudio.PlayOneShot(piano.PianoFinish);
             changejump = false;
             countdown_jumppower = countdown_jumppower_define;
             timer2.SetActive(false);

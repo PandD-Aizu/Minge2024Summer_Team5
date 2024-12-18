@@ -26,6 +26,7 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
 
     public AudioSource Pianoaudio;
     public AudioClip Pianosound;
+    public AudioClip PianoFinish;
 
     GameObject timer1;
     GameObject timer2;
