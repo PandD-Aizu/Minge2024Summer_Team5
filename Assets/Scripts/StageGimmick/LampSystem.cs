@@ -7,6 +7,9 @@ public class LampSystem : MonoBehaviour
     public SwitchCounter SwitchCounter;
     public bool this_object_is_lamp_on;//kono object no mitame wo hantei suru
     public int lamp_num;//kono object no tentou suru junban wo hantei suru
+    private Vector3 pos;
+    private Transform myTransform;
+    public bool lamp_on = true;
 
     // Start is called before the first frame update
     void Start()
@@ -34,9 +37,21 @@ public class LampSystem : MonoBehaviour
         }
         else if(this_object_is_lamp_on == false)//kono object ha lamp ga tuiteinai mitame
         {
-            if (SwitchCounter.switchcount >= lamp_num)
+            if (SwitchCounter.switchcount >= lamp_num && lamp_on == true)//lamp off ni
             {
-                this.gameObject.SetActive(false);
+                myTransform = this.transform;
+                pos = myTransform.position;
+                pos.z += 5.0f;
+                myTransform.position = pos;
+                lamp_on = false;
+            }
+            else if(SwitchCounter.switchcount < lamp_num && lamp_on == false)//lamp on ni
+            {
+                myTransform = this.transform;
+                pos = myTransform.position;
+                pos.z -= 5.0f;
+                myTransform.position = pos;
+                lamp_on = true;
             }
         }
 
