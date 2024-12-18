@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -29,6 +30,9 @@ public class StageFlagManager : MonoBehaviour
     public AudioClip bgmClip6;
     public AudioClip bgmClip7;
     public AudioClip bgmClip8;
+
+    // クリア済みステージの記録
+    private HashSet<int> clearedStages = new HashSet<int>();
 
     private void Awake()
     {
@@ -107,8 +111,9 @@ public class StageFlagManager : MonoBehaviour
 
         if (int.TryParse(System.Text.RegularExpressions.Regex.Match(currentSceneName, @"\d+").Value, out currentStageNumber))
         {
-            if (currentStageNumber == 3 || currentStageNumber == 4 || currentStageNumber == 5 || currentStageNumber == 8 || currentStageNumber == 11 || currentStageNumber == 12 || currentStageNumber == 15) { 
+            if (currentStageNumber == 3 || currentStageNumber == 4 || currentStageNumber == 5 || currentStageNumber == 8 || currentStageNumber == 11 || currentStageNumber == 12 || currentStageNumber == 15 && !clearedStages.Contains(currentStageNumber)) { 
                 AdvanceBGMStage();
+                clearedStages.Add(currentStageNumber);  // クリア済みステージに追加
             }
 
             // 次のステージをアンロック
