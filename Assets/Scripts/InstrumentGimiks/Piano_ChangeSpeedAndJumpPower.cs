@@ -11,7 +11,7 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
 
     public int pianochange_speed = 0;/*?????????X?C?b?`*/
     public int pianochange_jumppower = 0;
-    public float speed_p = 20f;    /*???????????x*/
+    public float speed_p = 15f;    /*???????????x*/
     public int jumppower_p = 500;  /*?????????W?????v??*/
     public float countdown_speed = 10.0f;/*???xup??????????*/
     public float countdown_speed_define = 10.0f;
@@ -26,6 +26,7 @@ public class Piano_ChangeSpeedAndJumpPower : MonoBehaviour{
 
     public AudioSource Pianoaudio;
     public AudioClip Pianosound;
+    public AudioClip PianoFinish;
 
     GameObject timer1;
     GameObject timer2;

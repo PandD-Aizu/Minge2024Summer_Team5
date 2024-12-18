@@ -60,7 +60,7 @@ public class Conveyor_Door_Switch : MonoBehaviour
 
             //gearObject.transform.Rotate((rotationSpeed * (-1)) * Time.deltaTime);// ƒRƒ“ƒxƒ„‚ÌƒMƒA‹t‰ñ“]
 
-            conveyorswitch.ConveyorSwitch = 1;/*ConveyorSwitch‚ðon‚É‚·‚é*/
+            conveyorswitch.conveyorSwitch = 1;/*ConveyorSwitch‚ðon‚É‚·‚é*/
 
             rotate180 = true;
 
