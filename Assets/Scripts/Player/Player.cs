@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     private Timer timer;
     private InstrumentManager instrument;
     GameObject instruments;
+    videofinish video;
 
     private bool isWalking = false;  // プレイヤーが歩いているかどうか
     public float footstepInterval = 0.4f;  // 足音の再生間隔
@@ -50,6 +51,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerAudio = GetComponent<AudioSource>();
         isGround = false;
+        video = GameObject.FindObjectOfType<videofinish>();
 
         // gravityControllerスクリプトを取得。nullチェックを行う
         gravityCtrl = FindObjectOfType<gravityController>();
@@ -180,7 +182,7 @@ public class Player : MonoBehaviour
             instrument.InstrumentInit();
             if (timer != null)
             {
-                instruments = timer.Instrument;
+               // instruments = timer.Instrument;
             }
             Destroy(collision.gameObject);
         }

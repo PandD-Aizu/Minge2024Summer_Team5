@@ -17,7 +17,7 @@ public class Timer : MonoBehaviour
 
     public GameObject clearArea;
     public GameObject AreaRock;
-    public GameObject Instrument;
+    //public GameObject Instrument;
     private float instrumentflag = 0;
     private int enemyflag = 0;
 
@@ -50,7 +50,7 @@ public class Timer : MonoBehaviour
         Manager = GameObject.FindObjectOfType<InstrumentManager>();
         if (Manager.isDrumAvailable == false || Manager.isPianoAvailable == false)
         {
-            Instrument.SetActive(false);
+            //Instrument.SetActive(false);
             instrumentflag = 0;
         }
     }
@@ -97,14 +97,14 @@ public class Timer : MonoBehaviour
             { 
                 clearArea.SetActive(true);
                 AreaRock.SetActive(false);
-                if (Manager.isDrumAvailable == false || Manager.isPianoAvailable == false)
+                /*if (Manager.isDrumAvailable == false || Manager.isPianoAvailable == false)
                 {
                     if (instrumentflag == 0)
                     {
                         Instrument.SetActive(true);
                     }
                     instrumentflag = 1;
-                }
+                }*/
             }
         }
     }

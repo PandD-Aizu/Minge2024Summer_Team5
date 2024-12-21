@@ -25,6 +25,10 @@ public class InstrumentManager : MonoBehaviour
     private bool wasBassAvailable = false;
     private bool wasPianoAvailable = false;
 
+    private bool drumflag = false;
+    private bool bassflag = false;
+    private bool pianoflag = false;
+
     // 現在選択されている楽器インデックス (0: Drum, 1: Bass, 2: Piano)
     private int currentInstrumentIndex = 0;
     private List<GameObject> instruments;
@@ -221,6 +225,7 @@ public class InstrumentManager : MonoBehaviour
                 DrumTutorial.SetActive(true);
                 Time.timeScale = 0f;
                 //Debug.Log("ドラムチュートリアル表示");
+                //Invoke(nameof(videofinish), 2f);
             }
         }
 
@@ -228,8 +233,12 @@ public class InstrumentManager : MonoBehaviour
         {
             if (isBassAvailable && !wasBassAvailable)
             {
-                stageFlagManager.AdvanceBGMStage();
+                if (stageFlagManager)
+                {
+                    stageFlagManager.AdvanceBGMStage();
+                }
                 BassTutorial.SetActive(true);
+                drumflag = true;
                 Time.timeScale = 0f;
                 //Debug.Log("ベースチュートリアル表示");
             }
@@ -239,7 +248,10 @@ public class InstrumentManager : MonoBehaviour
         {
             if (isPianoAvailable && !wasPianoAvailable)
             {
-                stageFlagManager.AdvanceBGMStage();
+                if (stageFlagManager)
+                {
+                    stageFlagManager.AdvanceBGMStage();
+                }               
                 PianoTutorial.SetActive(true);
                 Time.timeScale = 0f;
                 //Debug.Log("ピアノチュートリアル表示");
@@ -391,5 +403,13 @@ public class InstrumentManager : MonoBehaviour
         // 楽器アイコンの回転
         RotateInstrumentWheel(currentInstrumentIndex);
     }
+
+    /*void videofinish()
+    {
+        if (drumflag == true)
+        {
+            DrumTutorial.SetActive(false);
+        }
+    }*/
 
 }
