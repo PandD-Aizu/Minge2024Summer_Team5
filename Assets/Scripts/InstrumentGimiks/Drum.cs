@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Drum : MonoBehaviour
 {
     [SerializeField] private Renderer Dsphere;
     [SerializeField] private SphereCollider DrumCollider;
     [SerializeField] private Animator Animator;
-    [SerializeField] private bool Drum_playing;
+    [SerializeField] public bool Drum_playing;
     [SerializeField] private AudioSource Drumaudio;
     [SerializeField] private AudioClip Drumsound;
     // Start is called before the first frame update
@@ -55,10 +56,12 @@ public class Drum : MonoBehaviour
         Dsphere.enabled = false;
         DrumCollider.enabled = false;
         Animator.SetBool("drumPlay", false);
-        Invoke("CoolTime",5.0f);
+        //Invoke("CoolTime",5.0f);
+        Debug.Log("クールタイム開始");
     }
 
     public void CoolTime() {
         Drum_playing = false;
+        Debug.Log("クールタイム終わり");
     }
 }

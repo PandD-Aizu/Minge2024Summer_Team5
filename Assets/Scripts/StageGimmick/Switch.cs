@@ -10,12 +10,16 @@ public class Switchcounter : MonoBehaviour
     private bool onoff;
     private Vector3 pos;
     private Transform myTransform;
+    [SerializeField] private AudioSource SwitchSESource;
+    [SerializeField] private AudioClip SwitchSEClip;
 
     // Start is called before the first frame update
     void Start()
     {
         timelapse = 0.0f;
         onoff = false;
+        
+
     }
 
     // Update is called once per frame
@@ -28,6 +32,7 @@ public class Switchcounter : MonoBehaviour
             if (timelapse >= switchtime)
             {
                 SwitchUp();
+                Debug.Log("SwitchUP");
             }
         }
 
@@ -37,6 +42,8 @@ public class Switchcounter : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            Debug.Log("SwitchDown");
+            SwitchSESource.PlayOneShot(SwitchSEClip);
             SwitchDown();
         }
     }
@@ -45,7 +52,7 @@ public class Switchcounter : MonoBehaviour
     {
         myTransform = this.transform;
         pos = myTransform.position;
-        pos.y += 0.3f;
+        pos.x += 100000.0f;
         myTransform.position = pos;
 
         onoff = false;
@@ -58,12 +65,12 @@ public class Switchcounter : MonoBehaviour
 
     private void SwitchDown()
     {
-        //myTransform = this.transform;
-        //pos = myTransform.position;
-        //pos.y += -0.3f;
-        Destroy(this.gameObject);
-        //myTransform.position = pos;
+        myTransform = this.transform;
+        pos = myTransform.position;
+        pos.x += -100000.0f;
 
+        myTransform.position = pos;
+        
         onoff = true;
         SwitchCounter switchCounter;
         GameObject obj = GameObject.Find("SwitchCounter");

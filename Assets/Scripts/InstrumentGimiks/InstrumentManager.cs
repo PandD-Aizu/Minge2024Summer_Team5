@@ -25,6 +25,10 @@ public class InstrumentManager : MonoBehaviour
     private bool wasBassAvailable = false;
     private bool wasPianoAvailable = false;
 
+    private bool drumflag = false;
+    private bool bassflag = false;
+    private bool pianoflag = false;
+
     // 現在選択されている楽器インデックス (0: Drum, 1: Bass, 2: Piano)
     private int currentInstrumentIndex = 0;
     private List<GameObject> instruments;
@@ -36,7 +40,19 @@ public class InstrumentManager : MonoBehaviour
     public StageFlagManager stageFlagManager;
 
     //ピアノタイマーのcanvas
+
+    public GameObject dtimer;
     public GameObject pianotimer;
+
+    /*楽器習得時の音をならす1回だけ*/
+    public bool GotDrum = false;
+    public bool GotBass = false;
+    public bool GotPiano = false;
+    [SerializeField] private AudioSource GetInstrumentaudio;
+    [SerializeField] private AudioClip GetInstrumentsound;
+
+
+
     private void Awake()
     {
         if (instance == null)
@@ -62,6 +78,8 @@ public class InstrumentManager : MonoBehaviour
             InstrumentInit();
         }
 
+        GetInstrumentaudio = GetComponent<AudioSource>();
+
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -84,12 +102,56 @@ public class InstrumentManager : MonoBehaviour
             SwitchToNextInstrument(-1);
         }
 
+        // 数字キーでの楽器切り替え
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SwitchToSpecificInstrument(0); // ドラム
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SwitchToSpecificInstrument(1); // ベース
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SwitchToSpecificInstrument(2); // ピアノ
+        }
+
         CheckInstrumentAvailabilityChange();
+
+        if (currentInstrumentIndex == 0 && !instrumentWheel.activeSelf)
+        {
+            dtimer.SetActive(false);
+        }
+        else if (currentInstrumentIndex == 0)
+        {
+            dtimer.SetActive(true);
+        }
+        else if (dtimer.GetComponent<Drumtimer>().impact_cooltime == 6.0f && dtimer.GetComponent<Drumtimer>().shield_cooltime == 6.0f && currentInstrumentIndex != 0)
+        {
+            dtimer.SetActive(false);
+        }
 
         if (currentInstrumentIndex == 2)
         {
             pianotimer.SetActive(true);
         }
+
+        if(isDrumAvailable && !GotDrum)/*Drum習得時の音*/
+        {
+            GetInstrumentaudio.PlayOneShot(GetInstrumentsound);
+            GotDrum = true;
+        }
+        if(isBassAvailable && !GotBass)/*Bass習得時の音*/
+        {
+            GetInstrumentaudio.PlayOneShot(GetInstrumentsound);
+            GotBass = true;
+        }
+        if(isPianoAvailable && !GotPiano)/*Piano習得時の音*/
+        {
+            GetInstrumentaudio.PlayOneShot(GetInstrumentsound);
+            GotPiano = true;
+        }
+
     }
 
     private void SwitchToNextInstrument(int direction)
@@ -160,6 +222,7 @@ public class InstrumentManager : MonoBehaviour
                 DrumTutorial.SetActive(true);
                 Time.timeScale = 0f;
                 //Debug.Log("ドラムチュートリアル表示");
+                //Invoke(nameof(videofinish), 2f);
             }
         }
 
@@ -167,8 +230,12 @@ public class InstrumentManager : MonoBehaviour
         {
             if (isBassAvailable && !wasBassAvailable)
             {
-                stageFlagManager.AdvanceBGMStage();
+                if (stageFlagManager)
+                {
+                    stageFlagManager.AdvanceBGMStage();
+                }
                 BassTutorial.SetActive(true);
+                drumflag = true;
                 Time.timeScale = 0f;
                 //Debug.Log("ベースチュートリアル表示");
             }
@@ -178,7 +245,10 @@ public class InstrumentManager : MonoBehaviour
         {
             if (isPianoAvailable && !wasPianoAvailable)
             {
-                stageFlagManager.AdvanceBGMStage();
+                if (stageFlagManager)
+                {
+                    stageFlagManager.AdvanceBGMStage();
+                }               
                 PianoTutorial.SetActive(true);
                 Time.timeScale = 0f;
                 //Debug.Log("ピアノチュートリアル表示");
@@ -258,6 +328,20 @@ public class InstrumentManager : MonoBehaviour
             Debug.LogWarning("InstrumentIcon not found");
         }
 
+        if (dtimer == null)
+        {
+            dtimer = GameObject.Find("Drumtimer");
+        }
+
+        if (dtimer == null)
+        {
+            Debug.LogWarning("drumtimer not found");
+        }
+        else
+        {
+            dtimer.SetActive(false);
+        }
+
         if (pianotimer == null)
         {
             pianotimer = GameObject.Find("pianotimer");
@@ -293,4 +377,36 @@ public class InstrumentManager : MonoBehaviour
             instrumentWheel.SetActive(true);
         }
     }
+
+    private void SwitchToSpecificInstrument(int instrumentIndex)
+    {
+        // 利用可能でない場合は何もしない
+        if (!instrumentAvailability[instrumentIndex])
+        {
+            return;
+        }
+
+        currentInstrumentIndex = instrumentIndex;
+
+        // 全楽器を非表示
+        foreach (GameObject instrument in instruments)
+        {
+            instrument.SetActive(false);
+        }
+
+        // 指定された楽器を表示
+        instruments[currentInstrumentIndex].SetActive(true);
+
+        // 楽器アイコンの回転
+        RotateInstrumentWheel(currentInstrumentIndex);
+    }
+
+    /*void videofinish()
+    {
+        if (drumflag == true)
+        {
+            DrumTutorial.SetActive(false);
+        }
+    }*/
+
 }

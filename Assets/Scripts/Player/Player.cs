@@ -1,9 +1,16 @@
+using Cinemachine;
+using System.Globalization;
 using System.Net;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
+
+
 
 public class Player : MonoBehaviour
 {
+    StageFlagManager stageFlagManager;
     public float speed = 6f;
     public int jumppower = 300; // ジャンプする力
     public bool isGround;
@@ -26,6 +33,7 @@ public class Player : MonoBehaviour
     private Timer timer;
     private InstrumentManager instrument;
     GameObject instruments;
+    videofinish video;
 
     private bool isWalking = false;  // プレイヤーが歩いているかどうか
     public float footstepInterval = 0.4f;  // 足音の再生間隔
@@ -35,6 +43,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        stageFlagManager = FindObjectOfType<StageFlagManager>();
         Debug.Log(currenthp);
         Showhp = GameObject.FindObjectOfType<ShowHp>();
         Showhp.UpdateHearts(currenthp);
@@ -43,7 +52,8 @@ public class Player : MonoBehaviour
         respornPoint = GameObject.Find("respornPoint");
         rb = GetComponent<Rigidbody>();
         playerAudio = GetComponent<AudioSource>();
-        isGround = false;   
+        isGround = false;
+        video = GameObject.FindObjectOfType<videofinish>();
 
         // gravityControllerスクリプトを取得。nullチェックを行う
         gravityCtrl = FindObjectOfType<gravityController>();
@@ -133,20 +143,25 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         
-
+        
         if (collision.gameObject.name == "SceneChange")
         {
-            SceneManager.LoadScene("StageSelectScene");
+            stageFlagManager.ClearCurrentStageAndUnlockNext();
+            //SceneManager.LoadScene("StageSelectScene");
         }
-
+        
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Bullet" || collision.gameObject.tag == "Boss" || collision.gameObject.tag == "Reflectable")
-        {
+        {           
             recreaLife(damage);
+            var source = GetComponent<Cinemachine.CinemachineImpulseSource>();
+            source.GenerateImpulse();
         }
 
         if (collision.gameObject.tag == "Abyss")
         {
             recreaLife(damage = 3);
+            var source = GetComponent<Cinemachine.CinemachineImpulseSource>();
+            source.GenerateImpulse();
             damage = 1;
         }
 
@@ -170,7 +185,7 @@ public class Player : MonoBehaviour
             instrument.InstrumentInit();
             if (timer != null)
             {
-                instruments = timer.Instrument;
+               // instruments = timer.Instrument;
             }
             Destroy(collision.gameObject);
         }

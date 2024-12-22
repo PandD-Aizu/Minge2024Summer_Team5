@@ -11,7 +11,7 @@ public class Shield : MonoBehaviour
     public GameObject boss;
     [SerializeField] private Renderer Dshield;
     [SerializeField] private Animator Animator;
-    [SerializeField] private bool Shield_playing;
+    [SerializeField] public bool Shield_playing;
     public float moveSpeed = 2.0f; // 移動速度を指定
 
     // Start is called before the first frame update
@@ -90,13 +90,15 @@ public class Shield : MonoBehaviour
     {
         Dshield.enabled = false;
         Animator.SetBool("shieldPlay", false);
-        Invoke("CoolTime", 5.0f);
+        //Invoke("CoolTime", 5.0f);
+        Debug.Log("クールタイム開始いいいいいいい");
     }
 
     //クールタイム
     public void CoolTime()
     {
         Shield_playing = false;
+        Debug.Log("クールタイム終わり");
     }
 
     //攻撃を与えた相手にノックバックを適用する関数

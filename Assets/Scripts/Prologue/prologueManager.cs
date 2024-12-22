@@ -57,7 +57,7 @@ public class prologueManager : MonoBehaviour
         yield return StartCoroutine(ShowTextsOnly(new int[] { 12, 13 }));
 
         // プロローグが終わったらTutorialStageに遷移
-        SceneManager.LoadScene("TutorialStage");
+        SceneManager.LoadScene("Stage1");
     }
 
     private IEnumerator ShowImageAndTexts(int imageIndex, int[] textIndices)
