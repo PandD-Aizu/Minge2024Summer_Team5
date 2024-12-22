@@ -39,8 +39,6 @@ public class InstrumentManager : MonoBehaviour
 
     public StageFlagManager stageFlagManager;
 
-    public Drumtimer drumtimer;
-
     //ピアノタイマーのcanvas
 
     public GameObject dtimer;
@@ -73,7 +71,6 @@ public class InstrumentManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         stageFlagManager = GameObject.FindAnyObjectByType<StageFlagManager>();
-        drumtimer = GameObject.FindObjectOfType<Drumtimer>();
         InstrumentInit();
 
         var sceneName = SceneManager.GetActiveScene().name;
@@ -129,7 +126,7 @@ public class InstrumentManager : MonoBehaviour
         {
             dtimer.SetActive(true);
         }
-        else if (drumtimer.impact_cooltime == 6.0f && drumtimer.shield_cooltime == 6.0f && currentInstrumentIndex != 0)
+        else if (dtimer.GetComponent<Drumtimer>().impact_cooltime == 6.0f && dtimer.GetComponent<Drumtimer>().shield_cooltime == 6.0f && currentInstrumentIndex != 0)
         {
             dtimer.SetActive(false);
         }

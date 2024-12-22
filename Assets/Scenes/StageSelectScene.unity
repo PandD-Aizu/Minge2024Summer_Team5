@@ -2184,6 +2184,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 600083040}
   m_CullTransparentMesh: 1
+--- !u!82 &609476167 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1323573143939775164, guid: 6526e5216ff998d4d892828ec0a56f00, type: 3}
+  m_PrefabInstance: {fileID: 1198738323}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &611500308
 GameObject:
   m_ObjectHideFlags: 0
@@ -3932,6 +3937,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Instrumentmanager
       objectReference: {fileID: 0}
+    - target: {fileID: 2707175245395873037, guid: 6526e5216ff998d4d892828ec0a56f00, type: 3}
+      propertyPath: isBassAvailable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707175245395873037, guid: 6526e5216ff998d4d892828ec0a56f00, type: 3}
+      propertyPath: isDrumAvailable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707175245395873037, guid: 6526e5216ff998d4d892828ec0a56f00, type: 3}
+      propertyPath: GetInstrumentaudio
+      value: 
+      objectReference: {fileID: 609476167}
     - target: {fileID: 2774361208212948738, guid: 6526e5216ff998d4d892828ec0a56f00, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
