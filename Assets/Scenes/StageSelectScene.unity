@@ -4435,7 +4435,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 985d3cbc2ab02a445901f4760e5e1ac5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cfe00595ca28a9a42ad724e918a3c0a1, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -4812,7 +4812,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2707175245395873037, guid: 6526e5216ff998d4d892828ec0a56f00, type: 3}
       propertyPath: isDrumAvailable
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2707175245395873037, guid: 6526e5216ff998d4d892828ec0a56f00, type: 3}
       propertyPath: GetInstrumentaudio
@@ -6548,7 +6548,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cfe00595ca28a9a42ad724e918a3c0a1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: db295a27782fcf348a47365b12d3b0fa, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
