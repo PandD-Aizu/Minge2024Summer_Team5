@@ -199,7 +199,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7707489839855785606}
         m_TargetAssemblyTypeName: VideoManager, Assembly-CSharp
         m_MethodName: ButtonClick
         m_Mode: 3
@@ -410,7 +410,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7707489839855785606}
         m_TargetAssemblyTypeName: VideoManager, Assembly-CSharp
         m_MethodName: ButtonClick
         m_Mode: 3
@@ -738,6 +738,75 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u30D9\u30FC\u30B9\uFF08\u30AF\u30EA\u30C3\u30AF\uFF09"
+--- !u!1 &3829840970241849701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2766545343091301956}
+  - component: {fileID: 7707489839855785606}
+  m_Layer: 0
+  m_Name: VideoManeger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2766545343091301956
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3829840970241849701}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.1958009, y: 2.1321452, z: -38.03968}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3783738386803613966}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7707489839855785606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3829840970241849701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 803d741dc1f70407983bbf02c5c598fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Screen: {fileID: 6026227973657713725}
+  rightbutton: {fileID: 221187296473652101}
+  leftbutton: {fileID: 5009928167352499238}
+  backbutton: {fileID: 1672970782613233716}
+  videoplayer: {fileID: 0}
+  videoclips:
+  - {fileID: 32900000, guid: c51c5ae63499d8b4bb434d3776f5b1cd, type: 3}
+  - {fileID: 32900000, guid: 890ae0fe7eba655429290503a808760c, type: 3}
+  - {fileID: 32900000, guid: e1e948eccc52d8644a042bdc5faefc43, type: 3}
+  - {fileID: 32900000, guid: fb7f0171589c44f46878bf1d38072aa1, type: 3}
+  - {fileID: 32900000, guid: 731e8efc984c0d54d875a2d79a019c74, type: 3}
+  - {fileID: 32900000, guid: cd9b24abb0a2f4e4a9719493db73b481, type: 3}
+  - {fileID: 32900000, guid: 019e4da14cd1a5c4ba175b05222d7d5b, type: 3}
+  - {fileID: 32900000, guid: 0d004b08aec56c04ab35136d8489f149, type: 3}
+  - {fileID: 32900000, guid: 8275d458cc00dc54381c8721e8d3957c, type: 3}
+  texts:
+  - {fileID: 2531686292719266753}
+  - {fileID: 2368011351253892482}
+  - {fileID: 5190179356502451753}
+  - {fileID: 8254619723034063608}
+  - {fileID: 1452289009119051551}
+  - {fileID: 7735658741124027933}
+  - {fileID: 3046704504865453273}
+  - {fileID: 2606052974800750957}
+  - {fileID: 156457541227217338}
 --- !u!1 &4013401004133386430
 GameObject:
   m_ObjectHideFlags: 0
@@ -968,7 +1037,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7707489839855785606}
         m_TargetAssemblyTypeName: VideoManager, Assembly-CSharp
         m_MethodName: ButtonClick
         m_Mode: 3
@@ -1323,7 +1392,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7707489839855785606}
         m_TargetAssemblyTypeName: VideoManager, Assembly-CSharp
         m_MethodName: ButtonClick
         m_Mode: 3
@@ -1678,6 +1747,7 @@ Transform:
   m_Children:
   - {fileID: 8570966139475855003}
   - {fileID: 5274872639510211001}
+  - {fileID: 2766545343091301956}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &883651567722012034
