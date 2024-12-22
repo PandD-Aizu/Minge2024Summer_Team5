@@ -12,13 +12,7 @@ public class VideoManager : MonoBehaviour
     public GameObject backbutton;
     public VideoPlayer videoplayer;
     public VideoClip[] videoclips;
-
-    public GameObject text0;
-    public GameObject text1;
-    public GameObject text2;
-    public GameObject text3;
-    public GameObject text4;
-    public GameObject text5;
+    public GameObject[] texts;
     private int count=0;
 
     // Start is called before the first frame update
@@ -27,7 +21,6 @@ public class VideoManager : MonoBehaviour
         Screen.SetActive(false);
 
         videoplayer = Screen.gameObject.GetComponent<VideoPlayer>();
-        //videoplayer.clip = videoclips[0];
     }
 
     // Update is called once per frame
@@ -43,6 +36,11 @@ public class VideoManager : MonoBehaviour
             case 0:
                 Debug.Log("push");
                 Screen.SetActive(true);
+                for (count = 0; count < 9; count++)
+                {
+                    texts[count].SetActive(false);
+                }
+                count = 0;
                 VideoManeger();
                 break;
             case 1:
@@ -54,6 +52,7 @@ public class VideoManager : MonoBehaviour
                 VideoManeger();
                 break;
             case 3:
+                count = 0;
                 Screen.SetActive(false);
                 break;
         }
@@ -64,45 +63,56 @@ public class VideoManager : MonoBehaviour
         switch (count)
         {
             case 0:
-                videoplayer.clip = videoclips[1];
-                text0.SetActive(true);
-                text1.SetActive(false);
+                videoplayer.clip = videoclips[0];
+                texts[0].SetActive(true);
+                texts[1].SetActive(false);
                 leftbutton.SetActive(false);
                 rightbutton.SetActive(true);
                 break;
             case 1:
-                videoplayer.clip = videoclips[2];
-                text1.SetActive(true);
-                text0.SetActive(false);
-                text2.SetActive(false);
+                videoplayer.clip = videoclips[1];
+                textManager();
                 leftbutton.SetActive(true);
                 break;
             case 2:
-                videoplayer.clip = videoclips[3];
-                text2.SetActive(true);
-                text1.SetActive(false);
-                text3.SetActive(false);
+                videoplayer.clip = videoclips[2];
+                textManager();
                 break;
             case 3:
-                videoplayer.clip = videoclips[4];
-                text3.SetActive(true);
-                text2.SetActive(false);
-                text4.SetActive(false);
+                videoplayer.clip = videoclips[3];
+                textManager();
                 break;
             case 4:
-                videoplayer.clip = videoclips[5];
-                text4.SetActive(true);
-                text3.SetActive(false);
-                text5.SetActive(false);
-                rightbutton.SetActive(true);
+                videoplayer.clip = videoclips[4];
+                textManager();
                 break;
             case 5:
+                videoplayer.clip = videoclips[5];
+                textManager();
+                break;
+            case 6:
                 videoplayer.clip = videoclips[6];
-                text5.SetActive(true);
-                text4.SetActive(false);
+                textManager();
+                break;
+            case 7:
+                videoplayer.clip = videoclips[7];
+                textManager();
+                rightbutton.SetActive(true);
+                break;
+            case 8:
+                videoplayer.clip = videoclips[8];
+                texts[7].SetActive(false);
+                texts[8].SetActive(true);
                 rightbutton.SetActive(false);
                 break;
         }
         videoplayer.Play();
+    }
+
+    private void textManager()
+    {
+        texts[count-1].SetActive(false);
+        texts[count].SetActive(true);
+        texts[count+1].SetActive(false);
     }
 }
