@@ -14,13 +14,19 @@ public class VideoManager : MonoBehaviour
     public VideoClip[] videoclips;
     public GameObject[] texts;
     private int count=0;
+    private int i;
 
     // Start is called before the first frame update
     void Start()
     {
         Screen.SetActive(false);
-
+        rightbutton.SetActive(false);
+        leftbutton.SetActive(false);
+        backbutton.SetActive(false);
+        for (i = 0; i < 9; i++) texts[i].SetActive(false);
         videoplayer = Screen.gameObject.GetComponent<VideoPlayer>();
+
+        
     }
 
     // Update is called once per frame
@@ -36,11 +42,9 @@ public class VideoManager : MonoBehaviour
             case 0:
                 Debug.Log("push");
                 Screen.SetActive(true);
-                for (count = 0; count < 9; count++)
-                {
-                    texts[count].SetActive(false);
-                }
-                count = 0;
+                rightbutton.SetActive(true);
+                leftbutton.SetActive(true);
+                backbutton.SetActive(true);
                 VideoManeger();
                 break;
             case 1:
@@ -54,6 +58,10 @@ public class VideoManager : MonoBehaviour
             case 3:
                 count = 0;
                 Screen.SetActive(false);
+                for (i = 0; i < 9; i++) texts[i].SetActive(false);
+                rightbutton.SetActive(false);
+                leftbutton.SetActive(false);
+                backbutton.SetActive(false);
                 break;
         }
     }
