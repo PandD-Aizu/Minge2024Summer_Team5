@@ -10,6 +10,7 @@ using Cinemachine;
 
 public class Player : MonoBehaviour
 {
+    StageFlagManager stageFlagManager;
     public float speed = 6f;
     public int jumppower = 300; // ジャンプする力
     public bool isGround;
@@ -42,6 +43,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        stageFlagManager = FindObjectOfType<StageFlagManager>();
         Debug.Log(currenthp);
         Showhp = GameObject.FindObjectOfType<ShowHp>();
         Showhp.UpdateHearts(currenthp);
@@ -141,12 +143,13 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         
-
+        
         if (collision.gameObject.name == "SceneChange")
         {
-            SceneManager.LoadScene("StageSelectScene");
+            stageFlagManager.ClearCurrentStageAndUnlockNext();
+            //SceneManager.LoadScene("StageSelectScene");
         }
-
+        
         if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Bullet" || collision.gameObject.tag == "Boss" || collision.gameObject.tag == "Reflectable")
         {           
             recreaLife(damage);
