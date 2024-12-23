@@ -4812,7 +4812,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2707175245395873037, guid: 6526e5216ff998d4d892828ec0a56f00, type: 3}
       propertyPath: isDrumAvailable
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2707175245395873037, guid: 6526e5216ff998d4d892828ec0a56f00, type: 3}
       propertyPath: GetInstrumentaudio
@@ -7699,7 +7699,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &2097887335
 Canvas:
   m_ObjectHideFlags: 0
