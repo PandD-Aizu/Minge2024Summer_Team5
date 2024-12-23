@@ -111,11 +111,12 @@ public class StageFlagManager : MonoBehaviour
 
         if (int.TryParse(System.Text.RegularExpressions.Regex.Match(currentSceneName, @"\d+").Value, out currentStageNumber))
         {
+            /*
             if (currentStageNumber == 3 || currentStageNumber == 4 || currentStageNumber == 5 || currentStageNumber == 8 || currentStageNumber == 11 || currentStageNumber == 12 || currentStageNumber == 15 && !clearedStages.Contains(currentStageNumber)) { 
                 AdvanceBGMStage();
                 clearedStages.Add(currentStageNumber);  // クリア済みステージに追加
             }
-
+            */
             // 次のステージをアンロック
             UnlockStage(currentStageNumber + 1);
 

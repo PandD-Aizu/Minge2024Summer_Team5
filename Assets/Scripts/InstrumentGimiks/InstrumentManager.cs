@@ -117,20 +117,20 @@ public class InstrumentManager : MonoBehaviour
         }
 
         CheckInstrumentAvailabilityChange();
-
-        if (currentInstrumentIndex == 0 && !instrumentWheel.activeSelf)
-        {
-            dtimer.SetActive(false);
+        if (instrumentWheel != null) {
+            if (currentInstrumentIndex == 0 && !instrumentWheel.activeSelf)
+            {
+                dtimer.SetActive(false);
+            }
+            else if (currentInstrumentIndex == 0)
+            {
+                dtimer.SetActive(true);
+            }
+            else if (dtimer.GetComponent<Drumtimer>().impact_cooltime == 6.0f && dtimer.GetComponent<Drumtimer>().shield_cooltime == 6.0f && currentInstrumentIndex != 0)
+            {
+                dtimer.SetActive(false);
+            }
         }
-        else if (currentInstrumentIndex == 0)
-        {
-            dtimer.SetActive(true);
-        }
-        else if (dtimer.GetComponent<Drumtimer>().impact_cooltime == 6.0f && dtimer.GetComponent<Drumtimer>().shield_cooltime == 6.0f && currentInstrumentIndex != 0)
-        {
-            dtimer.SetActive(false);
-        }
-
         if (currentInstrumentIndex == 2)
         {
             pianotimer.SetActive(true);
