@@ -20,6 +20,6 @@ public class PrologueSkip : MonoBehaviour
 
     void ChangeScene()
     {
-        SceneManager.LoadScene("TutorialStage");
+        SceneManager.LoadScene("StageSelectScene");
     }
 }

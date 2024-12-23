@@ -201,8 +201,8 @@ public class Player : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    {       
-        
+    {
+      
     }
 
     private void OnCollisionExit(Collision collision)
