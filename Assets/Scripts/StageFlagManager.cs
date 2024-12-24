@@ -159,6 +159,7 @@ public class StageFlagManager : MonoBehaviour
         {
             bgmStages[i].volume = 0f;
             bgmStages[i].Play();
+            bgmStages[i].loop = true;
         }
 
         // Å‰‚ÌBGM‚Ì‰¹—Ê‚ğİ’è
