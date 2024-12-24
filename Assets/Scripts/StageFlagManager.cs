@@ -53,6 +53,7 @@ public class StageFlagManager : MonoBehaviour
 
     private void Start()
     {
+        //ResetProgress();
         AudioSource[] bgmStages = { audioSource1, audioSource2, audioSource3, audioSource4, audioSource5, audioSource6, audioSource7, audioSource8 };
         bgmStages[0].volume = 0;
     }
