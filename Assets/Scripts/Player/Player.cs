@@ -146,6 +146,7 @@ public class Player : MonoBehaviour
         
         if (collision.gameObject.name == "SceneChange")
         {
+            Debug.Log("SceneChange");
             stageFlagManager.ClearCurrentStageAndUnlockNext();
             //SceneManager.LoadScene("StageSelectScene");
         }
